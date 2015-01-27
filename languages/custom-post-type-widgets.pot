@@ -1,0 +1,117 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Post Type Widgets\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-04 23:59+0900\n"
+"PO-Revision-Date: 2012-06-05 00:47+0900\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "The most recent custom posts on your site"
+msgstr ""
+
+msgid "Recent Posts (Custom Post Type)"
+msgstr ""
+
+msgid "Recent Posts"
+msgstr ""
+
+msgid "Post Type:"
+msgstr ""
+
+msgid "A monthly archive of your site&#8217;s Posts."
+msgstr ""
+
+msgid "Archives (Custom Post Type)"
+msgstr ""
+
+msgid "Archives"
+msgstr ""
+
+msgid "Select Month"
+msgstr ""
+
+msgid "A list or dropdown of categories."
+msgstr ""
+
+msgid "Categories (Custom Post Type)"
+msgstr ""
+
+msgid "Categories"
+msgstr ""
+
+msgid "Select Category"
+msgstr ""
+
+msgid "Taxonomy:"
+msgstr ""
+
+msgid "A calendar of your site&#8217;s Posts."
+msgstr ""
+
+msgid "Calendar (Custom Post Type)"
+msgstr ""
+
+msgid "Calendar"
+msgstr ""
+
+msgid "Your site’s most recent comments."
+msgstr ""
+
+msgid "Recent Comments (Custom Post Type)"
+msgstr ""
+
+msgid "Recent Comments"
+msgstr ""
+
+msgid "A cloud of your most used tags."
+msgstr ""
+
+msgid "Tag Cloud (Custom Post Type)"
+msgstr ""
+
+msgid "Tags"
+msgstr ""
+
+msgid "%1$s %2$d"
+msgstr ""
+
+msgid "View posts for %1$s %2$s"
+msgstr ""
+
+msgid "Title:"
+msgstr ""
+
+msgid "Number of posts to show:"
+msgstr ""
+
+msgid "Display post date?"
+msgstr ""
+
+msgid "Display as dropdown"
+msgstr ""
+
+msgid "Show post counts"
+msgstr ""
+
+msgid "Show hierarchy"
+msgstr ""
+
+msgid "Number of comments to show:"
+msgstr ""
+
+msgid "post"
+msgstr ""
+
+msgid "page"
+msgstr ""
+
+msgid "category"
+msgstr ""
+
+msgid "post_tag"
+msgstr ""
+
