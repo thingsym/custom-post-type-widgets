@@ -23,12 +23,12 @@ class Custom_Post_Type_Widgets {
 
 		include_once( $dir . 'inc/class-custom-post-type-categorydropdown.php' );
 
-		include_once( $dir . 'inc/widget-custom-post-recent-posts.php' );
-		include_once( $dir . 'inc/widget-custom-post-archive.php' );
-		include_once( $dir . 'inc/widget-custom-post-categories.php' );
-		include_once( $dir . 'inc/widget-custom-post-calendar.php' );
-		include_once( $dir . 'inc/widget-custom-post-recent-comments.php' );
-		include_once( $dir . 'inc/widget-custom-post-tag-cloud.php' );
+		include_once( $dir . 'inc/widget-custom-post-type-recent-posts.php' );
+		include_once( $dir . 'inc/widget-custom-post-type-archive.php' );
+		include_once( $dir . 'inc/widget-custom-post-type-categories.php' );
+		include_once( $dir . 'inc/widget-custom-post-type-calendar.php' );
+		include_once( $dir . 'inc/widget-custom-post-type-recent-comments.php' );
+		include_once( $dir . 'inc/widget-custom-post-type-tag-cloud.php' );
 	}
 
 	public function init() {
