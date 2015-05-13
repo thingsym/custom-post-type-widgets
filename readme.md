@@ -84,5 +84,7 @@ display a list of the top 45 that has used in a tag cloud.
 
 ## Changelog
 
+* Version 1.0.1
+	* fix the 'name' param of get_terms()
 * Version 1.0.0
 	* Initial release
