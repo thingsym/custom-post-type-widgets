@@ -190,6 +190,7 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 			'class' => 'postform', 'depth' => 0,
 			'tab_index' => 0, 'taxonomy' => 'category',
 			'hide_if_empty' => false, 'option_none_value' => -1,
+			'value_field' => 'term_id',
 		);
 
 		$defaults['selected'] = ( taxonomy_exists( $args['taxonomy'] ) ) ? get_query_var( $args['taxonomy'] ) : 0;
@@ -214,7 +215,11 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 			$tab_index_attribute = " tabindex=\"$tab_index\"";
 		}
 
-		$taxonomies = get_terms( $r['taxonomy'], $r );
+		// Avoid clashes with the 'name' param of get_terms().
+		$get_terms_args = $r;
+		unset( $get_terms_args['name'] );
+		$taxonomies = get_terms( array( $r['taxonomy'] ), $get_terms_args );
+
 		$taxonomy = $r['taxonomy'];
 		$name = esc_attr( $r['name'] );
 		$class = esc_attr( $r['class'] );
