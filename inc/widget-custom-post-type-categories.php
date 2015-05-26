@@ -47,8 +47,9 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 		$cat_args = array( 'orderby' => 'name', 'taxonomy' => $taxonomy, 'show_count' => $c, 'hierarchical' => $h );
 
 		if ( $d ) {
+			$cat_args['show_option_none'] = __( 'Select Category', 'custom-post-type-widgets' );
+
 			if ( 'category' == $taxonomy ) {
-				$cat_args['show_option_none'] = __( 'Select Category', 'custom-post-type-widgets' );
 ?>
 <form action="<?php bloginfo( 'url' ); ?>" method="get">
 <?php
