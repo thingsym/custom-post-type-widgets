@@ -6,7 +6,7 @@ Link: https://github.com/thingsym/custom-post-type-widgets
 Tags: widget, custom post type, taxonomy
 Requires at least: 3.4
 Tested up to: 4.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,8 @@ display a list of the top 45 that has used in a tag cloud.
 
 == Changelog ==
 
+= 1.0.2 =
+* fix $cat_args['show_option_none']
 = 1.0.1 =
 * fix the 'name' param of get_terms()
 = 1.0.0 =
