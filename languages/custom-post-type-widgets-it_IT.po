@@ -1,0 +1,117 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Post Type Widgets\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-06 23:59+0900\n"
+"PO-Revision-Date: 2015-10-06 18:23+0900\n"
+"Last-Translator: Francesco Franchina\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Your site’s most recent custom Posts."
+msgstr "I post più recenti del tuo sito."
+
+msgid "Recent Posts (Custom Post Type)"
+msgstr "Post recenti (CPT)"
+
+msgid "Recent Posts"
+msgstr "Post recenti"
+
+msgid "Post Type:"
+msgstr "Tipo di post:"
+
+msgid "A monthly archive of your site&#8217;s Posts."
+msgstr "Un archivio mensile dei post del tuo sito."
+
+msgid "Archives (Custom Post Type)"
+msgstr "Archivi (CPT)"
+
+msgid "Archives"
+msgstr "Archivi"
+
+msgid "Select Month"
+msgstr "Seleziona mese"
+
+msgid "A list or dropdown of categories."
+msgstr "Una lista dropdown delle categorie."
+
+msgid "Categories (Custom Post Type)"
+msgstr "Categorie (CPT)"
+
+msgid "Categories"
+msgstr "Categorie"
+
+msgid "Select Category"
+msgstr "Seleziona Categoria"
+
+msgid "Taxonomy:"
+msgstr "Tassonomia:"
+
+msgid "A calendar of your site&#8217;s Posts."
+msgstr "Un calendario dei post del tuo sito."
+
+msgid "Calendar (Custom Post Type)"
+msgstr "Calendario (CPT)"
+
+msgid "Calendar"
+msgstr "Calendario"
+
+msgid "Your site’s most recent comments."
+msgstr "I commenti più recenti del tuo sito."
+
+msgid "Recent Comments (Custom Post Type)"
+msgstr "Commenti recenti (CPT)"
+
+msgid "Recent Comments"
+msgstr "Commenti recenti"
+
+msgid "A cloud of your most used tags."
+msgstr "Insieme dei tag più utilizzati"
+
+msgid "Tag Cloud (Custom Post Type)"
+msgstr "Insieme tag (CPT)"
+
+msgid "Tags"
+msgstr "Tag"
+
+msgid "%1$s %2$d"
+msgstr "%1$s %2$d"
+
+msgid "View posts for %1$s %2$s"
+msgstr "Mostra i post per %1$s %2$s"
+
+msgid "Title:"
+msgstr "Titolo:"
+
+msgid "Number of posts to show:"
+msgstr "Numero dei post da mostrare:"
+
+msgid "Display post date?"
+msgstr "Mostrare la data del post?"
+
+msgid "Display as dropdown"
+msgstr "Mostra come dropdown"
+
+msgid "Show post counts"
+msgstr "Mostra il contatore dei post"
+
+msgid "Show hierarchy"
+msgstr "Mostra gerarchia"
+
+msgid "Number of comments to show:"
+msgstr "Numero dei commenti da mostrare:"
+
+msgid "post"
+msgstr "post"
+
+msgid "page"
+msgstr "pagina"
+
+msgid "category"
+msgstr "categoria"
+
+msgid "post_tag"
+msgstr "post_tag"
+
