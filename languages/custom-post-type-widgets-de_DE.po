@@ -1,0 +1,119 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Post Type Widgets\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-04 23:59+0900\n"
+"PO-Revision-Date: Sun Jan 24 2016 15:47:54 GMT+0100 (W. Europe Standard "
+"Time)\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "The most recent custom posts on your site"
+msgstr "Die aktuellsten Beiträge deiner Website."
+
+msgid "Recent Posts (Custom Post Type)"
+msgstr "Letzte Beiträge (Selbsterstellter Inhaltstyp)"
+
+msgid "Recent Posts"
+msgstr "Letzte Beiträge"
+
+msgid "Post Type:"
+msgstr "Inhaltstyp:"
+
+msgid "A monthly archive of your site&#8217;s Posts."
+msgstr "Ein monatliches Archiv der Beiträge deiner Website."
+
+msgid "Archives (Custom Post Type)"
+msgstr "Archive (Selbsterstellter Inhaltstyp)"
+
+msgid "Archives"
+msgstr "Archive"
+
+msgid "Select Month"
+msgstr "Wähle den Monat"
+
+msgid "A list or dropdown of categories."
+msgstr "Eine Liste oder ausklappbare Liste von Kategorien."
+
+msgid "Categories (Custom Post Type)"
+msgstr "Kategorien (Selbsterstellter Inhaltstyp)"
+
+msgid "Categories"
+msgstr "Kategorien"
+
+msgid "Select Category"
+msgstr "Kategorie auswählen"
+
+msgid "Taxonomy:"
+msgstr "Taxonomie:"
+
+msgid "A calendar of your site&#8217;s Posts."
+msgstr "Ein Kalender der Beiträge deiner Website."
+
+msgid "Calendar (Custom Post Type)"
+msgstr "Kalender (Selbsterstellter Inhaltstyp)"
+
+msgid "Calendar"
+msgstr "Kalender "
+
+msgid "Your site’s most recent comments."
+msgstr "Die aktuellsten Kommentare deiner Website."
+
+msgid "Recent Comments (Custom Post Type)"
+msgstr "Letzte Kommentare (Selbsterstellter Inhaltstyp)"
+
+msgid "Recent Comments"
+msgstr "Letzte Kommentare"
+
+msgid "A cloud of your most used tags."
+msgstr "Eine Wortwolke deiner meist genutzten Schlagworte."
+
+msgid "Tag Cloud (Custom Post Type)"
+msgstr "Wortwolke (Selbsterstellter Inhaltstyp)"
+
+msgid "Tags"
+msgstr "Schlagworte"
+
+#, c-format
+msgid "%1$s %2$d"
+msgstr "%1$s %2$d"
+
+#, c-format
+msgid "View posts for %1$s %2$s"
+msgstr "Beitrag %1$s %2$s ansehen"
+
+msgid "Title:"
+msgstr "Titel:"
+
+msgid "Number of posts to show:"
+msgstr "Anzahl der Beiträge, die angezeigt werden:"
+
+msgid "Display post date?"
+msgstr "Veröffentlichungsdatum anzeigen?"
+
+msgid "Display as dropdown"
+msgstr "Als Auswahlbox darstellen"
+
+msgid "Show post counts"
+msgstr "Zeige Beitrags-Zähler"
+
+msgid "Show hierarchy"
+msgstr "Zeige die Hierarchie an"
+
+msgid "Number of comments to show:"
+msgstr "Wieviele Kommentare sollen angezeigt werden:"
+
+msgid "post"
+msgstr ""
+
+msgid "page"
+msgstr ""
+
+msgid "category"
+msgstr ""
+
+msgid "post_tag"
+msgstr ""
