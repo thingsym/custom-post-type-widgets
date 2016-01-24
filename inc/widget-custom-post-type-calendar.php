@@ -357,13 +357,15 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 				$daylink = home_url( user_trailingslashit( $daylink, 'day' ) );
 			}
 			else {
+				$type_obj = get_post_type_object( $posttype );
+				$archive_name = $type_obj ->rewrite['slug'] ? $type_obj ->rewrite['slug'] : $posttype ;
 				if ( $front ) {
-					$new_front = get_post_type_object( $posttype )->rewrite['with_front'] ? $front : '' ;
-					$daylink = str_replace( $front, $new_front . '/' . $posttype , $daylink );
+					$new_front = $type_obj->rewrite['with_front'] ? $front : '' ;
+					$daylink = str_replace( $front, $new_front . '/' . $archive_name , $daylink );
 					$daylink = home_url( user_trailingslashit( $daylink, 'day' ) );
 				}
 				else {
-					$daylink = home_url( user_trailingslashit( $posttype . $daylink, 'day' ) );
+					$daylink = home_url( user_trailingslashit( $archive_name . $daylink, 'day' ) );
 				}
 			}
 		}
@@ -402,13 +404,15 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 				$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
 			}
 			else {
+				$type_obj = get_post_type_object( $posttype );
+				$archive_name = $type_obj ->rewrite['slug'] ? $type_obj ->rewrite['slug'] : $posttype ;
 				if ( $front ) {
-					$new_front = get_post_type_object( $posttype )->rewrite['with_front'] ? $front : '' ;
-					$monthlink = str_replace( $front, $new_front . '/' . $posttype , $monthlink );
+					$new_front = $type_obj ->rewrite['with_front'] ? $front : '' ;
+					$monthlink = str_replace( $front, $new_front . '/' . $archive_name , $monthlink );
 					$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
 				}
 				else {
-					$monthlink = home_url( user_trailingslashit( $posttype . $monthlink, 'month' ) );
+					$monthlink = home_url( user_trailingslashit( $archive_name . $monthlink, 'month' ) );
 				}
 			}
 		}
