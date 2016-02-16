@@ -99,8 +99,12 @@ If you would like to contribute, here are some notes and guidlines.
 
 ## Changelog
 
+* Version 1.0.4
+	* fix cache key of Custom Post Type Calendar widget
+	* support for custom post type slugs
+	* add german translation
 * Version 1.0.3
-	* add italian localization
+	* add italian translation
 * Version 1.0.2
 	* fix $cat_args['show_option_none']
 * Version 1.0.1
