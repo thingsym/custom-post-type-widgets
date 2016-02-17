@@ -103,7 +103,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	public function get_custom_post_type_calendar( $posttype, $initial = true, $echo = true ) {
 		global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
 
-		$key = md5( $m . $monthnum . $year );
+		$key = md5( $m . $monthnum . $year . $posttype );
 		if ( $cache = wp_cache_get( 'get_custom_post_type_calendar', 'calendar' ) ) {
 			if ( is_array( $cache ) && isset( $cache[ $key ] ) ) {
 				if ( $echo ) {

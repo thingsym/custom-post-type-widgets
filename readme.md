@@ -12,6 +12,8 @@ This WordPress plugin adds default custom post type widgets. You can filter by r
 
 **IMPORTANT**: By default, WordPress will not work Date-based permalinks of custom post type. Recommend that you install the plugin in order to edit the permalink, if you are using a Date-based permalinks.
 
+And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
+
 ## Descriptions of Widgets
 
 ### Recent Posts (Custom Post Type)
@@ -82,10 +84,27 @@ display a list of the top 45 that has used in a tag cloud.
 * **Taxonomy** - if selected, filter a custom taxonomy (e.g. post_tag).
 * **Class Name** - widget_tag_cloud
 
+## Contribute
+
+Small patches, bug reports and the translation can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
+
+Github : [custom-post-type-widgets](https://github.com/thingsym/custom-post-type-widgets)
+
+If you would like to contribute, here are some notes and guidlines.
+
+* All development happens on the **develop** branch, so it is always the most up-to-date
+* The **master** branch only contains tagged releases
+* If you are going to be submitting a pull request, please submit your pull request to the **develop** branch
+* See about [forking](https://help.github.com/articles/fork-a-repo/) and [pull requests](https://help.github.com/articles/using-pull-requests/)
+
 ## Changelog
 
+* Version 1.0.4
+	* fix cache key of Custom Post Type Calendar widget
+	* support for custom post type slugs
+	* add german translation
 * Version 1.0.3
-	* add italian localization
+	* add italian translation
 * Version 1.0.2
 	* fix $cat_args['show_option_none']
 * Version 1.0.1
