@@ -5,8 +5,8 @@ Donate link:
 Link: https://github.com/thingsym/custom-post-type-widgets
 Tags: widget, custom post type, taxonomy
 Requires at least: 3.4
-Tested up to: 4.2
-Stable tag: 1.0.3
+Tested up to: 4.4
+Stable tag: 1.0.4
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,12 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 == Changelog ==
 
+=  1.0.4=
+* fix cache key of Custom Post Type Calendar widget
+* support for custom post type slugs
+* add german translation
+=  1.0.3=
+* add italian translation
 = 1.0.2 =
 * fix $cat_args['show_option_none']
 = 1.0.1 =
