@@ -29,6 +29,7 @@ class Custom_Post_Type_Widgets {
 		include_once( $dir . 'inc/widget-custom-post-type-calendar.php' );
 		include_once( $dir . 'inc/widget-custom-post-type-recent-comments.php' );
 		include_once( $dir . 'inc/widget-custom-post-type-tag-cloud.php' );
+		include_once( $dir . 'inc/widget-custom-post-type-search.php' );
 	}
 
 	public function init() {
@@ -44,6 +45,7 @@ class Custom_Post_Type_Widgets {
 		register_widget( 'WP_Custom_Post_Type_Widgets_Calendar' );
 		register_widget( 'WP_Custom_Post_Type_Widgets_Recent_Comments' );
 		register_widget( 'WP_Custom_Post_Type_Widgets_Tag_Cloud' );
+		register_widget( 'WP_Custom_Post_Type_Widgets_Search' );
 	}
 
 	public function uninstall() {}
