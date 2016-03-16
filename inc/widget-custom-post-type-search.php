@@ -10,48 +10,26 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		$widget_ops = array( 'classname' => 'widget_search', 'description' => __( 'Search widget for custom post types.', 'custom-post-type-widgets' ) );
 		parent::__construct( 'custom-post-type-search', __( 'Search (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 		$this->alt_option_name = 'widget_custom_post_type_search';
-
-		add_action( 'save_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'deleted_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'switch_theme', array( &$this, 'flush_widget_cache' ) );
 	}
 
 	public function widget( $args, $instance ) {
-		$cache = wp_cache_get( 'widget_custom_post_type_search', 'widget' );
-
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
-
-		if ( ! isset( $args['widget_id'] ) ) {
-			$args['widget_id'] = $this->id;
-		}
-
-		if ( isset( $cache[ $args['widget_id'] ] ) ) {
-			echo $cache[ $args['widget_id'] ];
-			return;
-		}
-
-		ob_start();
-		
 		$posttype = $instance['posttype'];
-		
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Search', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
 
 		echo $args['before_widget'];
-		
+
 		if ( $title ) {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 		?>
-		
+
 		<form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
 			<label class="screen-reader-text" for="s"><?php _e( 'Search for:', 'custom-post-type-widgets' ); ?></label>
 			<input type="search" class="search-field" placeholder="<?php echo esc_attr_x( 'Type and search', 'placeholder', 'custom-post-type-widgets' ); ?>" value="<?php echo get_search_query(); ?>" name="s" title="<?php echo esc_attr_x( 'Search for:', 'label', 'custom-post-type-widgets' ); ?>" />
 			<input type="submit" value="<?php echo esc_attr_x( 'Search', 'submit button', 'custom-post-type-widgets' ); ?>" />
 			<input type="hidden" name="post_type" value="<?php echo $posttype; ?>" />
 		</form>
-		
+
 		<?php
 		echo $args['after_widget'];
 	}
@@ -59,19 +37,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance['title'] = strip_tags( stripslashes( $new_instance['title'] ) );
 		$instance['posttype'] = strip_tags( $new_instance['posttype'] );
-
-		$this->flush_widget_cache();
-
-		$alloptions = wp_cache_get( 'alloptions', 'options' );
-		if ( isset( $alloptions['widget_custom_post_type_search'] ) ) {
-			delete_option( 'widget_custom_post_type_search' );
-		}
-
 		return $instance;
-	}
-
-	public function flush_widget_cache() {
-		wp_cache_delete( 'widget_custom_post_type_search', 'widget' );
 	}
 
 	public function form( $instance ) {
@@ -93,7 +59,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 				<option value="<?php echo esc_attr( $post_type ); ?>"<?php selected( $post_type, $posttype ); ?>><?php _e( $value->label, 'custom-post-type-widgets' ); ?></option>
 		<?php } ?>
 		</select>
-		</p>	
+		</p>
 <?php
 	}
 }
