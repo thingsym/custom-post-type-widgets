@@ -10,6 +10,23 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		$widget_ops = array( 'classname' => 'widget_search', 'description' => __( 'A search form for your site.', 'custom-post-type-widgets' ) );
 		parent::__construct( 'custom-post-type-search', __( 'Search (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 		$this->alt_option_name = 'widget_custom_post_type_search';
+
+		add_action( 'pre_get_posts', array( &$this, 'query_search_filter_only_post_type' ) );
+	}
+
+	public function query_search_filter_only_post_type( $query ) {
+		/**
+		* publicly_queryable of 'page' post type is false.
+		* query_vars 'post_type' is unset, or set 'any'
+		* see function 'parse_request' in wp-includes/class-wp.php
+		* function that set post_type to $query
+		*/
+
+		$post_type = isset($_GET['post_type']) ? $_GET['post_type'] : 'post';
+
+		if ($query->is_search) {
+			$query->set('post_type', $post_type);
+		}
 	}
 
 	public function add_form_input_post_type( $form ) {
