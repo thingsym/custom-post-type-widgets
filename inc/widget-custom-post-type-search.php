@@ -35,7 +35,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 	}
 
 	public function update( $new_instance, $old_instance ) {
-		$instance['title'] = strip_tags( stripslashes( $new_instance['title'] ) );
+		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 		$instance['posttype'] = strip_tags( $new_instance['posttype'] );
 		return $instance;
 	}
