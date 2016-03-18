@@ -9,29 +9,12 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array( 'classname' => 'widget_tag_cloud', 'description' => __( 'A cloud of your most used tags.', 'custom-post-type-widgets' ) );
 		parent::__construct( 'custom-post-type-tag_cloud', __( 'Tag Cloud (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
-
-		add_action( 'save_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'deleted_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'switch_theme', array( &$this, 'flush_widget_cache' ) );
 	}
 
 	public function widget( $args, $instance ) {
-		$cache = wp_cache_get( 'widget_custom_post_type_tag_cloud', 'widget' );
-
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
-
 		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->id;
 		}
-
-		if ( isset( $cache[ $args['widget_id'] ] ) ) {
-			echo $cache[ $args['widget_id'] ];
-			return;
-		}
-
-		ob_start();
 
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Tags', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
 		$taxonomy = $instance['taxonomy'];
@@ -49,19 +32,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance['title'] = strip_tags( stripslashes( $new_instance['title'] ) );
 		$instance['taxonomy'] = stripslashes( $new_instance['taxonomy'] );
-
-		$this->flush_widget_cache();
-
-		$alloptions = wp_cache_get( 'alloptions', 'options' );
-		if ( isset( $alloptions['widget_custom_post_type_tag_cloud'] ) ) {
-			delete_option( 'widget_custom_post_type_tag_cloud' );
-		}
-
 		return $instance;
-	}
-
-	public function flush_widget_cache() {
-		wp_cache_delete( 'widget_custom_post_type_tag_cloud', 'widget' );
 	}
 
 	public function form( $instance ) {

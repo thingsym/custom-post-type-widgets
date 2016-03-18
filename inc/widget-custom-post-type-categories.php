@@ -9,29 +9,12 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array( 'classname' => 'widget_categories', 'description' => __( 'A list or dropdown of categories.', 'custom-post-type-widgets' ) );
 		parent::__construct( 'custom-post-type-categories', __( 'Categories (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
-
-		add_action( 'save_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'deleted_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'switch_theme', array( &$this, 'flush_widget_cache' ) );
 	}
 
 	public function widget( $args, $instance ) {
-		$cache = wp_cache_get( 'widget_custom_post_type_categories', 'widget' );
-
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
-
 		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->id;
 		}
-
-		if ( isset( $cache[ $args['widget_id'] ] ) ) {
-			echo $cache[ $args['widget_id'] ];
-			return;
-		}
-
-		ob_start();
 
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Categories', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
 		$taxonomy = $instance['taxonomy'] ? $instance['taxonomy'] : 'category';
@@ -118,18 +101,7 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 		$instance['hierarchical'] = ! empty( $new_instance['hierarchical'] ) ? 1 : 0;
 		$instance['dropdown'] = ! empty( $new_instance['dropdown'] ) ? 1 : 0;
 
-		$this->flush_widget_cache();
-
-		$alloptions = wp_cache_get( 'alloptions', 'options' );
-		if ( isset( $alloptions['widget_custom_post_type_categories'] ) ) {
-			delete_option( 'widget_custom_post_type_categories' );
-		}
-
 		return $instance;
-	}
-
-	public function flush_widget_cache() {
-		wp_cache_delete( 'widget_custom_post_type_categories', 'widget' );
 	}
 
 	public function form( $instance ) {

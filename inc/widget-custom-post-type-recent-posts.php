@@ -11,33 +11,12 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 		$widget_ops = array( 'classname' => 'widget_recent_entries', 'description' => __( 'Your site’s most recent custom Posts.', 'custom-post-type-widgets' ) );
 		parent::__construct( 'custom-post-type-recent-posts', __( 'Recent Posts (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 		$this->alt_option_name = 'widget_custom_post_type_recent_posts';
-
-		add_action( 'save_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'deleted_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'switch_theme', array( &$this, 'flush_widget_cache' ) );
 	}
 
 	public function widget( $args, $instance ) {
-		$cache = array();
-
-		if ( ! $this->is_preview() ) {
-			$cache = wp_cache_get( 'widget_custom_post_type_recent_posts', 'widget' );
-		}
-
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
-
 		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->id;
 		}
-
-		if ( isset( $cache[ $args['widget_id'] ] ) ) {
-			echo $cache[ $args['widget_id'] ];
-			return;
-		}
-
-		ob_start();
 
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Recent Posts', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
 		$posttype = $instance['posttype'];
@@ -76,14 +55,6 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 				wp_reset_postdata();
 			endif;
 		}
-
-		if ( ! $this->is_preview() ) {
-			$cache[ $args['widget_id'] ] = ob_get_flush();
-			wp_cache_set( 'widget_custom_post_type_recent_posts', $cache, 'widget' );
-		}
-		else {
-			ob_end_flush();
-		}
 	}
 
 	public function update( $new_instance, $old_instance ) {
@@ -92,19 +63,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 		$instance['posttype'] = strip_tags( $new_instance['posttype'] );
 		$instance['number'] = (int) $new_instance['number'];
 		$instance['show_date'] = isset( $new_instance['show_date'] ) ? (bool) $new_instance['show_date'] : false;
-
-		$this->flush_widget_cache();
-
-		$alloptions = wp_cache_get( 'alloptions', 'options' );
-		if ( isset( $alloptions['widget_custom_post_type_recent_posts'] ) ) {
-			delete_option( 'widget_custom_post_type_recent_posts' );
-		}
-
 		return $instance;
-	}
-
-	public function flush_widget_cache() {
-		wp_cache_delete( 'widget_custom_post_type_recent_posts', 'widget' );
 	}
 
 	public function form( $instance ) {

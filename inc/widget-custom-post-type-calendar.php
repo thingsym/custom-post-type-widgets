@@ -9,34 +9,12 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array( 'classname' => 'widget_calendar', 'description' => __( 'A calendar of your site&#8217;s Posts.', 'custom-post-type-widgets' ) );
 		parent::__construct( 'custom-post-type-calendar', __( 'Calendar (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
-
-		add_action( 'save_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'deleted_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'switch_theme', array( &$this, 'flush_widget_cache' ) );
-
-		add_action( 'save_post', array( &$this, 'delete_custom_post_type_calendar_cache' ) );
-		add_action( 'delete_post', array( &$this, 'delete_custom_post_type_calendar_cache' ) );
-		add_action( 'update_option_start_of_week', array( &$this, 'delete_custom_post_type_calendar_cache' ) );
-		add_action( 'update_option_gmt_offset', array( &$this, 'delete_custom_post_type_calendar_cache' ) );
 	}
 
 	public function widget( $args, $instance ) {
-		$cache = wp_cache_get( 'widget_custom_post_type_calendar', 'widget' );
-
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
-
 		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->id;
 		}
-
-		if ( isset( $cache[ $args['widget_id'] ] ) ) {
-			echo $cache[ $args['widget_id'] ];
-			return;
-		}
-
-		ob_start();
 
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Calendar', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
 		$posttype = $instance['posttype'];
@@ -56,18 +34,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['posttype'] = strip_tags( $new_instance['posttype'] );
 
-		$this->flush_widget_cache();
-
-		$alloptions = wp_cache_get( 'alloptions', 'options' );
-		if ( isset( $alloptions['widget_custom_post_type_calendar'] ) ) {
-			delete_option( 'widget_custom_post_type_calendar' );
-		}
-
 		return $instance;
-	}
-
-	public function flush_widget_cache() {
-		wp_cache_delete( 'widget_custom_post_type_calendar', 'widget' );
 	}
 
 	public function form( $instance ) {
@@ -103,31 +70,9 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	public function get_custom_post_type_calendar( $posttype, $initial = true, $echo = true ) {
 		global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
 
-		$key = md5( $m . $monthnum . $year . $posttype );
-		if ( $cache = wp_cache_get( 'get_custom_post_type_calendar', 'calendar' ) ) {
-			if ( is_array( $cache ) && isset( $cache[ $key ] ) ) {
-				if ( $echo ) {
-					echo apply_filters( 'get_custom_post_type_calendar', $cache[ $key ] );
-					return;
-				}
-				else {
-					return apply_filters( 'get_custom_post_type_calendar', $cache[ $key ] );
-				}
-			}
-		}
-
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
-
 		// Quick check. If we have no posts at all, abort!
 		if ( ! $posts ) {
 			$gotsome = $wpdb->get_var( "SELECT 1 as test FROM $wpdb->posts WHERE post_type = '$posttype' AND post_status = 'publish' LIMIT 1" );
-			if ( ! $gotsome ) {
-				$cache[ $key ] = '';
-				wp_cache_set( 'get_custom_post_type_calendar', $cache, 'calendar' );
-				return;
-			}
 		}
 
 		if ( isset( $_GET['w'] ) ) {
@@ -314,9 +259,6 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 
 		$calendar_output .= "\n\t</tr>\n\t</tbody>\n\t</table>";
 
-		$cache[ $key ] = $calendar_output;
-		wp_cache_set( 'get_custom_post_type_calendar', $cache, 'calendar' );
-
 		if ( $echo ) {
 			echo apply_filters( 'get_custom_post_type_calendar', $calendar_output );
 		}
@@ -420,16 +362,6 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
 		}
 		return apply_filters( 'month_link', $monthlink, $year, $month );
-	}
-
-	/**
-	 * function that extend the delete_get_calendar_cache
-	 * @see wp-includes/general-template.php
-	 *
-	 * @since 1.0.0
-	 */
-	public function delete_custom_post_type_calendar_cache() {
-		wp_cache_delete( 'get_custom_post_type_calendar', 'calendar' );
 	}
 
 }
