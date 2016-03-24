@@ -12,7 +12,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		$this->alt_option_name = 'widget_custom_post_type_recent_comments';
 
 		if ( is_active_widget( false, false, $this->id_base ) ) {
-			add_action( 'wp_head', array( &$this, 'recent_comments_style' ) );
+			add_action( 'wp_head', array( $this, 'recent_comments_style' ) );
 		}
 	}
 
@@ -27,8 +27,6 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
-		global $comments, $comment;
-
 		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->id;
 		}
@@ -41,12 +39,12 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 			$number = 5;
 		}
 
-		$comments = get_comments( array(
+		$comments = get_comments( apply_filters( 'widget_comments_args', array(
 			'post_type' => $posttype,
 			'number' => $number,
 			'status' => 'approve',
 			'post_status' => 'publish',
-		) );
+		) ) );
 
 		$output .= $args['before_widget'];
 		if ( $title ) {
@@ -63,8 +61,8 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 				$output .= '<li class="recentcomments">';
 				/* translators: comments widget: 1: comment author, 2: post link */
 				$output .= sprintf( _x( '%1$s on %2$s', 'widgets' ),
-					'<span class="comment-author-link">' . get_comment_author_link() . '</span>',
-					'<a href="' . esc_url( get_comment_link( $comment->comment_ID ) ) . '">' . get_the_title( $comment->comment_post_ID ) . '</a>'
+					'<span class="comment-author-link">' . get_comment_author_link( $comment ) . '</span>',
+					'<a href="' . esc_url( get_comment_link( $comment ) ) . '">' . get_the_title( $comment->comment_post_ID ) . '</a>'
 				);
 				$output .= '</li>';
 			}
@@ -84,29 +82,42 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 	}
 
 	public function form( $instance ) {
-		$title = isset( $instance['title'] ) ? strip_tags( $instance['title'] ) : '';
+		$title = isset( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : '';
 		$posttype = isset( $instance['posttype'] ) ? $instance['posttype']: 'post';
 		$number = isset( $instance['number'] ) ? absint( $instance['number'] ) : 5;
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'custom-post-type-widgets' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id( 'posttype' ); ?>"><?php _e( 'Post Type:', 'custom-post-type-widgets' ); ?></label>
-		<select name="<?php echo $this->get_field_name( 'posttype' ); ?>" id="<?php echo $this->get_field_id( 'posttype' ); ?>">
 		<?php
 			$post_types = get_post_types( array( 'public' => true ), 'objects' );
+
+			printf(
+				'<p><label for="%1$s">%2$s</label>' .
+				'<select class="widefat" id="%1$s" name="%3$s">',
+				$this->get_field_id( 'posttype' ),
+				__( 'Post Type:', 'custom-post-type-widgets' ),
+				$this->get_field_name( 'posttype' )
+			);
+
 			foreach ( $post_types as $post_type => $value ) {
 				if ( 'attachment' == $post_type ) {
 					continue;
 				}
+
+				printf(
+					'<option value="%s"%s>%s</option>',
+					esc_attr( $post_type ),
+					selected( $post_type, $posttype, false ),
+					__( $value->label, 'custom-post-type-widgets' )
+				);
+
+			}
+			echo '</select></p>';
 		?>
-				<option value="<?php echo $post_type; ?>"<?php selected( $post_type, $posttype ); ?>><?php _e( $value->label, 'custom-post-type-widgets' ); ?></option>
-		<?php } ?>
-		</select>
-		</p>
 
 		<p><label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Number of comments to show:', 'custom-post-type-widgets' ); ?></label>
-		<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo $number; ?>" size="3" /></p>
+		<input class="tiny-text" id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="number" step="1" min="1" value="<?php echo $number; ?>" size="3" /></p>
 <?php
 	}
 }

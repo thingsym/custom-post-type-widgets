@@ -21,8 +21,6 @@ class Custom_Post_Type_Widgets {
 	public function load() {
 		$dir = plugin_dir_path( __FILE__ );
 
-		include_once( $dir . 'inc/class-custom-post-type-categorydropdown.php' );
-
 		include_once( $dir . 'inc/widget-custom-post-type-recent-posts.php' );
 		include_once( $dir . 'inc/widget-custom-post-type-archive.php' );
 		include_once( $dir . 'inc/widget-custom-post-type-categories.php' );
