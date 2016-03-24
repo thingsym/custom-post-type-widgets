@@ -5,93 +5,86 @@
  * @since 1.0.0
  */
 class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
+	/**
+	 * Ensure that the ID attribute only appears in the markup once
+	 *
+	 * @since 4.4.0
+	 *
+	 * @static
+	 * @access private
+	 * @var int
+	 */
+	private static $instance = 0;
 
 	public function __construct() {
 		$widget_ops = array( 'classname' => 'widget_calendar', 'description' => __( 'A calendar of your site&#8217;s Posts.', 'custom-post-type-widgets' ) );
 		parent::__construct( 'custom-post-type-calendar', __( 'Calendar (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
-
-		add_action( 'save_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'deleted_post', array( &$this, 'flush_widget_cache' ) );
-		add_action( 'switch_theme', array( &$this, 'flush_widget_cache' ) );
-
-		add_action( 'save_post', array( &$this, 'delete_custom_post_type_calendar_cache' ) );
-		add_action( 'delete_post', array( &$this, 'delete_custom_post_type_calendar_cache' ) );
-		add_action( 'update_option_start_of_week', array( &$this, 'delete_custom_post_type_calendar_cache' ) );
-		add_action( 'update_option_gmt_offset', array( &$this, 'delete_custom_post_type_calendar_cache' ) );
 	}
 
 	public function widget( $args, $instance ) {
-		$cache = wp_cache_get( 'widget_custom_post_type_calendar', 'widget' );
-
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
-
-		if ( ! isset( $args['widget_id'] ) ) {
-			$args['widget_id'] = $this->id;
-		}
-
-		if ( isset( $cache[ $args['widget_id'] ] ) ) {
-			echo $cache[ $args['widget_id'] ];
-			return;
-		}
-
-		ob_start();
-
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Calendar', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
 		$posttype = $instance['posttype'];
+
+		add_filter( 'get_calendar', array( $this, 'get_custom_post_type_calendar' ), 10, 3 );
+		add_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ), 10, 3 );
+		add_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ), 10, 4 );
 
 		echo $args['before_widget'];
 		if ( $title ) {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
-		echo '<div id="calendar_wrap">';
-		$this->get_custom_post_type_calendar( $posttype );
+		if ( 0 === self::$instance ) {
+			echo '<div id="calendar_wrap" class="calendar_wrap">';
+		} else {
+			echo '<div class="calendar_wrap">';
+		}
+		get_calendar();
 		echo '</div>';
 		echo $args['after_widget'];
+
+		self::$instance++;
 	}
 
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 		$instance['posttype'] = strip_tags( $new_instance['posttype'] );
-
-		$this->flush_widget_cache();
-
-		$alloptions = wp_cache_get( 'alloptions', 'options' );
-		if ( isset( $alloptions['widget_custom_post_type_calendar'] ) ) {
-			delete_option( 'widget_custom_post_type_calendar' );
-		}
-
 		return $instance;
-	}
-
-	public function flush_widget_cache() {
-		wp_cache_delete( 'widget_custom_post_type_calendar', 'widget' );
 	}
 
 	public function form( $instance ) {
 		$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
-		$title = isset( $instance['title'] ) ? strip_tags( $instance['title'] ) : '';
+		$title = isset( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : '';
 		$posttype = isset( $instance['posttype'] ) ? $instance['posttype']: 'post';
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'custom-post-type-widgets' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id( 'posttype' ); ?>"><?php _e( 'Post Type:', 'custom-post-type-widgets' ); ?></label>
-		<select name="<?php echo $this->get_field_name( 'posttype' ); ?>" id="<?php echo $this->get_field_id( 'posttype' ); ?>">
-		<?php
-			$post_types = get_post_types( array( 'public' => true ), 'objects' );
-			foreach ( $post_types as $post_type => $value ) {
-				if ( 'attachment' == $post_type || 'page' == $post_type ) {
-					continue;
-				}
-		?>
-				<option value="<?php echo esc_attr( $post_type ); ?>"<?php selected( $post_type, $posttype ); ?>><?php _e( $value->label, 'custom-post-type-widgets' ); ?></option>
-		<?php } ?>
-		</select>
-		</p>
 <?php
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+
+		printf(
+			'<p><label for="%1$s">%2$s</label>' .
+			'<select class="widefat" id="%1$s" name="%3$s">',
+			$this->get_field_id( 'posttype' ),
+			__( 'Post Type:', 'custom-post-type-widgets' ),
+			$this->get_field_name( 'posttype' )
+		);
+
+		foreach ( $post_types as $post_type => $value ) {
+			if ( 'attachment' == $post_type || 'page' == $post_type ) {
+				continue;
+			}
+
+			printf(
+				'<option value="%s"%s>%s</option>',
+				esc_attr( $post_type ),
+				selected( $post_type, $posttype, false ),
+				__( $value->label, 'custom-post-type-widgets' )
+			);
+
+		}
+		echo '</select></p>';
 	}
 
 	/**
@@ -100,66 +93,49 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	 *
 	 * @since 1.0.0
 	 */
-	public function get_custom_post_type_calendar( $posttype, $initial = true, $echo = true ) {
+	public function get_custom_post_type_calendar( $calendar_output, $initial = true, $echo = true ) {
 		global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
 
-		$key = md5( $m . $monthnum . $year . $posttype );
-		if ( $cache = wp_cache_get( 'get_custom_post_type_calendar', 'calendar' ) ) {
-			if ( is_array( $cache ) && isset( $cache[ $key ] ) ) {
-				if ( $echo ) {
-					echo apply_filters( 'get_custom_post_type_calendar', $cache[ $key ] );
-					return;
-				}
-				else {
-					return apply_filters( 'get_custom_post_type_calendar', $cache[ $key ] );
-				}
-			}
-		}
-
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
+		$options = get_option($this->option_name);
+		$posttype = $options[$this->number]['posttype'];
 
 		// Quick check. If we have no posts at all, abort!
 		if ( ! $posts ) {
 			$gotsome = $wpdb->get_var( "SELECT 1 as test FROM $wpdb->posts WHERE post_type = '$posttype' AND post_status = 'publish' LIMIT 1" );
-			if ( ! $gotsome ) {
-				$cache[ $key ] = '';
-				wp_cache_set( 'get_custom_post_type_calendar', $cache, 'calendar' );
-				return;
-			}
 		}
 
 		if ( isset( $_GET['w'] ) ) {
-			$w = '' . intval( $_GET['w'] );
+			$w = (int) $_GET['w'];
 		}
 
 		// week_begins = 0 stands for Sunday
-		$week_begins = intval( get_option( 'start_of_week' ) );
+		$week_begins = (int) get_option( 'start_of_week' );
+		$ts = current_time( 'timestamp' );
 
 		// Let's figure out when we are
 		if ( ! empty( $monthnum ) && ! empty( $year ) ) {
-			$thismonth = '' . zeroise( intval( $monthnum ), 2 );
-			$thisyear = '' . intval( $year );
+			$thismonth = zeroise( intval( $monthnum ), 2 );
+			$thisyear = (int) $year;
 		}
 		elseif ( ! empty( $w ) ) {
 			// We need to get the month from MySQL
-			$thisyear = '' . intval( substr( $m, 0, 4 ) );
-			$d = ( ( $w - 1 ) * 7 ) + 6; //it seems MySQL's weeks disagree with PHP's
+			$thisyear = (int) substr( $m, 0, 4 );
+			//it seems MySQL's weeks disagree with PHP's
+			$d = ( ( $w - 1 ) * 7 ) + 6;
 			$thismonth = $wpdb->get_var( "SELECT DATE_FORMAT((DATE_ADD('{$thisyear}0101', INTERVAL $d DAY) ), '%m')" );
 		}
 		elseif ( ! empty( $m ) ) {
-			$thisyear = '' . intval( substr( $m, 0, 4 ) );
+			$thisyear = (int) substr( $m, 0, 4 );
 			if ( strlen( $m ) < 6 ) {
 				$thismonth = '01';
 			}
 			else {
-				$thismonth = '' . zeroise( intval( substr( $m, 4, 2 ) ), 2 );
+				$thismonth = zeroise( (int) substr( $m, 4, 2 ), 2 );
 			}
 		}
 		else {
-			$thisyear = gmdate( 'Y', current_time( 'timestamp' ) );
-			$thismonth = gmdate( 'm', current_time( 'timestamp' ) );
+			$thisyear = gmdate( 'Y', $ts );
+			$thismonth = gmdate( 'm', $ts );
 		}
 
 		$unixmonth = mktime( 0, 0 , 0, $thismonth, 1, $thisyear );
@@ -182,7 +158,11 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		/* translators: Calendar caption: 1: month name, 2: 4-digit year */
 		$calendar_caption = _x( '%1$s %2$s', 'calendar caption' );
 		$calendar_output = '<table id="wp-calendar">
-		<caption>' . sprintf( $calendar_caption, $wp_locale->get_month( $thismonth ), date( 'Y', $unixmonth ) ) . '</caption>
+		<caption>' . sprintf(
+			$calendar_caption,
+			$wp_locale->get_month( $thismonth ),
+			date( 'Y', $unixmonth )
+		) . '</caption>
 		<thead>
 		<tr>';
 
@@ -193,7 +173,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		}
 
 		foreach ( $myweek as $wd ) {
-			$day_name = ( true == $initial ) ? $wp_locale->get_weekday_initial( $wd ) : $wp_locale->get_weekday_abbrev( $wd );
+			$day_name = $initial ? $wp_locale->get_weekday_initial( $wd ) : $wp_locale->get_weekday_abbrev( $wd );
 			$wd = esc_attr( $wd );
 			$calendar_output .= "\n\t\t<th scope=\"col\" title=\"$wd\">$day_name</th>";
 		}
@@ -206,7 +186,9 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		<tr>';
 
 		if ( $previous ) {
-			$calendar_output .= "\n\t\t".'<td colspan="3" id="prev"><a href="' . $this->get_custom_post_type_month_link( $posttype, $previous->year, $previous->month ) . '">&laquo; ' . $wp_locale->get_month_abbrev( $wp_locale->get_month( $previous->month ) ) . '</a></td>';
+			$calendar_output .= "\n\t\t".'<td colspan="3" id="prev"><a href="' . get_month_link( $previous->year, $previous->month ) . '">&laquo; ' .
+				$wp_locale->get_month_abbrev( $wp_locale->get_month( $previous->month ) ) .
+			 '</a></td>';
 		}
 		else {
 			$calendar_output .= "\n\t\t".'<td colspan="3" id="prev" class="pad">&nbsp;</td>';
@@ -215,7 +197,9 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$calendar_output .= "\n\t\t".'<td class="pad">&nbsp;</td>';
 
 		if ( $next ) {
-			$calendar_output .= "\n\t\t".'<td colspan="3" id="next"><a href="' . $this->get_custom_post_type_month_link( $posttype, $next->year, $next->month ) . '">' . $wp_locale->get_month_abbrev( $wp_locale->get_month( $next->month ) ) . ' &raquo;</a></td>';
+			$calendar_output .= "\n\t\t".'<td colspan="3" id="next"><a href="' . get_month_link( $next->year, $next->month ) . '">' .
+				$wp_locale->get_month_abbrev( $wp_locale->get_month( $next->month ) ) .
+			' &raquo;</a></td>';
 		}
 		else {
 			$calendar_output .= "\n\t\t".'<td colspan="3" id="next" class="pad">&nbsp;</td>';
@@ -228,6 +212,8 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		<tbody>
 		<tr>';
 
+		$daywithpost = array();
+
 		// Get days with posts
 		$dayswithposts = $wpdb->get_results( "SELECT DISTINCT DAYOFMONTH(post_date)
 			FROM $wpdb->posts WHERE post_date >= '{$thisyear}-{$thismonth}-01 00:00:00'
@@ -238,40 +224,6 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 				$daywithpost[] = $daywith[0];
 			}
 		}
-		else {
-			$daywithpost = array();
-		}
-
-		if ( false !== strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE' ) || false !== stripos( $_SERVER['HTTP_USER_AGENT'], 'camino' ) || false !== stripos( $_SERVER['HTTP_USER_AGENT'], 'safari' ) ) {
-			$ak_title_separator = "\n";
-		}
-		else {
-			$ak_title_separator = ', ';
-		}
-
-		$ak_titles_for_day = array();
-		$ak_post_titles = $wpdb->get_results( 'SELECT ID, post_title, DAYOFMONTH(post_date) as dom '
-			. "FROM $wpdb->posts "
-			. "WHERE post_date >= '{$thisyear}-{$thismonth}-01 00:00:00' "
-			. "AND post_date <= '{$thisyear}-{$thismonth}-{$last_day} 23:59:59' "
-			. "AND post_type = '$posttype' AND post_status = 'publish'"
-		);
-		if ( $ak_post_titles ) {
-			foreach ( (array) $ak_post_titles as $ak_post_title ) {
-
-				$post_title = esc_attr( apply_filters( 'the_title', $ak_post_title->post_title, $ak_post_title->ID ) );
-
-				if ( empty( $ak_titles_for_day[ 'day_'.$ak_post_title->dom ] ) ) {
-					$ak_titles_for_day[ 'day_' . $ak_post_title->dom ] = '';
-				}
-				if ( empty( $ak_titles_for_day[ "$ak_post_title->dom" ] ) ) { // first one
-					$ak_titles_for_day[ "$ak_post_title->dom" ] = $post_title;
-				}
-				else {
-					$ak_titles_for_day[ "$ak_post_title->dom" ] .= $ak_title_separator . $post_title;
-				}
-			}
-		}
 
 		// See how much we should pad in the beginning
 		$pad = calendar_week_mod( date( 'w', $unixmonth ) - $week_begins );
@@ -279,14 +231,18 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$calendar_output .= "\n\t\t".'<td colspan="'. esc_attr( $pad ) .'" class="pad">&nbsp;</td>';
 		}
 
-		$daysinmonth = intval( date( 't', $unixmonth ) );
+		$newrow = false;
+		$daysinmonth = (int) date( 't', $unixmonth );
+
 		for ( $day = 1; $day <= $daysinmonth; ++$day ) {
 			if ( isset( $newrow ) && $newrow ) {
 				$calendar_output .= "\n\t</tr>\n\t<tr>\n\t\t";
 			}
 			$newrow = false;
 
-			if ( $day == gmdate( 'j', current_time( 'timestamp' ) ) && $thismonth == gmdate( 'm', current_time( 'timestamp' ) ) && $thisyear == gmdate( 'Y', current_time( 'timestamp' ) ) ) {
+			if ( $day == gmdate( 'j', current_time( 'timestamp' ) ) &&
+				$thismonth == gmdate( 'm', current_time( 'timestamp' ) ) &&
+				$thisyear == gmdate( 'Y', current_time( 'timestamp' ) ) ) {
 				$calendar_output .= '<td id="today">';
 			}
 			else {
@@ -295,7 +251,15 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 
 			if ( in_array( $day, $daywithpost ) ) {
 				// any posts today?
-				$calendar_output .= '<a href="' . $this->get_custom_post_type_day_link( $posttype, $thisyear, $thismonth, $day ) . '" title="' . esc_attr( $ak_titles_for_day[ $day ] ) . "\">$day</a>";
+				$date_format = date( _x( 'F j, Y', 'daily archives date format' ), strtotime( "{$thisyear}-{$thismonth}-{$day}" ) );
+				$label = sprintf( __( 'Posts published on %s' ), $date_format );
+				$calendar_output .= sprintf(
+					'<a href="%s" aria-label="%s">%s</a>',
+					get_day_link( $thisyear, $thismonth, $day ),
+					// $this->get_custom_post_type_day_link( $posttype, $thisyear, $thismonth, $day ),
+					esc_attr( $label ),
+					$day
+				);
 			}
 			else {
 				$calendar_output .= $day;
@@ -314,25 +278,19 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 
 		$calendar_output .= "\n\t</tr>\n\t</tbody>\n\t</table>";
 
-		$cache[ $key ] = $calendar_output;
-		wp_cache_set( 'get_custom_post_type_calendar', $cache, 'calendar' );
-
 		if ( $echo ) {
-			echo apply_filters( 'get_custom_post_type_calendar', $calendar_output );
+			echo $calendar_output;
 		}
 		else {
-			return apply_filters( 'get_custom_post_type_calendar', $calendar_output );
+			return $calendar_output;
 		}
 	}
 
-	/**
-	 * function that extend the get_day_link
-	 * @see wp-includes/link-template.php
-	 *
-	 * @since 1.0.0
-	 */
-	public function get_custom_post_type_day_link( $posttype, $year, $month, $day ) {
+	public function get_day_link_custom_post_type( $daylink, $year, $month, $day ) {
 		global $wp_rewrite;
+
+		$options = get_option($this->option_name);
+		$posttype = $options[$this->number]['posttype'];
 
 		if ( ! $year ) {
 			$year = gmdate( 'Y', current_time( 'timestamp' ) );
@@ -373,17 +331,14 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$daylink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) . zeroise( $day, 2 ) );
 		}
 
-		return apply_filters( 'day_link', $daylink, $year, $month, $day );
+		return $daylink;
 	}
 
-	/**
-	 * function that extend the get_month_link
-	 * @see wp-includes/link-template.php
-	 *
-	 * @since 1.0.0
-	 */
-	public function get_custom_post_type_month_link( $posttype, $year, $month ) {
+	public function get_month_link_custom_post_type( $monthlink, $year, $month ) {
 		global $wp_rewrite;
+
+		$options = get_option($this->option_name);
+		$posttype = $options[$this->number]['posttype'];
 
 		if ( ! $year ) {
 			$year = gmdate( 'Y', current_time( 'timestamp' ) );
@@ -407,7 +362,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 				$type_obj = get_post_type_object( $posttype );
 				$archive_name = $type_obj ->rewrite['slug'] ? $type_obj ->rewrite['slug'] : $posttype ;
 				if ( $front ) {
-					$new_front = $type_obj ->rewrite['with_front'] ? $front : '' ;
+					$new_front = $type_obj->rewrite['with_front'] ? $front : '' ;
 					$monthlink = str_replace( $front, $new_front . '/' . $archive_name , $monthlink );
 					$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
 				}
@@ -419,17 +374,8 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		else {
 			$monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
 		}
-		return apply_filters( 'month_link', $monthlink, $year, $month );
-	}
 
-	/**
-	 * function that extend the delete_get_calendar_cache
-	 * @see wp-includes/general-template.php
-	 *
-	 * @since 1.0.0
-	 */
-	public function delete_custom_post_type_calendar_cache() {
-		wp_cache_delete( 'get_custom_post_type_calendar', 'calendar' );
+		return $monthlink;
 	}
 
 }
