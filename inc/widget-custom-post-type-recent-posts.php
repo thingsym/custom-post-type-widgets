@@ -3,6 +3,7 @@
  * Custom Post Type Recent Posts widget class
  *
  * @since 1.0.0
+ * @package Custom Post Type Widgets
  */
 
 class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
@@ -87,7 +88,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 			);
 
 			foreach ( $post_types as $post_type => $value ) {
-				if ( 'attachment' == $post_type ) {
+				if ( 'attachment' === $post_type ) {
 					continue;
 				}
 

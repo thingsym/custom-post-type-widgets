@@ -3,7 +3,9 @@
  * Custom Post Type Categories widget class
  *
  * @since 1.0.0
+ * @package Custom Post Type Widgets
  */
+
 class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 
 	public function __construct() {
@@ -36,7 +38,7 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 			echo '<label class="screen-reader-text" for="' . esc_attr( $dropdown_id ) . '">' . $title . '</label>';
 
 			$cat_args['show_option_none'] = __( 'Select Category', 'custom-post-type-widgets' );
-			$cat_args['name'] = $taxonomy == 'category' ? 'category_name' : $taxonomy;
+			$cat_args['name'] = 'category' === $taxonomy ? 'category_name' : $taxonomy;
 			$cat_args['id'] = $dropdown_id;
 			$cat_args['value_field'] = 'name';
 ?>
@@ -111,7 +113,7 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 				if ( ! $value->hierarchical ) {
 					continue;
 				}
-				if ( 'nav_menu' == $taxobjects || 'link_category' == $taxobjects || 'post_format' == $taxobjects ) {
+				if ( 'nav_menu' === $taxobjects || 'link_category' === $taxobjects || 'post_format' === $taxobjects ) {
 					continue;
 				}
 

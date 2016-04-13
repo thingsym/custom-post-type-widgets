@@ -3,7 +3,9 @@
  * Custom Post Type Search widget class
  *
  * @since 1.0.3
+ * @package Custom Post Type Widgets
  */
+
 class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 
 	public function __construct() {
@@ -29,7 +31,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 	}
 
 	public function add_form_input_post_type( $form ) {
-		$options = get_option($this->option_name);
+		$options = get_option( $this->option_name );
 		$posttype = $options[$this->number]['posttype'];
 		$insert = '<input type="hidden" name="post_type" value="' . $posttype . '">';
 
@@ -86,7 +88,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		);
 
 		foreach ( $post_types as $post_type => $value ) {
-			if ( 'attachment' == $post_type ) {
+			if ( 'attachment' === $post_type ) {
 				continue;
 			}
 

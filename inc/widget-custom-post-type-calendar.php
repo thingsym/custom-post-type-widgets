@@ -3,7 +3,9 @@
  * Custom Post Type Calendar widget class
  *
  * @since 1.0.0
+ * @package Custom Post Type Widgets
  */
+
 class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	/**
 	 * Ensure that the ID attribute only appears in the markup once
@@ -72,7 +74,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		);
 
 		foreach ( $post_types as $post_type => $value ) {
-			if ( 'attachment' == $post_type || 'page' == $post_type ) {
+			if ( 'attachment' === $post_type || 'page' === $post_type ) {
 				continue;
 			}
 
@@ -92,11 +94,15 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	 * @see wp-includes/general-template.php
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $calendar_output
+	 * @param boolean $initial
+	 * @param boolean $echo
 	 */
 	public function get_custom_post_type_calendar( $calendar_output, $initial = true, $echo = true ) {
 		global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
 
-		$options = get_option($this->option_name);
+		$options = get_option( $this->option_name );
 		$posttype = $options[$this->number]['posttype'];
 
 		// Quick check. If we have no posts at all, abort!
@@ -120,7 +126,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		elseif ( ! empty( $w ) ) {
 			// We need to get the month from MySQL
 			$thisyear = (int) substr( $m, 0, 4 );
-			//it seems MySQL's weeks disagree with PHP's
+			// it seems MySQL's weeks disagree with PHP's
 			$d = ( ( $w - 1 ) * 7 ) + 6;
 			$thismonth = $wpdb->get_var( "SELECT DATE_FORMAT((DATE_ADD('{$thisyear}0101', INTERVAL $d DAY) ), '%m')" );
 		}

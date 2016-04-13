@@ -3,7 +3,9 @@
  * Custom Post Type Tag cloud widget class
  *
  * @since 1.0.0
+ * @package Custom Post Type Widgets
  */
+
 class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 
 	public function __construct() {
@@ -17,7 +19,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 
 		$tag_cloud = wp_tag_cloud( apply_filters( 'widget_tag_cloud_args', array(
 			'taxonomy' => $taxonomy,
-			'echo' => false
+			'echo' => false,
 		) ) );
 
 		if ( empty( $tag_cloud ) ) {
@@ -66,7 +68,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 				if ( $value->hierarchical ) {
 					continue;
 				}
-				if ( 'nav_menu' == $taxobjects || 'link_category' == $taxobjects || 'post_format' == $taxobjects ) {
+				if ( 'nav_menu' === $taxobjects || 'link_category' === $taxobjects || 'post_format' === $taxobjects ) {
 					continue;
 				}
 

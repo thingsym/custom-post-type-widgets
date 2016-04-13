@@ -3,7 +3,9 @@
  * Custom Post Type Archives widget class
  *
  * @since 1.0.0
+ * @package Custom Post Type Widgets
  */
+
 class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 
 	public function __construct() {
@@ -88,7 +90,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			);
 
 			foreach ( $post_types as $post_type => $value ) {
-				if ( 'attachment' == $post_type || 'page' == $post_type ) {
+				if ( 'attachment' === $post_type || 'page' === $post_type ) {
 					continue;
 				}
 
@@ -111,7 +113,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 	public function get_month_link_custom_post_type( $monthlink, $year, $month ) {
 		global $wp_rewrite;
 
-		$options = get_option($this->option_name);
+		$options = get_option( $this->option_name );
 		$posttype = $options[$this->number]['posttype'];
 
 		if ( ! $year ) {
@@ -129,7 +131,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			$monthlink = str_replace( '%year%', $year, $monthlink );
 			$monthlink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $monthlink );
 
-			if ( 'post' == $posttype ) {
+			if ( 'post' === $posttype ) {
 				$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
 			}
 			else {
