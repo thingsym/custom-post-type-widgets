@@ -115,3 +115,14 @@ msgstr ""
 msgid "post_tag"
 msgstr ""
 
+msgid "A search form for your site."
+msgstr ""
+
+msgid "Search (Custom Post Type)"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "All"
+msgstr ""

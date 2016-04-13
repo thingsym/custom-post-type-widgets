@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Custom Post Type Widgets\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-04 23:59+0900\n"
-"PO-Revision-Date: 2015-01-26 18:23+0900\n"
+"PO-Revision-Date: 2016-03-24 22:39+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -114,4 +114,16 @@ msgstr "カテゴリー"
 
 msgid "post_tag"
 msgstr "タグ"
+
+msgid "A search form for your site."
+msgstr "サイト内検索"
+
+msgid "Search (Custom Post Type)"
+msgstr "検索 (カスタム投稿タイプ)"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "All"
+msgstr "すべて"
 
