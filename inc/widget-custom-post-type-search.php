@@ -11,7 +11,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		parent::__construct( 'custom-post-type-search', __( 'Search (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 		$this->alt_option_name = 'widget_custom_post_type_search';
 
-		add_action( 'pre_get_posts', array( &$this, 'query_search_filter_only_post_type' ) );
+		add_action( 'pre_get_posts', array( $this, 'query_search_filter_only_post_type' ) );
 	}
 
 	public function query_search_filter_only_post_type( $query ) {
@@ -22,10 +22,9 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		* function that set post_type to $query
 		*/
 
-		$post_type = isset($_GET['post_type']) ? $_GET['post_type'] : 'post';
-
-		if ($query->is_search) {
-			$query->set('post_type', $post_type);
+		if ( $query->is_search ) {
+			$post_type = isset( $_GET['post_type'] ) ? wp_unslash( $_GET['post_type'] ) : 'post';
+			$query->set( 'post_type', $post_type );
 		}
 	}
 
@@ -49,7 +48,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
-		add_filter( 'get_search_form', array( &$this, 'add_form_input_post_type' ), 10, 1 );
+		add_filter( 'get_search_form', array( $this, 'add_form_input_post_type' ), 10, 1 );
 		get_search_form();
 
 		echo $args['after_widget'];
@@ -68,19 +67,30 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'custom-post-type-widgets' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id( 'posttype' ); ?>"><?php _e( 'Post Type:', 'custom-post-type-widgets' ); ?></label>
-		<select name="<?php echo $this->get_field_name( 'posttype' ); ?>" id="<?php echo $this->get_field_id( 'posttype' ); ?>">
-		<?php
-			$post_types = get_post_types( array( 'public' => true ), 'objects' );
-			foreach ( $post_types as $post_type => $value ) {
-				if ( 'attachment' == $post_type ) {
-					continue;
-				}
-			?>
-				<option value="<?php echo esc_attr( $post_type ); ?>"<?php selected( $post_type, $posttype ); ?>><?php _e( $value->label, 'custom-post-type-widgets' ); ?></option>
-		<?php } ?>
-		</select>
-		</p>
 <?php
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+
+		printf(
+			'<p><label for="%1$s">%2$s</label>' .
+			'<select class="widefat" id="%1$s" name="%3$s">',
+			$this->get_field_id( 'posttype' ),
+			__( 'Post Type:', 'custom-post-type-widgets' ),
+			$this->get_field_name( 'posttype' )
+		);
+
+		foreach ( $post_types as $post_type => $value ) {
+			if ( 'attachment' == $post_type ) {
+				continue;
+			}
+
+			printf(
+				'<option value="%s"%s>%s</option>',
+				esc_attr( $post_type ),
+				selected( $post_type, $posttype, false ),
+				__( $value->label, 'custom-post-type-widgets' )
+			);
+
+		}
+		echo '</select></p>';
 	}
 }
