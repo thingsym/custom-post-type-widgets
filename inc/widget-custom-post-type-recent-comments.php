@@ -100,6 +100,13 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 				$this->get_field_name( 'posttype' )
 			);
 
+			printf(
+				'<option value="%s"%s>%s</option>',
+				esc_attr( '' ),
+				selected( '', $posttype, false ),
+				__( 'All', 'custom-post-type-widgets' )
+			);
+
 			foreach ( $post_types as $post_type => $value ) {
 				if ( 'attachment' == $post_type ) {
 					continue;
