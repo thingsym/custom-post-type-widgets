@@ -84,6 +84,17 @@ display a list of the top 45 that has used in a tag cloud.
 * **Taxonomy** - if selected, filter a custom taxonomy (e.g. post_tag).
 * **Class Name** - widget_tag_cloud
 
+### Search (Custom Post Type)
+
+<img src="screenshot-7.png">
+
+A search form for your site.
+
+* **Title** - description that appears over the search.
+* **Post Type** - if selected, filter by a custom post type. (e.g. post).
+* **Class Name** - widget_search
+
+
 ## Contribute
 
 Small patches, bug reports and the translation can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
