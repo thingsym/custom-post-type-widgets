@@ -110,6 +110,10 @@ If you would like to contribute, here are some notes and guidlines.
 
 ## Changelog
 
+* Version 1.1.0
+	* add 'All' to posttype option
+	* refactoring
+	* add Custom Post Type Search widget
 * Version 1.0.4
 	* fix cache key of Custom Post Type Calendar widget
 	* support for custom post type slugs
