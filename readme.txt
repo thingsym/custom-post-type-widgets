@@ -1,12 +1,12 @@
 === Custom Post Type Widgets ===
 
 Contributors: thingsym
-Donate link: 
+Donate link:
 Link: https://github.com/thingsym/custom-post-type-widgets
 Tags: widget, custom post type, taxonomy
 Requires at least: 3.4
-Tested up to: 4.4
-Stable tag: 1.0.4
+Tested up to: 4.5
+Stable tag: 1.1.0
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,14 @@ display a list of the top 45 that has used in a tag cloud.
 * **Taxonomy** - if selected, filter a custom taxonomy (e.g. post_tag).
 * **Class Name** - widget_tag_cloud
 
+= Search (Custom Post Type) =
+
+A search form for your site.
+
+* **Title** - description that appears over the search.
+* **Post Type** - if selected, filter by a custom post type. (e.g. post).
+* **Class Name** - widget_search
+
 = Contribute =
 
 Small patches, bug reports and the translation can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
@@ -96,6 +104,7 @@ If you would like to contribute, here are some notes and guidlines.
 4. Calendar (Custom Post Type)
 5. Recent Comments (Custom Post Type)
 6. Tag Cloud (Custom Post Type)
+7. Search (Custom Post Type)
 
 == Installation ==
 
@@ -111,11 +120,15 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 == Changelog ==
 
-=  1.0.4=
+= 1.1.0 =
+* add 'All' to posttype option
+* refactoring
+* add Custom Post Type Search widget
+= 1.0.4 =
 * fix cache key of Custom Post Type Calendar widget
 * support for custom post type slugs
 * add german translation
-=  1.0.3=
+= 1.0.3 =
 * add italian translation
 = 1.0.2 =
 * fix $cat_args['show_option_none']

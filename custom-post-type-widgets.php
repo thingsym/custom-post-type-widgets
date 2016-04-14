@@ -1,15 +1,15 @@
 <?php
-/*
-Plugin Name: Custom Post Type Widgets
-Plugin URI: https://github.com/thingsym/custom-post-type-widgets
-Description: This plugin adds default custom post type widgets.
-Version: 1.0.4
-Author: thingsym
-Author URI: http://www.thingslabo.com/
-License: GPL2
-Text Domain: custom-post-type-widgets
-Domain Path: /languages/
-*/
+/**
+ * Plugin Name: Custom Post Type Widgets
+ * Plugin URI: https://github.com/thingsym/custom-post-type-widgets
+ * Description: This plugin adds default custom post type widgets.
+ * Version: 1.1.0
+ * Author: thingsym
+ * Author URI: http://www.thingslabo.com/
+ * License: GPL2
+ * Text Domain: custom-post-type-widgets
+ * Domain Path: /languages/
+ */
 
 class Custom_Post_Type_Widgets {
 	public function __construct() {
@@ -20,8 +20,6 @@ class Custom_Post_Type_Widgets {
 
 	public function load() {
 		$dir = plugin_dir_path( __FILE__ );
-
-		include_once( $dir . 'inc/class-custom-post-type-categorydropdown.php' );
 
 		include_once( $dir . 'inc/widget-custom-post-type-recent-posts.php' );
 		include_once( $dir . 'inc/widget-custom-post-type-archive.php' );
