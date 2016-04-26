@@ -27,8 +27,17 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		*/
 
 		if ( $query->is_search ) {
-			$post_type = isset( $_GET['post_type'] ) ? wp_unslash( $_GET['post_type'] ) : 'post';
-			$query->set( 'post_type', $post_type );
+			$filter_post_type = '';
+			$post_types = get_post_types( array( 'public' => true ), 'objects' );
+
+			// 'page' post type only
+			if ( isset($_GET['post_type']) && 'page' === $_GET['post_type'] ) {
+				$filter_post_type = 'page';
+			}
+
+			if ( $filter_post_type && array_key_exists( $filter_post_type, $post_types ) ) {
+				$query->set( 'post_type', $filter_post_type );
+			}
 		}
 	}
 
