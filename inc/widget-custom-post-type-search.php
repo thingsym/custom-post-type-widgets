@@ -13,7 +13,9 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		parent::__construct( 'custom-post-type-search', __( 'Search (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 		$this->alt_option_name = 'widget_custom_post_type_search';
 
-		add_action( 'pre_get_posts', array( $this, 'query_search_filter_only_post_type' ) );
+		if ( ! is_admin() ) {
+			add_action( 'pre_get_posts', array( $this, 'query_search_filter_only_post_type' ) );
+		}
 	}
 
 	public function query_search_filter_only_post_type( $query ) {
