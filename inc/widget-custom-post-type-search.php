@@ -35,6 +35,8 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 				$filter_post_type = 'page';
 			}
 
+			$filter_post_type = apply_filters( 'WP_Custom_Post_Type_Widgets_Search_filter_post_type', $filter_post_type );
+
 			if ( $filter_post_type && array_key_exists( $filter_post_type, $post_types ) ) {
 				$query->set( 'post_type', $filter_post_type );
 			}
