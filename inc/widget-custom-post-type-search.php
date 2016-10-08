@@ -65,6 +65,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 
 		add_filter( 'get_search_form', array( $this, 'add_form_input_post_type' ), 10, 1 );
 		get_search_form();
+		remove_filter( 'get_search_form', array( $this, 'add_form_input_post_type' ) );
 
 		echo $args['after_widget'];
 	}

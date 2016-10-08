@@ -56,6 +56,9 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 <?php
 		}
 
+		remove_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ) );
+		remove_filter( 'get_archives_link', array( $this, 'trim_post_type' ) );
+
 		echo $args['after_widget'];
 	}
 

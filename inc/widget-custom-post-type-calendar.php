@@ -44,6 +44,10 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		echo '</div>';
 		echo $args['after_widget'];
 
+		remove_filter( 'get_calendar', array( $this, 'get_custom_post_type_calendar' ) );
+		remove_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ) );
+		remove_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ) );
+
 		self::$instance++;
 	}
 
