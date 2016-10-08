@@ -45,7 +45,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 
 	public function add_form_input_post_type( $form ) {
 		$options = get_option( $this->option_name );
-		$posttype = $options[$this->number]['posttype'];
+		$posttype = ! empty( $options[$this->number]['posttype'] ) ? $options[$this->number]['posttype'] : '';
 		$insert = '<input type="hidden" name="post_type" value="' . $posttype . '">';
 
 		$form = str_replace( '</form>', $insert . '</form>', $form );
@@ -54,7 +54,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
-		$posttype = $instance['posttype'];
+		$posttype = ! empty( $instance['posttype']) ? $instance['posttype'] : '';
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Search', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
 
 		echo $args['before_widget'];

@@ -36,7 +36,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		$output = '';
 
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Recent Comments', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
-		$posttype = $instance['posttype'];
+		$posttype = ! empty( $instance['posttype']) ? $instance['posttype'] : '';
 		if ( empty( $instance['number'] ) || ! $number = absint( $instance['number'] ) ) {
 			$number = 5;
 		}
@@ -85,7 +85,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 
 	public function form( $instance ) {
 		$title = isset( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : '';
-		$posttype = isset( $instance['posttype'] ) ? $instance['posttype']: 'post';
+		$posttype = isset( $instance['posttype'] ) ? $instance['posttype']: '';
 		$number = isset( $instance['number'] ) ? absint( $instance['number'] ) : 5;
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'custom-post-type-widgets' ); ?></label>

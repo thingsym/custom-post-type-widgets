@@ -25,7 +25,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 
 	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Calendar', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
-		$posttype = $instance['posttype'];
+		$posttype = ! empty( $instance['posttype'] ) ? $instance['posttype'] : 'post';
 
 		add_filter( 'get_calendar', array( $this, 'get_custom_post_type_calendar' ), 10, 3 );
 		add_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ), 10, 3 );
@@ -103,7 +103,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
 
 		$options = get_option( $this->option_name );
-		$posttype = $options[$this->number]['posttype'];
+		$posttype = ! empty( $options[$this->number]['posttype'] ) ? $options[$this->number]['posttype'] : 'post';
 
 		// Quick check. If we have no posts at all, abort!
 		if ( ! $posts ) {
@@ -295,8 +295,8 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	public function get_day_link_custom_post_type( $daylink, $year, $month, $day ) {
 		global $wp_rewrite;
 
-		$options = get_option($this->option_name);
-		$posttype = $options[$this->number]['posttype'];
+		$options = get_option( $this->option_name );
+		$posttype = ! empty( $options[$this->number]['posttype'] ) ? $options[$this->number]['posttype'] : 'post';
 
 		if ( ! $year ) {
 			$year = gmdate( 'Y', current_time( 'timestamp' ) );
@@ -322,7 +322,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			}
 			else {
 				$type_obj = get_post_type_object( $posttype );
-				$archive_name = $type_obj ->rewrite['slug'] ? $type_obj ->rewrite['slug'] : $posttype ;
+				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype ;
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '' ;
 					$daylink = str_replace( $front, $new_front . '/' . $archive_name , $daylink );
@@ -343,8 +343,8 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	public function get_month_link_custom_post_type( $monthlink, $year, $month ) {
 		global $wp_rewrite;
 
-		$options = get_option($this->option_name);
-		$posttype = $options[$this->number]['posttype'];
+		$options = get_option( $this->option_name );
+		$posttype = ! empty( $options[$this->number]['posttype'] ) ? $options[$this->number]['posttype'] : 'post';
 
 		if ( ! $year ) {
 			$year = gmdate( 'Y', current_time( 'timestamp' ) );
@@ -366,7 +366,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			}
 			else {
 				$type_obj = get_post_type_object( $posttype );
-				$archive_name = $type_obj ->rewrite['slug'] ? $type_obj ->rewrite['slug'] : $posttype ;
+				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype ;
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '' ;
 					$monthlink = str_replace( $front, $new_front . '/' . $archive_name , $monthlink );
