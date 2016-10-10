@@ -35,7 +35,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 				$filter_post_type = 'page';
 			}
 
-			$filter_post_type = apply_filters( 'WP_Custom_Post_Type_Widgets_Search_filter_post_type', $filter_post_type );
+			$filter_post_type = apply_filters( 'wp_custom_post_type_widgets_search_filter_post_type', $filter_post_type );
 
 			if ( $filter_post_type && array_key_exists( $filter_post_type, $post_types ) ) {
 				$query->set( 'post_type', $filter_post_type );
@@ -45,7 +45,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 
 	public function add_form_input_post_type( $form ) {
 		$options = get_option( $this->option_name );
-		$posttype = $options[$this->number]['posttype'];
+		$posttype = ! empty( $options[$this->number]['posttype'] ) ? $options[$this->number]['posttype'] : '';
 		$insert = '<input type="hidden" name="post_type" value="' . $posttype . '">';
 
 		$form = str_replace( '</form>', $insert . '</form>', $form );
@@ -54,7 +54,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
-		$posttype = $instance['posttype'];
+		$posttype = ! empty( $instance['posttype']) ? $instance['posttype'] : '';
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Search', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
 
 		echo $args['before_widget'];
@@ -65,6 +65,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 
 		add_filter( 'get_search_form', array( $this, 'add_form_input_post_type' ), 10, 1 );
 		get_search_form();
+		remove_filter( 'get_search_form', array( $this, 'add_form_input_post_type' ) );
 
 		echo $args['after_widget'];
 	}

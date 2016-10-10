@@ -14,7 +14,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
-		$posttype = $instance['posttype'];
+		$posttype = ! empty( $instance['posttype'] ) ? $instance['posttype'] : 'post';
 		$c = ! empty( $instance['count'] ) ? '1' : '0';
 		$d = ! empty( $instance['dropdown'] ) ? '1' : '0';
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Archives', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
@@ -55,6 +55,9 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			</ul>
 <?php
 		}
+
+		remove_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ) );
+		remove_filter( 'get_archives_link', array( $this, 'trim_post_type' ) );
 
 		echo $args['after_widget'];
 	}
@@ -114,7 +117,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		global $wp_rewrite;
 
 		$options = get_option( $this->option_name );
-		$posttype = $options[$this->number]['posttype'];
+		$posttype = ! empty( $options[$this->number]['posttype'] ) ? $options[$this->number]['posttype'] : '';
 
 		if ( ! $year ) {
 			$year = gmdate( 'Y', current_time( 'timestamp' ) );
@@ -136,7 +139,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			}
 			else {
 				$type_obj = get_post_type_object( $posttype );
-				$archive_name = $type_obj ->rewrite['slug'] ? $type_obj ->rewrite['slug'] : $posttype ;
+				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype ;
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '' ;
 					$monthlink = str_replace( $front, $new_front . '/' . $archive_name , $monthlink );
@@ -161,8 +164,8 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			return $link_html;
 		}
 
-		$options = get_option($this->option_name);
-		$posttype = $options[$this->number]['posttype'];
+		$options = get_option( $this->option_name );
+		$posttype = ! empty( $options[$this->number]['posttype'] ) ? $options[$this->number]['posttype'] : '';
 
 		$link_html = str_replace( '?post_type=' . $posttype, '', $link_html );
 

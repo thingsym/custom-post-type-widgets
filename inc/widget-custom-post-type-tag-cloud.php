@@ -15,7 +15,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 
 	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Tags', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
-		$taxonomy = $instance['taxonomy'];
+		$taxonomy = ! empty( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'post_tag';
 
 		$tag_cloud = wp_tag_cloud( apply_filters( 'widget_tag_cloud_args', array(
 			'taxonomy' => $taxonomy,
