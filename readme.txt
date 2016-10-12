@@ -5,8 +5,8 @@ Donate link:
 Link: https://github.com/thingsym/custom-post-type-widgets
 Tags: widget, custom post type, taxonomy
 Requires at least: 3.4
-Tested up to: 4.5
-Stable tag: 1.1.1
+Tested up to: 4.6
+Stable tag: 1.1.2
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,12 +120,17 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 == Changelog ==
 
+= 1.1.2 =
+* change value_field of the cat_args from name to slug [Categories widget]
+* limit the scope of the filter hook
+* rename the name of the filter hook [Search widget]
+* fix the initial value of the posttype, the archive_name and the taxonomy
 = 1.1.1 =
 * add apply_filters 'WP_Custom_Post_Type_Widgets_Search_filter_post_type' [Search widget]
 * improve function 'query_search_filter_only_post_type' [Search widget]
 * change to add_action 'pre_get_posts' run only on the front-end page [Search widget]
 = 1.1.0 =
-* add 'All' to posttype option
+* add 'All' to posttype option [Comments and Search widgets]
 * refactoring
 * add Custom Post Type Search widget
 = 1.0.4 =

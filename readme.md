@@ -110,12 +110,17 @@ If you would like to contribute, here are some notes and guidlines.
 
 ## Changelog
 
+* Version 1.1.2
+	* change value_field of the cat_args from name to slug [Categories widget]
+	* limit the scope of the filter hook
+	* rename the name of the filter hook [Search widget]
+	* fix the initial value of the posttype, the archive_name and the taxonomy
 * Version 1.1.1
 	* add apply_filters 'WP_Custom_Post_Type_Widgets_Search_filter_post_type' [Search widget]
 	* improve function 'query_search_filter_only_post_type' [Search widget]
 	* change to add_action 'pre_get_posts' run only on the front-end page [Search widget]
 * Version 1.1.0
-	* add 'All' to posttype option
+	* add 'All' to posttype option [Comments and Search widgets]
 	* refactoring
 	* add Custom Post Type Search widget
 * Version 1.0.4
