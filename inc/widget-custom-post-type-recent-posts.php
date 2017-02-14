@@ -37,6 +37,17 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 				'ignore_sticky_posts' => true,
 			) ) );
 
+			$possible_templates = array(
+				'content-'.$this->alt_option_name.'.php'
+			);
+			$template_found = false;
+
+			foreach( $possible_templates as $a_possible_template ){
+				if( locate_template( $a_possible_template ) ){
+					$template_found = locate_template( $a_possible_template );
+				}
+			}			
+
 			if ( $r->have_posts() ) : ?>
 				<?php echo $args['before_widget']; ?>
 				<?php if ( $title ) {
@@ -44,11 +55,15 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 				} ?>
 				<ul>
 				<?php while ( $r->have_posts() ) : $r->the_post(); ?>
+					<?php if( ! $template_found ) : ?>
 					<li><a href="<?php the_permalink() ?>"><?php get_the_title() ? the_title() : the_ID(); ?></a>
 					<?php if ( $show_date ) : ?>
 						<span class="post-date"><?php echo get_the_date(); ?></span>
 					<?php endif; ?>
 					</li>
+					<?php else : ?>
+						<?php include( $template_found ); ?>
+					<?php endif; ?>
 				<?php endwhile; ?>
 				</ul>
 				<?php echo $args['after_widget']; ?>
