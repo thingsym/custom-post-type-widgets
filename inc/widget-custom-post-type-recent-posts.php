@@ -38,6 +38,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 			) ) );
 
 			$possible_templates = array(
+				'content-'.$this->alt_option_name.'-'.$posttype.'.php',
 				'content-'.$this->alt_option_name.'.php'
 			);
 			$template_found = false;
