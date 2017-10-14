@@ -13,8 +13,8 @@
 
 class Custom_Post_Type_Widgets {
 	public function __construct() {
-		add_action( 'widgets_init', array( $this, 'load' ), 9 );
-		add_action( 'widgets_init', array( $this, 'init' ), 10 );
+		add_action( 'plugins_loaded', array( $this, 'load' ) );
+		add_action( 'widgets_init', array( $this, 'init' ) );
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 	}
 
