@@ -27,13 +27,11 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_categories', $this->wp_custom_post_type_widgets_categories->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_categories->widget_options );
 		$this->assertContains( 'A list or dropdown of categories.', $this->wp_custom_post_type_widgets_categories->widget_options['description'] );
-		$this->assertFalse( $this->wp_custom_post_type_widgets_categories->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_categories->control_options );
 		$this->assertEquals( 'custom-post-type-categories', $this->wp_custom_post_type_widgets_categories->control_options['id_base'] );
 
 		$this->assertEquals( 'widget_custom-post-type-categories', $this->wp_custom_post_type_widgets_categories->option_name );
-		$this->assertEquals( NULL, $this->wp_custom_post_type_widgets_categories->alt_option_name );
 	}
 
 	/**

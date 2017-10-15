@@ -27,13 +27,11 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_archive', $this->wp_custom_post_type_widgets_archives->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_archives->widget_options );
 		$this->assertContains( 'A monthly archive of your site&#8217;s Posts.', $this->wp_custom_post_type_widgets_archives->widget_options['description'] );
-		$this->assertFalse( $this->wp_custom_post_type_widgets_archives->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_archives->control_options );
 		$this->assertEquals( 'custom-post-type-archives', $this->wp_custom_post_type_widgets_archives->control_options['id_base'] );
 
 		$this->assertEquals( 'widget_custom-post-type-archives', $this->wp_custom_post_type_widgets_archives->option_name );
-		$this->assertEquals( NULL, $this->wp_custom_post_type_widgets_archives->alt_option_name );
 	}
 
 	/**

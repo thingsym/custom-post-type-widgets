@@ -27,7 +27,6 @@ class Test_WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_recent_entries', $this->wp_custom_post_type_widgets_recent_posts->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_recent_posts->widget_options );
 		$this->assertContains( 'Your site&#8217;s most recent custom Posts.', $this->wp_custom_post_type_widgets_recent_posts->widget_options['description'] );
-		$this->assertFalse( $this->wp_custom_post_type_widgets_recent_posts->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_recent_posts->control_options );
 		$this->assertEquals( 'custom-post-type-recent-posts', $this->wp_custom_post_type_widgets_recent_posts->control_options['id_base'] );
