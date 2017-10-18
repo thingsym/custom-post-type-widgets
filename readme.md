@@ -118,6 +118,11 @@ If you would like to contribute, here are some notes and guidlines.
 
 ## Changelog
 
+* Version 1.1.3
+	* change Requires at least version 3.4
+	* fix add_action
+	* add sanitize
+	* add tests
 * Version 1.1.2
 	* [Categories widget] change value_field of the cat_args from name to slug
 	* limit the scope of the filter hook

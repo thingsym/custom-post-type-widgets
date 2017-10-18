@@ -4,10 +4,10 @@ Contributors: thingsym
 Donate link:
 Link: https://github.com/thingsym/custom-post-type-widgets
 Tags: widget, custom post type, taxonomy
-Tested up to: 4.6
-Stable tag: 1.1.2
 Requires at least: 3.7
 Requires PHP: 5.4
+Tested up to: 4.8
+Stable tag: 1.1.3
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,12 @@ If you would like to contribute, here are some notes and guidlines.
 And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
 
 == Changelog ==
+
+= 1.1.3 =
+* change Requires at least version 3.4
+* fix add_action
+* add sanitize
+* add tests
 
 = 1.1.2 =
 * [Categories widget] change value_field of the cat_args from name to slug
