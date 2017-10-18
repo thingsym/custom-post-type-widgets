@@ -7,6 +7,7 @@ Tags: widget, custom post type, taxonomy
 Tested up to: 4.6
 Stable tag: 1.1.2
 Requires at least: 3.7
+Requires PHP: 5.4
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
