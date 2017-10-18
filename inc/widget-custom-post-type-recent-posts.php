@@ -9,7 +9,7 @@
 class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 
 	public function __construct() {
-		$widget_ops = array( 'classname' => 'widget_recent_entries', 'description' => __( 'Your site’s most recent custom Posts.', 'custom-post-type-widgets' ) );
+		$widget_ops = array( 'classname' => 'widget_recent_entries', 'description' => __( 'Your site&#8217;s most recent custom Posts.', 'custom-post-type-widgets' ) );
 		parent::__construct( 'custom-post-type-recent-posts', __( 'Recent Posts (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 		$this->alt_option_name = 'widget_custom_post_type_recent_posts';
 	}
@@ -60,7 +60,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title'] = empty( $new_instance['title'] ) ? '' : sanitize_text_field( $new_instance['title'] );
 		$instance['posttype'] = strip_tags( $new_instance['posttype'] );
 		$instance['number'] = (int) $new_instance['number'];
 		$instance['show_date'] = isset( $new_instance['show_date'] ) ? (bool) $new_instance['show_date'] : false;

@@ -3,7 +3,7 @@
  * Plugin Name: Custom Post Type Widgets
  * Plugin URI: https://github.com/thingsym/custom-post-type-widgets
  * Description: This plugin adds default custom post type widgets.
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: thingsym
  * Author URI: http://www.thingslabo.com/
  * License: GPL2
@@ -13,8 +13,8 @@
 
 class Custom_Post_Type_Widgets {
 	public function __construct() {
-		add_action( 'widgets_init', array( $this, 'load' ), 9 );
-		add_action( 'widgets_init', array( $this, 'init' ), 10 );
+		add_action( 'plugins_loaded', array( $this, 'load' ) );
+		add_action( 'widgets_init', array( $this, 'init' ) );
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 	}
 

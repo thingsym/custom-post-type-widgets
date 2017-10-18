@@ -4,9 +4,10 @@ Contributors: thingsym
 Donate link:
 Link: https://github.com/thingsym/custom-post-type-widgets
 Tags: widget, custom post type, taxonomy
-Requires at least: 3.4
-Tested up to: 4.6
-Stable tag: 1.1.2
+Requires at least: 3.7
+Requires PHP: 5.4
+Tested up to: 4.8
+Stable tag: 1.1.3
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,11 +84,16 @@ A search form for your site.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
 * **Class Name** - widget_search
 
+= Test Matrix =
+
+For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widgets)
+
 = Contribute =
 
-Small patches, bug reports and the translation can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
+Small patches and bug reports can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
 
-Github : [custom-post-type-widgets](https://github.com/thingsym/custom-post-type-widgets)
+* [custom-post-type-widgets - GitHub](https://github.com/thingsym/custom-post-type-widgets)
+* [Custom Post Type Widgets - WordPress Plugin](https://wordpress.org/plugins/custom-post-type-widgets/)
 
 If you would like to contribute, here are some notes and guidlines.
 
@@ -120,28 +126,46 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 == Changelog ==
 
+= 1.1.3 =
+* change Requires at least version 3.4
+* fix add_action
+* add sanitize
+* add tests
+
 = 1.1.2 =
-* change value_field of the cat_args from name to slug [Categories widget]
+* [Categories widget] change value_field of the cat_args from name to slug
 * limit the scope of the filter hook
-* rename the name of the filter hook [Search widget]
+* [Search widget] rename the name of the filter hook
 * fix the initial value of the posttype, the archive_name and the taxonomy
+
 = 1.1.1 =
-* add apply_filters 'WP_Custom_Post_Type_Widgets_Search_filter_post_type' [Search widget]
+* [Search widget] add apply_filters 'WP_Custom_Post_Type_Widgets_Search_filter_post_type'
 * improve function 'query_search_filter_only_post_type' [Search widget]
-* change to add_action 'pre_get_posts' run only on the front-end page [Search widget]
+* [Search widget] change to add_action 'pre_get_posts' run only on the front-end page
+
 = 1.1.0 =
-* add 'All' to posttype option [Comments and Search widgets]
+* [Comments widgets, Search widgets] add 'All' to posttype option
 * refactoring
 * add Custom Post Type Search widget
+
 = 1.0.4 =
 * fix cache key of Custom Post Type Calendar widget
 * support for custom post type slugs
 * add german translation
+
 = 1.0.3 =
 * add italian translation
+
 = 1.0.2 =
 * fix $cat_args['show_option_none']
+
 = 1.0.1 =
 * fix the 'name' param of get_terms()
+
 = 1.0.0 =
 * Initial release
+
+== Upgrade Notice ==
+
+= 1.1.3 =
+* Requires at least version 3.7 of the WordPress

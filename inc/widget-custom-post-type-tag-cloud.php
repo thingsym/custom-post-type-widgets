@@ -10,7 +10,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 
 	public function __construct() {
 		$widget_ops = array( 'classname' => 'widget_tag_cloud', 'description' => __( 'A cloud of your most used tags.', 'custom-post-type-widgets' ) );
-		parent::__construct( 'custom-post-type-tag_cloud', __( 'Tag Cloud (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
+		parent::__construct( 'custom-post-type-tag-cloud', __( 'Tag Cloud (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 	}
 
 	public function widget( $args, $instance ) {
