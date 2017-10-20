@@ -1,5 +1,9 @@
 # Introducing Custom Post Type Widgets
 
+[![Build Status](https://travis-ci.org/thingsym/custom-post-type-widgets.svg?branch=master)](https://travis-ci.org/thingsym/custom-post-type-widgets)
+
+[![WordPress](https://img.shields.io/wordpress/v/custom-post-type-widgets.svg)](https://wordpress.org/plugins/custom-post-type-widgets/)
+
 This WordPress plugin adds default custom post type widgets. You can filter by registered Custom Post Type or Taxonomy on widgets.
 
 ## How do I use it?
@@ -94,12 +98,16 @@ A search form for your site.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
 * **Class Name** - widget_search
 
+## Test Matrix
+
+For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widgets)
 
 ## Contribute
 
-Small patches, bug reports and the translation can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
+Small patches and bug reports can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
 
-Github : [custom-post-type-widgets](https://github.com/thingsym/custom-post-type-widgets)
+* [custom-post-type-widgets - GitHub](https://github.com/thingsym/custom-post-type-widgets)
+* [Custom Post Type Widgets - WordPress Plugin](https://wordpress.org/plugins/custom-post-type-widgets/)
 
 If you would like to contribute, here are some notes and guidlines.
 
@@ -110,17 +118,22 @@ If you would like to contribute, here are some notes and guidlines.
 
 ## Changelog
 
+* Version 1.1.3
+	* change Requires at least version 3.4
+	* fix add_action
+	* add sanitize
+	* add tests
 * Version 1.1.2
-	* change value_field of the cat_args from name to slug [Categories widget]
+	* [Categories widget] change value_field of the cat_args from name to slug
 	* limit the scope of the filter hook
-	* rename the name of the filter hook [Search widget]
+	* [Search widget] rename the name of the filter hook
 	* fix the initial value of the posttype, the archive_name and the taxonomy
 * Version 1.1.1
-	* add apply_filters 'WP_Custom_Post_Type_Widgets_Search_filter_post_type' [Search widget]
-	* improve function 'query_search_filter_only_post_type' [Search widget]
-	* change to add_action 'pre_get_posts' run only on the front-end page [Search widget]
+	* [Search widget] add apply_filters 'WP_Custom_Post_Type_Widgets_Search_filter_post_type'
+	* [Search widget] improve function 'query_search_filter_only_post_type'
+	* [Search widget] change to add_action 'pre_get_posts' run only on the front-end page
 * Version 1.1.0
-	* add 'All' to posttype option [Comments and Search widgets]
+	* [Comments widgets, Search widgets] add 'All' to posttype option
 	* refactoring
 	* add Custom Post Type Search widget
 * Version 1.0.4
