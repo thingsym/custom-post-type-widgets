@@ -3,7 +3,7 @@
 Contributors: thingsym
 Donate link:
 Link: https://github.com/thingsym/custom-post-type-widgets
-Tags: widget, custom post type, taxonomy
+Tags: widget, widgets, custom post type, taxonomy
 Requires at least: 3.7
 Requires PHP: 5.4
 Tested up to: 4.8
@@ -86,9 +86,9 @@ A search form for your site.
 
 = Test Matrix =
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widgets)
+For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widgets).
 
-= Contribute =
+= Contribution =
 
 Small patches and bug reports can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
 
@@ -127,7 +127,7 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 == Changelog ==
 
 = 1.1.3 =
-* change Requires at least version 3.4
+* change Requires at least version 3.7
 * fix add_action
 * add sanitize
 * add tests
