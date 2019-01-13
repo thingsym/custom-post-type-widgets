@@ -29,7 +29,7 @@ class Test_Custom_Post_Type_Widgets_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	function load() {
-
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Test_Custom_Post_Type_Widgets_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	function uninstall() {
-
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 }

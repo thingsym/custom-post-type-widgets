@@ -72,6 +72,8 @@ class Test_WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_recent_posts
 	 */
 	function update_case_initial() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+
 		// $new_instance = array();
 		// $expected = array(
 		// 	'title'          => '',

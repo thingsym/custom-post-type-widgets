@@ -39,6 +39,8 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_categories
 	 */
 	function widget() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+
 		// $categories = $this->factory->category->create_many( 5 );
 		//
 		// $args = array(
@@ -69,6 +71,8 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_categories
 	 */
 	function update_case_initial() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+
 		// $new_instance = array();
 		// $expected = array(
 		// 	'title'          => '',
