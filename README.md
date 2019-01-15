@@ -98,28 +98,32 @@ A search form for your site.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
 * **Class Name** - widget_search
 
+## WordPress Plugin Directory
+
+Custom Post Type Widgets is hosted on the WordPress Plugin Directory.
+
+[https://wordpress.org/plugins/custom-post-type-widgets/](https://wordpress.org/plugins/custom-post-type-widgets/)
+
 ## Test Matrix
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widgets)
+For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widgets).
 
-## Contribute
+## Contribution
+
+### Patches and Bug Fixes
 
 Small patches and bug reports can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
 
-* [custom-post-type-widgets - GitHub](https://github.com/thingsym/custom-post-type-widgets)
-* [Custom Post Type Widgets - WordPress Plugin](https://wordpress.org/plugins/custom-post-type-widgets/)
-
-If you would like to contribute, here are some notes and guidlines.
-
-* All development happens on the **develop** branch, so it is always the most up-to-date
-* The **master** branch only contains tagged releases
-* If you are going to be submitting a pull request, please submit your pull request to the **develop** branch
-* See about [forking](https://help.github.com/articles/fork-a-repo/) and [pull requests](https://help.github.com/articles/using-pull-requests/)
+1. Fork [Custom Post Type Widgets](https://github.com/thingsym/custom-post-type-widgets) from GitHub repository
+2. Create a feature branch: git checkout -b my-new-feature
+3. Commit your changes: git commit -am 'Add some feature'
+4. Push to the branch: git push origin my-new-feature
+5. Create new Pull Request
 
 ## Changelog
 
 * Version 1.1.3
-	* change Requires at least version 3.4
+	* change Requires at least version 3.7
 	* fix add_action
 	* add sanitize
 	* add tests
@@ -148,3 +152,12 @@ If you would like to contribute, here are some notes and guidlines.
 	* fix the 'name' param of get_terms()
 * Version 1.0.0
 	* Initial release
+
+## Upgrade Notice
+
+* 1.1.3
+	* Requires at least version 3.7 of the WordPress
+
+## License
+
+Licensed under [GPLv2](https://www.gnu.org/licenses/gpl-2.0.html).
