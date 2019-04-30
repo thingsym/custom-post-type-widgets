@@ -100,7 +100,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'custom-post-type-widgets' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
 
-		<?php
+			<?php
 			$post_types = get_post_types( array( 'public' => true ), 'objects' );
 
 			printf(
@@ -132,7 +132,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 
 			}
 			echo '</select></p>';
-		?>
+?>
 
 		<p><label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Number of comments to show:', 'custom-post-type-widgets' ); ?></label>
 		<input class="tiny-text" id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="number" step="1" min="1" value="<?php echo $number; ?>" size="3" /></p>
