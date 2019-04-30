@@ -9,18 +9,26 @@
 class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 
 	public function __construct() {
-		$widget_ops = array( 'classname' => 'widget_tag_cloud', 'description' => __( 'A cloud of your most used tags.', 'custom-post-type-widgets' ) );
+		$widget_ops = array(
+			'classname'   => 'widget_tag_cloud',
+			'description' => __( 'A cloud of your most used tags.', 'custom-post-type-widgets' ),
+		);
 		parent::__construct( 'custom-post-type-tag-cloud', __( 'Tag Cloud (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 	}
 
 	public function widget( $args, $instance ) {
-		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Tags', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
+		$title    = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Tags', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
 		$taxonomy = ! empty( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'post_tag';
 
-		$tag_cloud = wp_tag_cloud( apply_filters( 'widget_tag_cloud_args', array(
-			'taxonomy' => $taxonomy,
-			'echo' => false,
-		) ) );
+		$tag_cloud = wp_tag_cloud(
+			apply_filters(
+				'widget_tag_cloud_args',
+				array(
+					'taxonomy' => $taxonomy,
+					'echo'     => false,
+				)
+			)
+		);
 
 		if ( empty( $tag_cloud ) ) {
 			return;
@@ -37,13 +45,13 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 	}
 
 	public function update( $new_instance, $old_instance ) {
-		$instance['title'] = sanitize_text_field( $new_instance['title'] );
+		$instance['title']    = sanitize_text_field( $new_instance['title'] );
 		$instance['taxonomy'] = stripslashes( $new_instance['taxonomy'] );
 		return $instance;
 	}
 
 	public function form( $instance ) {
-		$title = isset( $instance['title'] ) ? strip_tags( $instance['title'] ) : '';
+		$title    = isset( $instance['title'] ) ? strip_tags( $instance['title'] ) : '';
 		$taxonomy = isset( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'post_tag';
 		$title_id = $this->get_field_id( 'title' );
 ?>
