@@ -21,13 +21,13 @@ class Custom_Post_Type_Widgets {
 	public function load() {
 		$dir = plugin_dir_path( __FILE__ );
 
-		include_once( $dir . 'inc/widget-custom-post-type-recent-posts.php' );
-		include_once( $dir . 'inc/widget-custom-post-type-archive.php' );
-		include_once( $dir . 'inc/widget-custom-post-type-categories.php' );
-		include_once( $dir . 'inc/widget-custom-post-type-calendar.php' );
-		include_once( $dir . 'inc/widget-custom-post-type-recent-comments.php' );
-		include_once( $dir . 'inc/widget-custom-post-type-tag-cloud.php' );
-		include_once( $dir . 'inc/widget-custom-post-type-search.php' );
+		include_once $dir . 'inc/widget-custom-post-type-recent-posts.php';
+		include_once $dir . 'inc/widget-custom-post-type-archive.php';
+		include_once $dir . 'inc/widget-custom-post-type-categories.php';
+		include_once $dir . 'inc/widget-custom-post-type-calendar.php';
+		include_once $dir . 'inc/widget-custom-post-type-recent-comments.php';
+		include_once $dir . 'inc/widget-custom-post-type-tag-cloud.php';
+		include_once $dir . 'inc/widget-custom-post-type-search.php';
 	}
 
 	public function init() {
