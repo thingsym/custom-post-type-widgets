@@ -10,6 +10,12 @@
   <rule ref="WordPress">
     <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
     <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
+    <exclude name="Squiz.Commenting.FunctionComment.Missing" />
+    <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
+    <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
+    <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText" />
+    <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
+    <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedIf" />
   </rule>
 
   <exclude-pattern>*/tests/*</exclude-pattern>
