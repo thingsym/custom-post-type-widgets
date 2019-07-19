@@ -99,7 +99,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 		$taxonomy = isset( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'post_tag';
 		$title_id = $this->get_field_id( 'title' );
 ?>
-		<p><label for="<?php echo $title_id; ?>"><?php _e( 'Title:', 'custom-post-type-widgets' ); ?></label>
+		<p><label for="<?php echo $title_id; ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
 		<input class="widefat" id="<?php echo $title_id; ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
 
 		<?php
