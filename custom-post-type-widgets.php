@@ -1,14 +1,17 @@
 <?php
 /**
  * Plugin Name: Custom Post Type Widgets
- * Plugin URI: https://github.com/thingsym/custom-post-type-widgets
+ * Plugin URI:  https://github.com/thingsym/custom-post-type-widgets
  * Description: This plugin adds default custom post type widgets.
- * Version: 1.1.3
- * Author: thingsym
- * Author URI: http://www.thingslabo.com/
- * License: GPL2
+ * Version:     1.1.3
+ * Author:      thingsym
+ * Author URI:  http://www.thingslabo.com/
+ * License:     GPL2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: custom-post-type-widgets
  * Domain Path: /languages/
+ *
+ * @package         Custom_Post_Type_Widgets
  */
 
 class Custom_Post_Type_Widgets {
