@@ -6,8 +6,20 @@
  * @package Custom Post Type Widgets
  */
 
+/**
+ * Core class WP_Custom_Post_Type_Widgets_Recent_Posts
+ *
+ * @since 1.0.0
+ */
 class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 
+	/**
+	 * Sets up a new widget instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 */
 	public function __construct() {
 		$widget_ops = array(
 			'classname'   => 'widget_recent_entries',
@@ -17,6 +29,17 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 		$this->alt_option_name = 'widget_custom_post_type_recent_posts';
 	}
 
+	/**
+	 * Outputs the content for the widget instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param array $args     Display arguments including 'before_title', 'after_title',
+	 *                        'before_widget', and 'after_widget'.
+	 * @param array $instance Settings for the current widget instance.
+	 */
 	public function widget( $args, $instance ) {
 		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->id;
@@ -71,6 +94,18 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 		}
 	}
 
+	/**
+	 * Handles updating settings for the current Archives widget instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param array $new_instance New settings for this instance as input by the user via form() method.
+	 * @param array $old_instance Old settings for this instance.
+	 *
+	 * @return array Updated settings to save.
+	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance              = $old_instance;
 		$instance['title']     = empty( $new_instance['title'] ) ? '' : sanitize_text_field( $new_instance['title'] );
@@ -80,6 +115,15 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 		return $instance;
 	}
 
+	/**
+	 * Outputs the settings form for the widget.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param array $instance Current settings.
+	 */
 	public function form( $instance ) {
 		$title     = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 		$posttype  = isset( $instance['posttype'] ) ? $instance['posttype'] : 'post';

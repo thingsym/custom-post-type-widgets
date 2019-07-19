@@ -14,13 +14,33 @@
  * @package         Custom_Post_Type_Widgets
  */
 
+/**
+ * Core class Custom_Post_Type_Widgets
+ *
+ * @since 1.0.0
+ */
 class Custom_Post_Type_Widgets {
+
+	/**
+	 * Sets up a new widget instance.
+	 *
+	 * @access public
+	 *
+	 * @since 1.0.0
+	 */
 	public function __construct() {
 		add_action( 'plugins_loaded', array( $this, 'load' ) );
 		add_action( 'widgets_init', array( $this, 'init' ) );
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 	}
 
+	/**
+	 * File loader
+	 *
+	 * @access public
+	 *
+	 * @since 1.0.0
+	 */
 	public function load() {
 		$dir = plugin_dir_path( __FILE__ );
 
@@ -33,6 +53,13 @@ class Custom_Post_Type_Widgets {
 		include_once $dir . 'inc/widget-custom-post-type-search.php';
 	}
 
+	/**
+	 * Regist widget
+	 *
+	 * @access public
+	 *
+	 * @since 1.0.0
+	 */
 	public function init() {
 		if ( ! is_blog_installed() ) {
 			return;

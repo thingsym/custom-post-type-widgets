@@ -6,8 +6,20 @@
  * @package Custom Post Type Widgets
  */
 
+/**
+ * Core class WP_Custom_Post_Type_Widgets_Search
+ *
+ * @since 1.0.0
+ */
 class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 
+	/**
+	 * Sets up a new widget instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 */
 	public function __construct() {
 		$widget_ops = array(
 			'classname'   => 'widget_search',
@@ -21,6 +33,17 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		}
 	}
 
+	/**
+	 * Adds the post_type to query.
+	 *
+	 * Hooks to pre_get_posts
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param string $query
+	 */
 	public function query_search_filter_only_post_type( $query ) {
 		/**
 		* publicly_queryable of 'page' post type is false.
@@ -46,6 +69,19 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		}
 	}
 
+	/**
+	 * Adds post_type input with search form.
+	 *
+	 * Hooks to get_search_form
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param string $form
+	 *
+	 * @return string $form
+	 */
 	public function add_form_input_post_type( $form ) {
 		$options  = get_option( $this->option_name );
 		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : '';
@@ -56,6 +92,17 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		return $form;
 	}
 
+	/**
+	 * Outputs the content for the widget instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param array $args     Display arguments including 'before_title', 'after_title',
+	 *                        'before_widget', and 'after_widget'.
+	 * @param array $instance Settings for the current widget instance.
+	 */
 	public function widget( $args, $instance ) {
 		$posttype = ! empty( $instance['posttype'] ) ? $instance['posttype'] : '';
 		$title    = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Search', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
@@ -73,12 +120,33 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		echo $args['after_widget'];
 	}
 
+	/**
+	 * Handles updating settings for the current Archives widget instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param array $new_instance New settings for this instance as input by the user via form() method.
+	 * @param array $old_instance Old settings for this instance.
+	 *
+	 * @return array Updated settings to save.
+	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance['title']    = sanitize_text_field( $new_instance['title'] );
 		$instance['posttype'] = strip_tags( $new_instance['posttype'] );
 		return $instance;
 	}
 
+	/**
+	 * Outputs the settings form for the widget.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param array $instance Current settings.
+	 */
 	public function form( $instance ) {
 		$instance = wp_parse_args(
 			(array) $instance,

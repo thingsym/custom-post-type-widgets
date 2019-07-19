@@ -6,8 +6,20 @@
  * @package Custom Post Type Widgets
  */
 
+/**
+ * Core class WP_Custom_Post_Type_Widgets_Recent_Comments
+ *
+ * @since 1.0.0
+ */
 class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 
+	/**
+	 * Sets up a new widget instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 */
 	public function __construct() {
 		$widget_ops = array(
 			'classname'   => 'widget_recent_comments',
@@ -21,6 +33,15 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		}
 	}
 
+	/**
+	 * Outputs comments style.
+	 *
+	 * Hooks to wp_head
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 */
 	public function recent_comments_style() {
 		if ( ! current_theme_supports( 'widgets' ) // Temp hack #14876
 			|| ! apply_filters( 'show_recent_comments_widget_style', true, $this->id_base ) ) {
@@ -31,6 +52,17 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 <?php
 	}
 
+	/**
+	 * Outputs the content for the widget instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param array $args     Display arguments including 'before_title', 'after_title',
+	 *                        'before_widget', and 'after_widget'.
+	 * @param array $instance Settings for the current widget instance.
+	 */
 	public function widget( $args, $instance ) {
 		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->id;
@@ -84,6 +116,18 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		echo $output;
 	}
 
+	/**
+	 * Handles updating settings for the current Archives widget instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param array $new_instance New settings for this instance as input by the user via form() method.
+	 * @param array $old_instance Old settings for this instance.
+	 *
+	 * @return array Updated settings to save.
+	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance             = $old_instance;
 		$instance['title']    = empty( $new_instance['title'] ) ? '' : sanitize_text_field( $new_instance['title'] );
@@ -92,6 +136,15 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		return $instance;
 	}
 
+	/**
+	 * Outputs the settings form for the widget.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param array $instance Current settings.
+	 */
 	public function form( $instance ) {
 		$title    = isset( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : '';
 		$posttype = isset( $instance['posttype'] ) ? $instance['posttype'] : '';
