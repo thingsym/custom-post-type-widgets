@@ -307,9 +307,9 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			}
 			$newrow = false;
 
-			if ( $day == gmdate( 'j', current_time( 'timestamp' ) ) &&
-				$thismonth == gmdate( 'm', current_time( 'timestamp' ) ) &&
-				$thisyear == gmdate( 'Y', current_time( 'timestamp' ) ) ) {
+			if ( gmdate( 'j', current_time( 'timestamp' ) ) == $day &&
+				gmdate( 'm', current_time( 'timestamp' ) ) == $thismonth &&
+				gmdate( 'Y', current_time( 'timestamp' ) ) == $thisyear ) {
 				$calendar_output .= '<td id="today">';
 			}
 			else {
