@@ -40,8 +40,7 @@ class Test_WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_recent_comments
 	 */
 	function widget() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
@@ -106,8 +105,7 @@ class Test_WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_recent_comments
 	 */
 	function form() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 }
