@@ -131,7 +131,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance             = $old_instance;
 		$instance['title']    = empty( $new_instance['title'] ) ? '' : sanitize_text_field( $new_instance['title'] );
-		$instance['posttype'] = strip_tags( $new_instance['posttype'] );
+		$instance['posttype'] = wp_strip_all_tags( $new_instance['posttype'] );
 		$instance['number']   = absint( $new_instance['number'] );
 		return $instance;
 	}

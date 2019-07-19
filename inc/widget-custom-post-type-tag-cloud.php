@@ -95,7 +95,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 	 * @param array $instance Current settings.
 	 */
 	public function form( $instance ) {
-		$title    = isset( $instance['title'] ) ? strip_tags( $instance['title'] ) : '';
+		$title    = isset( $instance['title'] ) ? wp_strip_all_tags( $instance['title'] ) : '';
 		$taxonomy = isset( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'post_tag';
 		$title_id = $this->get_field_id( 'title' );
 ?>

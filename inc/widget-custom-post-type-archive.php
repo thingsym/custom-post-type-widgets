@@ -122,7 +122,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			)
 		);
 		$instance['title']    = sanitize_text_field( $new_instance['title'] );
-		$instance['posttype'] = strip_tags( $new_instance['posttype'] );
+		$instance['posttype'] = wp_strip_all_tags( $new_instance['posttype'] );
 		$instance['count']    = $new_instance['count'] ? 1 : 0;
 		$instance['dropdown'] = $new_instance['dropdown'] ? 1 : 0;
 		return $instance;

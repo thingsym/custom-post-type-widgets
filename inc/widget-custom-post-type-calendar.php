@@ -92,7 +92,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance             = $old_instance;
 		$instance['title']    = sanitize_text_field( $new_instance['title'] );
-		$instance['posttype'] = strip_tags( $new_instance['posttype'] );
+		$instance['posttype'] = wp_strip_all_tags( $new_instance['posttype'] );
 		return $instance;
 	}
 

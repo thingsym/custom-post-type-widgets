@@ -134,7 +134,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance['title']    = sanitize_text_field( $new_instance['title'] );
-		$instance['posttype'] = strip_tags( $new_instance['posttype'] );
+		$instance['posttype'] = wp_strip_all_tags( $new_instance['posttype'] );
 		return $instance;
 	}
 
@@ -155,7 +155,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 				'posttype' => 'post',
 			)
 		);
-		$title    = isset( $instance['title'] ) ? strip_tags( $instance['title'] ) : '';
+		$title    = isset( $instance['title'] ) ? wp_strip_all_tags( $instance['title'] ) : '';
 		$posttype = isset( $instance['posttype'] ) ? $instance['posttype'] : 'post';
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
