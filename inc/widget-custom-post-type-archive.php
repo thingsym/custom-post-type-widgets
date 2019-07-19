@@ -220,7 +220,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			$monthlink = str_replace( '%year%', $year, $monthlink );
 			$monthlink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $monthlink );
 
-			if ( 'post' == $posttype ) {
+			if ( 'post' === $posttype ) {
 				$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
 			}
 			else {
