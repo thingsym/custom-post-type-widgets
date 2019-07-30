@@ -60,8 +60,8 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$expected = array(
 			'title'          => '',
 			'posttype'       => '',
-			'count'          => 0,
-			'dropdown'       => 0,
+			'count'          => false,
+			'dropdown'       => false,
 		);
 
 		$validate = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
@@ -77,14 +77,14 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => 'aaaaa',
 			'posttype'       => 'post',
-			'count'          => 0,
-			'dropdown'       => 0,
+			'count'          => false,
+			'dropdown'       => false,
 		);
 		$expected = array(
 			'title'          => 'aaaaa',
 			'posttype'       => 'post',
-			'count'          => 0,
-			'dropdown'       => 0,
+			'count'          => false,
+			'dropdown'       => false,
 		);
 
 		$validate = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
@@ -94,14 +94,14 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => "as\n<br>df",
 			'posttype'       => 'post',
-			'count'          => 1,
-			'dropdown'       => 1,
+			'count'          => true,
+			'dropdown'       => true,
 		);
 		$expected = array(
 			'title'          => sanitize_text_field( "as\n<br>df" ),
 			'posttype'       => 'post',
-			'count'          => 1,
-			'dropdown'       => 1,
+			'count'          => true,
+			'dropdown'       => true,
 		);
 
 		$validate = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
@@ -114,6 +114,22 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_archives
 	 */
 	function form() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_archives
+	 */
+	function get_month_link_custom_post_type() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_archives
+	 */
+	function trim_post_type() {
 		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 

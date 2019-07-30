@@ -103,4 +103,28 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_calendar
+	 */
+	function get_custom_post_type_calendar() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_calendar
+	 */
+	function get_day_link_custom_post_type() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_calendar
+	 */
+	function get_month_link_custom_post_type() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
 }
