@@ -24,6 +24,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		$widget_ops = array(
 			'classname'   => 'widget_recent_comments',
 			'description' => __( 'Your site’s most recent comments.', 'custom-post-type-widgets' ),
+			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'custom-post-type-recent-comments', __( 'Recent Comments (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 		$this->alt_option_name = 'widget_custom_post_type_recent_comments';

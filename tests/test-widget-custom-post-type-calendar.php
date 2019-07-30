@@ -27,6 +27,8 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_calendar', $this->wp_custom_post_type_widgets_calendar->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_calendar->widget_options );
 		$this->assertContains( 'A calendar of your site&#8217;s Posts.', $this->wp_custom_post_type_widgets_calendar->widget_options['description'] );
+		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_calendar->widget_options );
+		$this->assertTrue( $this->wp_custom_post_type_widgets_calendar->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_calendar->control_options );
 		$this->assertEquals( 'custom-post-type-calendar', $this->wp_custom_post_type_widgets_calendar->control_options['id_base'] );

@@ -24,6 +24,7 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 		$widget_ops = array(
 			'classname'   => 'widget_categories',
 			'description' => __( 'A list or dropdown of categories.', 'custom-post-type-widgets' ),
+			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'custom-post-type-categories', __( 'Categories (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 	}

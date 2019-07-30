@@ -27,6 +27,8 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_archive', $this->wp_custom_post_type_widgets_archives->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_archives->widget_options );
 		$this->assertContains( 'A monthly archive of your site&#8217;s Posts.', $this->wp_custom_post_type_widgets_archives->widget_options['description'] );
+		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_archives->widget_options );
+		$this->assertTrue( $this->wp_custom_post_type_widgets_archives->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_archives->control_options );
 		$this->assertEquals( 'custom-post-type-archives', $this->wp_custom_post_type_widgets_archives->control_options['id_base'] );

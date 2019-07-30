@@ -24,6 +24,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		$widget_ops = array(
 			'classname'   => 'widget_archive',
 			'description' => __( 'A monthly archive of your site&#8217;s Posts.', 'custom-post-type-widgets' ),
+			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'custom-post-type-archives', __( 'Archives (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 	}

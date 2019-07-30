@@ -24,6 +24,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 		$widget_ops = array(
 			'classname'   => 'widget_recent_entries',
 			'description' => __( 'Your site&#8217;s most recent custom Posts.', 'custom-post-type-widgets' ),
+			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'custom-post-type-recent-posts', __( 'Recent Posts (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 		$this->alt_option_name = 'widget_custom_post_type_recent_posts';

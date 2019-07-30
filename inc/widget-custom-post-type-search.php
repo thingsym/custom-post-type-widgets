@@ -24,6 +24,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		$widget_ops = array(
 			'classname'   => 'widget_search',
 			'description' => __( 'A search form for your site.', 'custom-post-type-widgets' ),
+			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'custom-post-type-search', __( 'Search (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 		$this->alt_option_name = 'widget_custom_post_type_search';

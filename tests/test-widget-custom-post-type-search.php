@@ -27,6 +27,8 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_search', $this->wp_custom_post_type_widgets_search->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_search->widget_options );
 		$this->assertContains( 'A search form for your site.', $this->wp_custom_post_type_widgets_search->widget_options['description'] );
+		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_search->widget_options );
+		$this->assertTrue( $this->wp_custom_post_type_widgets_search->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_search->control_options );
 		$this->assertEquals( 'custom-post-type-search', $this->wp_custom_post_type_widgets_search->control_options['id_base'] );

@@ -34,6 +34,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$widget_ops = array(
 			'classname'   => 'widget_calendar',
 			'description' => __( 'A calendar of your site&#8217;s Posts.', 'custom-post-type-widgets' ),
+			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'custom-post-type-calendar', __( 'Calendar (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
 	}
