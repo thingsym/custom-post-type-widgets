@@ -22,8 +22,8 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array(
-			'classname'   => 'widget_tag_cloud',
-			'description' => __( 'A cloud of your most used tags.', 'custom-post-type-widgets' ),
+			'classname'                   => 'widget_tag_cloud',
+			'description'                 => __( 'A cloud of your most used tags.', 'custom-post-type-widgets' ),
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'custom-post-type-tag-cloud', __( 'Tag Cloud (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
@@ -41,22 +41,50 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 	 * @param array $instance Settings for the current widget instance.
 	 */
 	public function widget( $args, $instance ) {
-		$title    = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Tags', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
-		$taxonomy = ! empty( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'post_tag';
+		$taxonomy   = $this->get_taxonomy( $instance );
+		$show_count = ! empty( $instance['count'] );
 
+		if ( ! empty( $instance['title'] ) ) {
+			$title = $instance['title'];
+		} else {
+			if ( 'post_tag' === $taxonomy ) {
+				$title = __( 'Tags', 'custom-post-type-widgets' );
+			} else {
+				$tax   = get_taxonomy( $taxonomy );
+				$title = $tax->labels->name;
+			}
+		}
+
+		/**
+		 * Filters the taxonomy used in the Tag Cloud widget.
+		 *
+		 * @since 2.8.0
+		 * @since 3.0.0 Added taxonomy drop-down.
+		 * @since 4.9.0 Added the `$instance` parameter.
+		 *
+		 * @see wp_tag_cloud()
+		 *
+		 * @param array $args     Args used for the tag cloud widget.
+		 * @param array $instance Array of settings for the current widget.
+		 */
 		$tag_cloud = wp_tag_cloud(
 			apply_filters(
 				'widget_tag_cloud_args',
 				array(
-					'taxonomy' => $taxonomy,
-					'echo'     => false,
-				)
+					'taxonomy'   => $taxonomy,
+					'echo'       => false,
+					'show_count' => $show_count,
+				),
+				$instance
 			)
 		);
 
 		if ( empty( $tag_cloud ) ) {
 			return;
 		}
+
+		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
+		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
 		echo $args['before_widget'];
 		if ( $title ) {
@@ -81,8 +109,11 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 	 * @return array Updated settings to save.
 	 */
 	public function update( $new_instance, $old_instance ) {
+		$instance             = $old_instance;
 		$instance['title']    = sanitize_text_field( $new_instance['title'] );
 		$instance['taxonomy'] = stripslashes( $new_instance['taxonomy'] );
+		$instance['count']    = ! empty( $new_instance['count'] ) ? (bool) $new_instance['count'] : false;
+
 		return $instance;
 	}
 
@@ -96,15 +127,15 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 	 * @param array $instance Current settings.
 	 */
 	public function form( $instance ) {
-		$title    = isset( $instance['title'] ) ? wp_strip_all_tags( $instance['title'] ) : '';
+		$title    = isset( $instance['title'] ) ? $instance['title'] : '';
 		$taxonomy = isset( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'post_tag';
-		$title_id = $this->get_field_id( 'title' );
+		$count    = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
 ?>
-		<p><label for="<?php echo $title_id; ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
-		<input class="widefat" id="<?php echo $title_id; ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
-		$taxonomies = get_taxonomies( '', 'objects' );
+		$taxonomies = get_taxonomies( array( 'show_tagcloud' => true ), 'objects' );
 		if ( $taxonomies ) {
 			printf(
 				'<p><label for="%1$s">%2$s</label>' .
@@ -133,9 +164,29 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 				);
 			}
 			echo '</select></p>';
+?>
+			<p><input class="checkbox" type="checkbox" <?php checked( $count ); ?> id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" />
+			<label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php esc_html_e( 'Show tag counts', 'custom-post-type-widgets' ); ?></label></p>
+		<?php
 		}
 		else {
 			echo '<p>' . __( 'The tag cloud will not be displayed since there are no taxonomies that support the tag cloud widget.', 'custom-post-type-widgets' ) . '</p>';
 		}
+	}
+
+	/**
+	 * Retrieves the taxonomy for the current Tag cloud widget instance.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @param array $instance Current settings.
+	 * @return string Name of the current taxonomy if set, otherwise 'post_tag'.
+	 */
+	public function get_taxonomy( $instance ) {
+		if ( ! empty( $instance['taxonomy'] ) && taxonomy_exists( $instance['taxonomy'] ) ) {
+			return $instance['taxonomy'];
+		}
+
+		return 'post_tag';
 	}
 }

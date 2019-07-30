@@ -22,8 +22,8 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array(
-			'classname'   => 'widget_categories',
-			'description' => __( 'A list or dropdown of categories.', 'custom-post-type-widgets' ),
+			'classname'                   => 'widget_categories',
+			'description'                 => __( 'A list or dropdown of categories.', 'custom-post-type-widgets' ),
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'custom-post-type-categories', __( 'Categories (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
@@ -41,11 +41,15 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 	 * @param array $instance Settings for the current widget instance.
 	 */
 	public function widget( $args, $instance ) {
-		$title    = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Categories', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Categories', 'custom-post-type-widgets' );
+
+		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
+		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+
 		$taxonomy = ! empty( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'category';
-		$c        = ! empty( $instance['count'] ) ? '1' : '0';
-		$h        = ! empty( $instance['hierarchical'] ) ? '1' : '0';
-		$d        = ! empty( $instance['dropdown'] ) ? '1' : '0';
+		$c        = ! empty( $instance['count'] ) ? (bool) $instance['count'] : false;
+		$h        = ! empty( $instance['hierarchical'] ) ? (bool) $instance['hierarchical'] : false;
+		$d        = ! empty( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
 
 		echo $args['before_widget'];
 		if ( $title ) {
@@ -69,13 +73,26 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 			$cat_args['id']               = $dropdown_id;
 			$cat_args['value_field']      = 'slug';
 ?>
-<form action="<?php bloginfo( 'url' ); ?>" method="get">
+
+<form action="<?php echo esc_url( home_url() ); ?>" method="get">
 			<?php
+			/**
+			 * Filters the arguments for the Categories widget drop-down.
+			 *
+			 * @since 2.8.0
+			 * @since 4.9.0 Added the `$instance` parameter.
+			 *
+			 * @see wp_dropdown_categories()
+			 *
+			 * @param array $cat_args An array of Categories widget drop-down arguments.
+			 * @param array $instance Array of settings for the current widget.
+			 */
 			wp_dropdown_categories( apply_filters( 'widget_categories_dropdown_args', $cat_args ) );
 			?>
+</form>
 <script>
-(function() {
 /* <![CDATA[ */
+(function() {
 	var dropdown = document.getElementById( "<?php echo esc_js( $dropdown_id ); ?>" );
 	function onCatChange() {
 		if ( dropdown.options[dropdown.selectedIndex].value ) {
@@ -86,7 +103,6 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 })();
 /* ]]> */
 </script>
-</form>
 <?php
 		}
 		else {
@@ -94,7 +110,7 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 		<ul>
 <?php
 		$cat_args['title_li'] = '';
-		wp_list_categories( apply_filters( 'widget_categories_args', $cat_args ) );
+		wp_list_categories( apply_filters( 'widget_categories_args', $cat_args, $instance ) );
 ?>
 		</ul>
 <?php
@@ -119,9 +135,10 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 		$instance                 = $old_instance;
 		$instance['title']        = sanitize_text_field( $new_instance['title'] );
 		$instance['taxonomy']     = stripslashes( $new_instance['taxonomy'] );
-		$instance['count']        = ! empty( $new_instance['count'] ) ? 1 : 0;
-		$instance['hierarchical'] = ! empty( $new_instance['hierarchical'] ) ? 1 : 0;
-		$instance['dropdown']     = ! empty( $new_instance['dropdown'] ) ? 1 : 0;
+		$instance['count']        = ! empty( $new_instance['count'] ) ? (bool) $new_instance['count'] : false;
+		$instance['hierarchical'] = ! empty( $new_instance['hierarchical'] ) ? (bool) $new_instance['hierarchical'] : false;
+		$instance['dropdown']     = ! empty( $new_instance['dropdown'] ) ? (bool) $new_instance['dropdown'] : false;
+
 		return $instance;
 	}
 
@@ -135,15 +152,14 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 	 * @param array $instance Current settings.
 	 */
 	public function form( $instance ) {
-		$instance     = wp_parse_args( (array) $instance, array( 'title' => '' ) );
-		$title        = isset( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : '';
+		$title        = isset( $instance['title'] ) ? $instance['title'] : '';
 		$taxonomy     = isset( $instance['taxonomy'] ) ? $instance['taxonomy'] : '';
 		$count        = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
 		$hierarchical = isset( $instance['hierarchical'] ) ? (bool) $instance['hierarchical'] : false;
 		$dropdown     = isset( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
 		$taxonomies = get_taxonomies( '', 'objects' );

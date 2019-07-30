@@ -32,8 +32,8 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array(
-			'classname'   => 'widget_calendar',
-			'description' => __( 'A calendar of your site&#8217;s Posts.', 'custom-post-type-widgets' ),
+			'classname'                   => 'widget_calendar',
+			'description'                 => __( 'A calendar of your site&#8217;s Posts.', 'custom-post-type-widgets' ),
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'custom-post-type-calendar', __( 'Calendar (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
@@ -51,7 +51,11 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	 * @param array $instance Settings for the current widget instance.
 	 */
 	public function widget( $args, $instance ) {
-		$title    = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Calendar', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Calendar', 'custom-post-type-widgets' );
+
+		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
+		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+
 		$posttype = ! empty( $instance['posttype'] ) ? $instance['posttype'] : 'post';
 
 		add_filter( 'get_calendar', array( $this, 'get_custom_post_type_calendar' ), 10, 3 );
@@ -94,6 +98,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$instance             = $old_instance;
 		$instance['title']    = sanitize_text_field( $new_instance['title'] );
 		$instance['posttype'] = wp_strip_all_tags( $new_instance['posttype'] );
+
 		return $instance;
 	}
 
@@ -107,8 +112,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	 * @param array $instance Current settings.
 	 */
 	public function form( $instance ) {
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
-		$title    = isset( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : '';
+		$title    = isset( $instance['title'] ) ? $instance['title'] : '';
 		$posttype = isset( $instance['posttype'] ) ? $instance['posttype'] : 'post';
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
@@ -136,7 +140,6 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 				selected( $post_type, $posttype, false ),
 				__( $value->label, 'custom-post-type-widgets' )
 			);
-
 		}
 		echo '</select></p>';
 	}
@@ -171,7 +174,6 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 
 		// week_begins = 0 stands for Sunday
 		$week_begins = (int) get_option( 'start_of_week' );
-		$ts          = current_time( 'timestamp' );
 
 		// Let's figure out when we are
 		if ( ! empty( $monthnum ) && ! empty( $year ) ) {
@@ -195,8 +197,8 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			}
 		}
 		else {
-			$thisyear  = gmdate( 'Y', $ts );
-			$thismonth = gmdate( 'm', $ts );
+			$thisyear  = current_time( 'Y' );
+			$thismonth = current_time( 'm' );
 		}
 
 		$unixmonth = mktime( 0, 0, 0, $thismonth, 1, $thisyear );
@@ -308,9 +310,9 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			}
 			$newrow = false;
 
-			if ( gmdate( 'j', current_time( 'timestamp' ) ) == $day &&
-				gmdate( 'm', current_time( 'timestamp' ) ) == $thismonth &&
-				gmdate( 'Y', current_time( 'timestamp' ) ) == $thisyear ) {
+			if ( current_time( 'j' ) == $day &&
+				current_time( 'm' ) == $thismonth &&
+				current_time( 'Y' ) == $thisyear ) {
 				$calendar_output .= '<td id="today">';
 			}
 			else {
@@ -324,7 +326,6 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 				$calendar_output .= sprintf(
 					'<a href="%s" aria-label="%s">%s</a>',
 					get_day_link( $thisyear, $thismonth, $day ),
-					// $this->get_custom_post_type_day_link( $posttype, $thisyear, $thismonth, $day ),
 					esc_attr( $label ),
 					$day
 				);
@@ -354,6 +355,22 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		}
 	}
 
+	/**
+	 * Gets the day link for custom post type.
+	 *
+	 * Hooks to day_link
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param string $daylink
+	 * @param string $year
+	 * @param string $month
+	 * @param string $day
+	 *
+	 * @return string $daylink
+	 */
 	public function get_day_link_custom_post_type( $daylink, $year, $month, $day ) {
 		global $wp_rewrite;
 
@@ -361,13 +378,13 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : 'post';
 
 		if ( ! $year ) {
-			$year = gmdate( 'Y', current_time( 'timestamp' ) );
+			$year = current_time( 'Y' );
 		}
 		if ( ! $month ) {
-			$month = gmdate( 'm', current_time( 'timestamp' ) );
+			$month = current_time( 'm' );
 		}
 		if ( ! $day ) {
-			$day = gmdate( 'j', current_time( 'timestamp' ) );
+			$day = current_time( 'j' );
 		}
 
 		$daylink = $wp_rewrite->get_day_permastruct();
@@ -379,7 +396,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$daylink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $daylink );
 			$daylink = str_replace( '%day%', zeroise( intval( $day ), 2 ), $daylink );
 
-			if ( 'post' == $posttype ) {
+			if ( 'post' === $posttype ) {
 				$daylink = home_url( user_trailingslashit( $daylink, 'day' ) );
 			}
 			else {
@@ -402,6 +419,21 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		return $daylink;
 	}
 
+	/**
+	 * Gets the month link for custom post type.
+	 *
+	 * Hooks to month_link
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param string $monthlink
+	 * @param string $year
+	 * @param string $month
+	 *
+	 * @return string $monthlink
+	 */
 	public function get_month_link_custom_post_type( $monthlink, $year, $month ) {
 		global $wp_rewrite;
 
@@ -409,10 +441,10 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : 'post';
 
 		if ( ! $year ) {
-			$year = gmdate( 'Y', current_time( 'timestamp' ) );
+			$year = current_time( 'Y' );
 		}
 		if ( ! $month ) {
-			$month = gmdate( 'm', current_time( 'timestamp' ) );
+			$month = current_time( 'm' );
 		}
 
 		$monthlink = $wp_rewrite->get_month_permastruct();
@@ -423,7 +455,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$monthlink = str_replace( '%year%', $year, $monthlink );
 			$monthlink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $monthlink );
 
-			if ( 'post' == $posttype ) {
+			if ( 'post' === $posttype ) {
 				$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
 			}
 			else {

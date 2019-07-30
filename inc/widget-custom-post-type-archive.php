@@ -22,8 +22,8 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array(
-			'classname'   => 'widget_archive',
-			'description' => __( 'A monthly archive of your site&#8217;s Posts.', 'custom-post-type-widgets' ),
+			'classname'                   => 'widget_archive',
+			'description'                 => __( 'A monthly archive of your site&#8217;s Posts.', 'custom-post-type-widgets' ),
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'custom-post-type-archives', __( 'Archives (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
@@ -41,10 +41,14 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 	 * @param array $instance Settings for the current widget instance.
 	 */
 	public function widget( $args, $instance ) {
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Archives', 'custom-post-type-widgets' );
+
+		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
+		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+
 		$posttype = ! empty( $instance['posttype'] ) ? $instance['posttype'] : 'post';
-		$c        = ! empty( $instance['count'] ) ? '1' : '0';
-		$d        = ! empty( $instance['dropdown'] ) ? '1' : '0';
-		$title    = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Archives', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
+		$c        = ! empty( $instance['count'] ) ? (bool) $instance['count'] : false;
+		$d        = ! empty( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
 
 		add_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ), 10, 3 );
 		add_filter( 'get_archives_link', array( $this, 'trim_post_type' ), 10, 1 );
@@ -56,28 +60,68 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 
 		if ( $d ) {
 ?>
+			<label class="screen-reader-text"><?php echo $title; ?></label>
 			<select name="archive-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'>
-				<option value=""><?php echo esc_attr( __( 'Select Month', 'custom-post-type-widgets' ) ); ?></option>
 				<?php
-				wp_get_archives(
-					apply_filters(
-						'widget_archives_dropdown_args',
-						array(
-							'post_type'       => $posttype,
-							'type'            => 'monthly',
-							'format'          => 'option',
-							'show_post_count' => $c,
-						)
-					)
+				/**
+				 * Filters the arguments for the Archives widget drop-down.
+				 *
+				 * @since 2.8.0
+				 * @since 4.9.0 Added the `$instance` parameter.
+				 *
+				 * @see wp_get_archives()
+				 *
+				 * @param array $args     An array of Archives widget drop-down arguments.
+				 * @param array $instance Settings for the current Archives widget instance.
+				 */
+				$dropdown_args = apply_filters(
+					'widget_archives_dropdown_args',
+					array(
+						'post_type'       => $posttype,
+						'type'            => 'monthly',
+						'format'          => 'option',
+						'show_post_count' => $c,
+					),
+					$instance
 				);
+
+				switch ( $dropdown_args['type'] ) {
+					case 'yearly':
+						$label = __( 'Select Year', 'custom-post-type-widgets' );
+						break;
+					case 'monthly':
+						$label = __( 'Select Month', 'custom-post-type-widgets' );
+						break;
+					case 'daily':
+						$label = __( 'Select Day', 'custom-post-type-widgets' );
+						break;
+					case 'weekly':
+						$label = __( 'Select Week', 'custom-post-type-widgets' );
+						break;
+					default:
+						$label = __( 'Select Post', 'custom-post-type-widgets' );
+						break;
+				}
 				?>
+
+				<option value=""><?php echo esc_attr( $label ); ?></option>
+				<?php wp_get_archives( $dropdown_args ); ?>
 			</select>
-<?php
-		}
-		else {
-?>
+
+		<?php } else { ?>
 			<ul>
 			<?php
+			/**
+			 * Filters the arguments for the Archives widget.
+			 *
+			 * @since 2.8.0
+			 * @since 4.9.0 Added the `$instance` parameter.
+			 *
+			 * @see wp_get_archives()
+			 *
+			 * @param array $args     An array of Archives option arguments.
+			 * @param array $instance Array of settings for the current widget.
+			 */
 			wp_get_archives(
 				apply_filters(
 					'widget_archives_args',
@@ -85,11 +129,12 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 						'post_type'       => $posttype,
 						'type'            => 'monthly',
 						'show_post_count' => $c,
-					)
+					),
+					$instance
 				)
 			);
 			?>
-			</ul>
+		</ul>
 <?php
 		}
 
@@ -113,19 +158,11 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance             = $old_instance;
-		$new_instance         = wp_parse_args(
-			(array) $new_instance,
-			array(
-				'title'    => '',
-				'posttype' => 'post',
-				'count'    => 0,
-				'dropdown' => '',
-			)
-		);
 		$instance['title']    = sanitize_text_field( $new_instance['title'] );
 		$instance['posttype'] = wp_strip_all_tags( $new_instance['posttype'] );
-		$instance['count']    = $new_instance['count'] ? 1 : 0;
-		$instance['dropdown'] = $new_instance['dropdown'] ? 1 : 0;
+		$instance['count']    = $new_instance['count'] ? (bool) $new_instance['count'] : false;
+		$instance['dropdown'] = $new_instance['dropdown'] ? (bool) $new_instance['dropdown'] : false;
+
 		return $instance;
 	}
 
@@ -139,32 +176,23 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 	 * @param array $instance Current settings.
 	 */
 	public function form( $instance ) {
-		$instance = wp_parse_args(
-			(array) $instance,
-			array(
-				'title'    => '',
-				'posttype' => 'post',
-				'count'    => 0,
-				'dropdown' => '',
-			)
-		);
-		$title    = isset( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : '';
-		$posttype = $instance['posttype'] ? $instance['posttype'] : 'post';
-		$count    = $instance['count'] ? 'checked="checked"' : '';
-		$dropdown = $instance['dropdown'] ? 'checked="checked"' : '';
+		$title        = isset( $instance['title'] ) ? $instance['title'] : '';
+		$posttype     = isset( $instance['posttype'] ) ? $instance['posttype'] : 'post';
+		$dropdown     = isset( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
+		$count        = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
-			$post_types = get_post_types( array( 'public' => true ), 'objects' );
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
 
-			printf(
-				'<p><label for="%1$s">%2$s</label>' .
-				'<select class="widefat" id="%1$s" name="%3$s">',
-				$this->get_field_id( 'posttype' ),
-				__( 'Post Type:', 'custom-post-type-widgets' ),
-				$this->get_field_name( 'posttype' )
-			);
+		printf(
+			'<p><label for="%1$s">%2$s</label>' .
+			'<select class="widefat" id="%1$s" name="%3$s">',
+			$this->get_field_id( 'posttype' ),
+			__( 'Post Type:', 'custom-post-type-widgets' ),
+			$this->get_field_name( 'posttype' )
+		);
 
 		foreach ( $post_types as $post_type => $value ) {
 			if ( 'attachment' === $post_type || 'page' === $post_type ) {
@@ -177,13 +205,12 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 				selected( $post_type, $posttype, false ),
 				__( $value->label, 'custom-post-type-widgets' )
 			);
-
 		}
-			echo '</select></p>';
+		echo '</select></p>';
 		?>
 
-		<p><input class="checkbox" type="checkbox" <?php echo $dropdown; ?> id="<?php echo $this->get_field_id( 'dropdown' ); ?>" name="<?php echo $this->get_field_name( 'dropdown' ); ?>" /> <label for="<?php echo $this->get_field_id( 'dropdown' ); ?>"><?php esc_html_e( 'Display as dropdown', 'custom-post-type-widgets' ); ?></label><br>
-		<input class="checkbox" type="checkbox" <?php echo $count; ?> id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" /> <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php esc_html_e( 'Show post counts', 'custom-post-type-widgets' ); ?></label></p>
+		<p><input class="checkbox" type="checkbox"<?php checked( $dropdown ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); ?>" name="<?php echo $this->get_field_name( 'dropdown' ); ?>" /> <label for="<?php echo $this->get_field_id( 'dropdown' ); ?>"><?php esc_html_e( 'Display as dropdown', 'custom-post-type-widgets' ); ?></label><br>
+		<input class="checkbox" type="checkbox"<?php checked( $count ); ?> id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" /> <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php esc_html_e( 'Show post counts', 'custom-post-type-widgets' ); ?></label></p>
 <?php
 	}
 
@@ -199,6 +226,8 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 	 * @param string $monthlink
 	 * @param string $year
 	 * @param string $month
+	 *
+	 * @return string $monthlink
 	 */
 	public function get_month_link_custom_post_type( $monthlink, $year, $month ) {
 		global $wp_rewrite;
@@ -207,10 +236,10 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : 'post';
 
 		if ( ! $year ) {
-			$year = gmdate( 'Y', current_time( 'timestamp' ) );
+			$year = current_time( 'Y' );
 		}
 		if ( ! $month ) {
-			$month = gmdate( 'm', current_time( 'timestamp' ) );
+			$month = current_time( 'm' );
 		}
 
 		$monthlink = $wp_rewrite->get_month_permastruct();

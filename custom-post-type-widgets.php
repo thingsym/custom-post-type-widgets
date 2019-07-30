@@ -65,7 +65,11 @@ class Custom_Post_Type_Widgets {
 			return;
 		}
 
-		load_plugin_textdomain( 'custom-post-type-widgets', false, 'custom-post-type-widgets/languages' );
+		load_plugin_textdomain(
+			'custom-post-type-widgets',
+			false,
+			'custom-post-type-widgets/languages'
+		);
 
 		register_widget( 'WP_Custom_Post_Type_Widgets_Recent_Posts' );
 		register_widget( 'WP_Custom_Post_Type_Widgets_Archives' );
@@ -76,7 +80,18 @@ class Custom_Post_Type_Widgets {
 		register_widget( 'WP_Custom_Post_Type_Widgets_Search' );
 	}
 
-	public function uninstall() {}
+	/**
+	 * Uninstall.
+	 *
+	 * Hooks to uninstall_hook
+	 *
+	 * @access public static
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public static function uninstall() {}
 }
 
 $custom_post_type_widgets = new Custom_Post_Type_Widgets();

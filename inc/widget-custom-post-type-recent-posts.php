@@ -22,8 +22,8 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array(
-			'classname'   => 'widget_recent_entries',
-			'description' => __( 'Your site&#8217;s most recent custom Posts.', 'custom-post-type-widgets' ),
+			'classname'                   => 'widget_recent_entries',
+			'description'                 => __( 'Your site&#8217;s most recent custom Posts.', 'custom-post-type-widgets' ),
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'custom-post-type-recent-posts', __( 'Recent Posts (Custom Post Type)', 'custom-post-type-widgets' ), $widget_ops );
@@ -46,16 +46,32 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 			$args['widget_id'] = $this->id;
 		}
 
-		$title    = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Recent Posts', 'custom-post-type-widgets' ) : $instance['title'], $instance, $this->id_base );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Recent Posts', 'custom-post-type-widgets' );
+
+		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
+		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+
 		$posttype = ! empty( $instance['posttype'] ) ? $instance['posttype'] : 'post';
-		if ( empty( $instance['number'] ) || ! $number = absint( $instance['number'] ) ) {
+		$number = ( ! empty( $instance['number'] ) ) ? absint( $instance['number'] ) : 5;
+		if ( ! $number ) {
 			$number = 5;
 		}
-		$show_date = isset( $instance['show_date'] ) ? $instance['show_date'] : false;
+		$show_date = ! empty( $instance['show_date'] ) ? (bool) $instance['show_date'] : false;
 
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
 
 		if ( array_key_exists( $posttype, (array) $post_types ) ) {
+			/**
+			 * Filters the arguments for the Recent Posts widget.
+			 *
+			 * @since 3.4.0
+			 * @since 4.9.0 Added the `$instance` parameter.
+			 *
+			 * @see WP_Query::get_posts()
+			 *
+			 * @param array $args     An array of arguments used to retrieve the recent posts.
+			 * @param array $instance Array of settings for the current widget.
+			 */
 			$r = new WP_Query(
 				apply_filters(
 					'widget_posts_args',
@@ -65,33 +81,37 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 						'no_found_rows'       => true,
 						'post_status'         => 'publish',
 						'ignore_sticky_posts' => true,
-					)
+					),
+					$instance
 				)
 			);
 
-			if ( $r->have_posts() ) : ?>
-				<?php echo $args['before_widget']; ?>
-				<?php
-				if ( $title ) {
-					echo $args['before_title'] . $title . $args['after_title'];
-				}
-				?>
-				<ul>
-				<?php
-				while ( $r->have_posts() ) :
-					$r->the_post();
-?>
-					<li><a href="<?php the_permalink(); ?>"><?php get_the_title() ? the_title() : the_ID(); ?></a>
+			if ( ! $r->have_posts() ) {
+				return;
+			}
+			?>
+			<?php echo $args['before_widget']; ?>
+			<?php
+			if ( $title ) {
+				echo $args['before_title'] . $title . $args['after_title'];
+			}
+			?>
+			<ul>
+				<?php foreach ( $r->posts as $recent_post ) : ?>
+					<?php
+					$post_title = get_the_title( $recent_post->ID );
+					$title      = ( ! empty( $post_title ) ) ? $post_title : __( '(no title)', 'custom-post-type-widgets' );
+					?>
+				<li>
+					<a href="<?php the_permalink( $recent_post->ID ); ?>"><?php echo $title; ?></a>
 					<?php if ( $show_date ) : ?>
-						<span class="post-date"><?php echo get_the_date(); ?></span>
+						<span class="post-date"><?php echo get_the_date( '', $recent_post->ID ); ?></span>
 					<?php endif; ?>
-					</li>
-				<?php endwhile; ?>
-				</ul>
-				<?php echo $args['after_widget']; ?>
-				<?php
-				wp_reset_postdata();
-			endif;
+				</li>
+				<?php endforeach; ?>
+			</ul>
+			<?php
+			echo $args['after_widget'];
 		}
 	}
 
@@ -111,8 +131,9 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 		$instance              = $old_instance;
 		$instance['title']     = empty( $new_instance['title'] ) ? '' : sanitize_text_field( $new_instance['title'] );
 		$instance['posttype']  = wp_strip_all_tags( $new_instance['posttype'] );
-		$instance['number']    = (int) $new_instance['number'];
-		$instance['show_date'] = isset( $new_instance['show_date'] ) ? (bool) $new_instance['show_date'] : false;
+		$instance['number']    = absint( $new_instance['number'] );
+		$instance['show_date'] = ! empty( $new_instance['show_date'] ) ? (bool) $new_instance['show_date'] : false;
+
 		return $instance;
 	}
 
@@ -126,13 +147,13 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 	 * @param array $instance Current settings.
 	 */
 	public function form( $instance ) {
-		$title     = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+		$title     = isset( $instance['title'] ) ? $instance['title'] : '';
 		$posttype  = isset( $instance['posttype'] ) ? $instance['posttype'] : 'post';
 		$number    = isset( $instance['number'] ) ? absint( $instance['number'] ) : 5;
-		$show_date = isset( $instance['show_date'] ) ? (bool) $instance['show_date'] : false;
+		$show_date = ! empty( $instance['show_date'] ) ? (bool) $instance['show_date'] : false;
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
@@ -162,7 +183,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 ?>
 
 		<p><label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php esc_html_e( 'Number of posts to show:', 'custom-post-type-widgets' ); ?></label>
-		<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo $number; ?>" size="3" /></p>
+		<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo esc_attr( $number ); ?>" size="3" /></p>
 
 		<p><input class="checkbox" type="checkbox" <?php checked( $show_date ); ?> id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" />
 		<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php esc_html_e( 'Display post date?', 'custom-post-type-widgets' ); ?></label></p>
