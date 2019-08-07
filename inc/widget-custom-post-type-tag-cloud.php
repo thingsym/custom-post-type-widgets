@@ -58,7 +58,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 		/**
 		 * Filters the taxonomy used in the Tag Cloud widget.
 		 *
-		 * Filter hook: custom_post_type_widgets/recent_posts/widget_tag_cloud_args
+		 * Filter hook: custom_post_type_widgets/tag_cloud/widget_tag_cloud_args
 		 *
 		 * @since 2.8.0
 		 * @since 3.0.0 Added taxonomy drop-down.
@@ -73,7 +73,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 		 */
 		$tag_cloud = wp_tag_cloud(
 			apply_filters(
-				'custom_post_type_widgets/recent_posts/widget_tag_cloud_args',
+				'custom_post_type_widgets/tag_cloud/widget_tag_cloud_args',
 				array(
 					'taxonomy'   => $taxonomy,
 					'echo'       => false,
