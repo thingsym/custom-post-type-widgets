@@ -4,7 +4,7 @@ Contributors: thingsym
 Donate link:
 Link: https://github.com/thingsym/custom-post-type-widgets
 Tags: widget, widgets, custom post type, taxonomy
-Requires at least: 3.8
+Requires at least: 4.0
 Requires PHP: 5.4
 Tested up to: 5.0.3
 Stable tag: 1.1.3
@@ -166,6 +166,9 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* Requires at least version 4.0 of the WordPress
 
 = 1.1.3 =
 * Requires at least version 3.7 of the WordPress
