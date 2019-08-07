@@ -165,7 +165,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 			/**
 			 * Filters the arguments for the Search widget.
 			 *
-			 * Filter hook: custom_post_type_widgets/search/filter_post_type.
+			 * Filter hook: custom_post_type_widgets/search/filter_post_type
 			 *
 			 * @since 1.0.0
 			 *

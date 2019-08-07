@@ -131,7 +131,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 					/**
 					 * Actions the arguments for the Recent Posts widget.
 					 *
-					 * Action hook: custom_post_type_widgets/recent_posts/widget/prepend.
+					 * Action hook: custom_post_type_widgets/recent_posts/widget/prepend
 					 *
 					 * @since 1.2.0
 					 *
@@ -156,7 +156,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 					/**
 					 * Actions the arguments for the Recent Posts widget.
 					 *
-					 * Action hook: custom_post_type_widgets/recent_posts/widget/append.
+					 * Action hook: custom_post_type_widgets/recent_posts/widget/append
 					 *
 					 * @since 1.2.0
 					 *
@@ -180,7 +180,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 			/**
 			 * Actions the arguments for the Recent Posts widget.
 			 *
-			 * Action hook: custom_post_type_widgets/recent_posts/widget/after.
+			 * Action hook: custom_post_type_widgets/recent_posts/widget/after
 			 *
 			 * @since 1.2.0
 			 *
