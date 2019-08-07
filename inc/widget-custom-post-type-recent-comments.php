@@ -93,24 +93,30 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		/**
 		 * Filters the arguments for the Recent Comments widget.
 		 *
+		 * Filter hook: custom_post_type_widgets/recent_comments/widget_comments_args
+		 *
 		 * @since 3.4.0
 		 * @since 4.9.0 Added the `$instance` parameter.
 		 *
 		 * @see WP_Comment_Query::query() for information on accepted arguments.
 		 *
-		 * @param array $comment_args An array of arguments used to retrieve the recent comments.
-		 * @param array $instance     Array of settings for the current widget.
+		 * @param array  $comment_args An array of arguments used to retrieve the recent comments.
+		 * @param array  $instance     Array of settings for the current widget.
+		 * @param string $this->id     Widget id.
+		 * @param string $posttype     Post type.
 		 */
 		$comments = get_comments(
 			apply_filters(
-				'widget_comments_args',
+				'custom_post_type_widgets/recent_comments/widget_comments_args',
 				array(
 					'post_type'   => $posttype,
 					'number'      => $number,
 					'status'      => 'approve',
 					'post_status' => 'publish',
 				),
-				$instance
+				$instance,
+				$this->id,
+				$posttype
 			)
 		);
 

@@ -163,13 +163,15 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 			}
 
 			/**
-			 * Filter hook: wp_custom_post_type_widgets/search_filter_post_type.
+			 * Filters the arguments for the Search widget.
 			 *
-			 * @param string $filter_post_type
+			 * Filter hook: custom_post_type_widgets/search/filter_post_type.
 			 *
 			 * @since 1.0.0
+			 *
+			 * @param string $filter_post_type filters the post type
 			 */
-			$filter_post_type = apply_filters( 'wp_custom_post_type_widgets/search_filter_post_type', $filter_post_type );
+			$filter_post_type = apply_filters( 'custom_post_type_widgets/search/filter_post_type', $filter_post_type );
 
 			if ( $filter_post_type && array_key_exists( $filter_post_type, $post_types ) ) {
 				$query->set( 'post_type', $filter_post_type );

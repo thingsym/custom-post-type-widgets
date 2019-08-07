@@ -79,15 +79,27 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 			/**
 			 * Filters the arguments for the Categories widget drop-down.
 			 *
+			 * Filter hook: custom_post_type_widgets/categories/widget_categories_dropdown_args
+			 *
 			 * @since 2.8.0
 			 * @since 4.9.0 Added the `$instance` parameter.
 			 *
 			 * @see wp_dropdown_categories()
 			 *
-			 * @param array $cat_args An array of Categories widget drop-down arguments.
-			 * @param array $instance Array of settings for the current widget.
+			 * @param array  $cat_args An array of Categories widget drop-down arguments.
+			 * @param array  $instance Array of settings for the current widget.
+			 * @param string $this->id Widget id.
+			 * @param string $taxonomy Taxonomy.
 			 */
-			wp_dropdown_categories( apply_filters( 'widget_categories_dropdown_args', $cat_args ) );
+			wp_dropdown_categories(
+				apply_filters(
+					'custom_post_type_widgets/categories/widget_categories_dropdown_args',
+					$cat_args,
+					$instance,
+					$this->id,
+					$taxonomy
+				)
+			);
 			?>
 </form>
 <script>
@@ -109,8 +121,28 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 ?>
 		<ul>
 <?php
-		$cat_args['title_li'] = '';
-		wp_list_categories( apply_filters( 'widget_categories_args', $cat_args, $instance ) );
+			$cat_args['title_li'] = '';
+			/**
+			 * Filters the arguments for the Categories widget.
+			 *
+			 * Filter hook: custom_post_type_widgets/categories/widget_categories_args
+			 *
+			 * @see wp_list_categories()
+			 *
+			 * @param array  $cat_args An array of Categories widget drop-down arguments.
+			 * @param array  $instance Array of settings for the current widget.
+			 * @param string $this->id Widget id.
+			 * @param string $taxonomy Taxonomy.
+			 */
+			wp_list_categories(
+				apply_filters(
+					'custom_post_type_widgets/categories/widget_categories_args',
+					$cat_args,
+					$instance,
+					$this->id,
+					$taxonomy
+				)
+			);
 ?>
 		</ul>
 <?php

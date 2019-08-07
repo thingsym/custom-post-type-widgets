@@ -64,17 +64,21 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 			/**
 			 * Filters the arguments for the Recent Posts widget.
 			 *
+			 * Filter hook: custom_post_type_widgets/recent_posts/widget_posts_args
+			 *
 			 * @since 3.4.0
 			 * @since 4.9.0 Added the `$instance` parameter.
 			 *
 			 * @see WP_Query::get_posts()
 			 *
-			 * @param array $args     An array of arguments used to retrieve the recent posts.
-			 * @param array $instance Array of settings for the current widget.
+			 * @param array  $args     An array of arguments used to retrieve the recent posts.
+			 * @param array  $instance Array of settings for the current widget.
+			 * @param string $this->id Widget id.
+			 * @param string $posttype Post type.
 			 */
 			$r = new WP_Query(
 				apply_filters(
-					'widget_posts_args',
+					'custom_post_type_widgets/recent_posts/widget_posts_args',
 					array(
 						'post_type'           => $posttype,
 						'posts_per_page'      => $number,
@@ -82,7 +86,9 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 						'post_status'         => 'publish',
 						'ignore_sticky_posts' => true,
 					),
-					$instance
+					$instance,
+					$this->id,
+					$posttype
 				)
 			);
 
@@ -95,6 +101,24 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 			if ( $title ) {
 				echo $args['before_title'] . $title . $args['after_title'];
 			}
+
+			/**
+			 * Actions the arguments for the Recent Posts widget.
+			 *
+			 * Action hook: custom_post_type_widgets/recent_posts/widget/before
+			 *
+			 * @since 1.2.0
+			 *
+			 * @param string $this->id Widget id.
+			 * @param string $posttype Post type.
+			 * @param array  $instance Array of settings for the current widget.
+			 */
+			do_action(
+				'custom_post_type_widgets/recent_posts/widget/before',
+				$this->id,
+				$posttype,
+				$instance
+			);
 			?>
 			<ul>
 				<?php foreach ( $r->posts as $recent_post ) : ?>
@@ -103,14 +127,74 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 					$title      = ( ! empty( $post_title ) ) ? $post_title : __( '(no title)', 'custom-post-type-widgets' );
 					?>
 				<li>
+					<?php
+					/**
+					 * Actions the arguments for the Recent Posts widget.
+					 *
+					 * Action hook: custom_post_type_widgets/recent_posts/widget/prepend.
+					 *
+					 * @since 1.2.0
+					 *
+					 * @param string $this->id    Widget id.
+					 * @param string $posttype    Post type.
+					 * @param array  $instance    Array of settings for the current widget.
+					 * @param array  $recent_post Array of Post for the recent post
+					 */
+					do_action(
+						'custom_post_type_widgets/recent_posts/widget/prepend',
+						$this->id,
+						$posttype,
+						$instance,
+						$recent_post
+					);
+					?>
 					<a href="<?php the_permalink( $recent_post->ID ); ?>"><?php echo $title; ?></a>
 					<?php if ( $show_date ) : ?>
 						<span class="post-date"><?php echo get_the_date( '', $recent_post->ID ); ?></span>
 					<?php endif; ?>
+					<?php
+					/**
+					 * Actions the arguments for the Recent Posts widget.
+					 *
+					 * Action hook: custom_post_type_widgets/recent_posts/widget/append.
+					 *
+					 * @since 1.2.0
+					 *
+					 * @param string $this->id    Widget id.
+					 * @param string $posttype    Post type.
+					 * @param array  $instance    Array of settings for the current widget.
+					 * @param array  $recent_post Array of Post for the recent post
+					 */
+					do_action(
+						'custom_post_type_widgets/recent_posts/widget/append',
+						$this->id,
+						$posttype,
+						$instance,
+						$recent_post
+					);
+					?>
 				</li>
 				<?php endforeach; ?>
 			</ul>
 			<?php
+			/**
+			 * Actions the arguments for the Recent Posts widget.
+			 *
+			 * Action hook: custom_post_type_widgets/recent_posts/widget/after.
+			 *
+			 * @since 1.2.0
+			 *
+			 * @param string $this->id Widget id.
+			 * @param string $posttype Post type.
+			 * @param array  $instance Array of settings for the current widget.
+			 */
+			do_action(
+				'custom_post_type_widgets/recent_posts/widget/after',
+				$this->id,
+				$posttype,
+				$instance
+			);
+
 			echo $args['after_widget'];
 		}
 	}

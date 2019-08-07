@@ -66,23 +66,29 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 				/**
 				 * Filters the arguments for the Archives widget drop-down.
 				 *
+				 * Filter hook: custom_post_type_widgets/archive/widget_archives_dropdown_args
+				 *
 				 * @since 2.8.0
 				 * @since 4.9.0 Added the `$instance` parameter.
 				 *
 				 * @see wp_get_archives()
 				 *
-				 * @param array $args     An array of Archives widget drop-down arguments.
-				 * @param array $instance Settings for the current Archives widget instance.
+				 * @param array  $args     An array of Archives widget drop-down arguments.
+				 * @param array  $instance Settings for the current Archives widget instance.
+				 * @param string $this->id Widget id.
+				 * @param string $posttype Post type.
 				 */
 				$dropdown_args = apply_filters(
-					'widget_archives_dropdown_args',
+					'custom_post_type_widgets/archive/widget_archives_dropdown_args',
 					array(
 						'post_type'       => $posttype,
 						'type'            => 'monthly',
 						'format'          => 'option',
 						'show_post_count' => $c,
 					),
-					$instance
+					$instance,
+					$this->id,
+					$posttype
 				);
 
 				switch ( $dropdown_args['type'] ) {
@@ -114,23 +120,29 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			/**
 			 * Filters the arguments for the Archives widget.
 			 *
+			 * Filter hook: custom_post_type_widgets/archive/widget_archives_args
+			 *
 			 * @since 2.8.0
 			 * @since 4.9.0 Added the `$instance` parameter.
 			 *
 			 * @see wp_get_archives()
 			 *
-			 * @param array $args     An array of Archives option arguments.
-			 * @param array $instance Array of settings for the current widget.
+			 * @param array  $args     An array of Archives option arguments.
+			 * @param array  $instance Array of settings for the current widget.
+			 * @param string $this->id Widget id.
+			 * @param string $posttype Post type.
 			 */
 			wp_get_archives(
 				apply_filters(
-					'widget_archives_args',
+					'custom_post_type_widgets/archive/widget_archives_args',
 					array(
 						'post_type'       => $posttype,
 						'type'            => 'monthly',
 						'show_post_count' => $c,
 					),
-					$instance
+					$instance,
+					$this->id,
+					$posttype
 				)
 			);
 			?>

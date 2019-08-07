@@ -58,6 +58,8 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 		/**
 		 * Filters the taxonomy used in the Tag Cloud widget.
 		 *
+		 * Filter hook: custom_post_type_widgets/recent_posts/widget_tag_cloud_args
+		 *
 		 * @since 2.8.0
 		 * @since 3.0.0 Added taxonomy drop-down.
 		 * @since 4.9.0 Added the `$instance` parameter.
@@ -66,16 +68,20 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 		 *
 		 * @param array $args     Args used for the tag cloud widget.
 		 * @param array $instance Array of settings for the current widget.
+		 * @param string $this->id Widget id.
+		 * @param string $taxonomy Taxonomy.
 		 */
 		$tag_cloud = wp_tag_cloud(
 			apply_filters(
-				'widget_tag_cloud_args',
+				'custom_post_type_widgets/recent_posts/widget_tag_cloud_args',
 				array(
 					'taxonomy'   => $taxonomy,
 					'echo'       => false,
 					'show_count' => $show_count,
 				),
-				$instance
+				$instance,
+				$this->id,
+				$taxonomy
 			)
 		);
 
