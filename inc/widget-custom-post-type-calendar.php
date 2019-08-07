@@ -163,9 +163,33 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$options  = get_option( $this->option_name );
 		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : 'post';
 
+		$key   = md5( $posttype . $m . $monthnum . $year );
+		$cache = wp_cache_get( 'get_calendar', 'calendar' );
+
+		if ( $cache && is_array( $cache ) && isset( $cache[ $key ] ) ) {
+			/** This filter is documented in wp-includes/general-template.php */
+			$output = apply_filters( 'get_calendar', $cache[ $key ] );
+
+			if ( $echo ) {
+				echo $output;
+				return;
+			}
+
+			return $output;
+		}
+
+		if ( ! is_array( $cache ) ) {
+			$cache = array();
+		}
+
 		// Quick check. If we have no posts at all, abort!
 		if ( ! $posts ) {
 			$gotsome = $wpdb->get_var( "SELECT 1 as test FROM $wpdb->posts WHERE post_type = '$posttype' AND post_status = 'publish' LIMIT 1" );
+			if ( ! $gotsome ) {
+				$cache[ $key ] = '';
+				wp_cache_set( 'get_calendar', $cache, 'calendar' );
+				return;
+			}
 		}
 
 		if ( isset( $_GET['w'] ) ) {
@@ -346,6 +370,9 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		}
 
 		$calendar_output .= "\n\t</tr>\n\t</tbody>\n\t</table>";
+
+		$cache[ $key ] = $calendar_output;
+		wp_cache_set( 'get_calendar', $cache, 'calendar' );
 
 		if ( $echo ) {
 			echo $calendar_output;
