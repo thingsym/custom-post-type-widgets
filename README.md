@@ -143,6 +143,22 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.2.0
+	* change Requires at least version 4.0
+	* [Calendar widget] cache the calendar
+	* improve filter hooks and action hooks
+	* fix test case
+	* refactoring
+	* add customize_selective_refresh
+	* fix phpcs.ruleset.xml
+	* replace from strip_tags to wp_strip_all_tags
+	* replace from _e to esc_html_e
+	* add PHPDoc
+	* fix header
+	* add reset-wp-tests.sh, uninstall-wp-tests.sh
+	* fix indent and reformat with phpcs and phpcbf
+	* add composer.json for test
+	* add static code analysis config
 * Version 1.1.3
 	* change Requires at least version 3.7
 	* fix add_action

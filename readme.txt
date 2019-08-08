@@ -6,8 +6,8 @@ Link: https://github.com/thingsym/custom-post-type-widgets
 Tags: widget, widgets, custom post type, taxonomy
 Requires at least: 4.0
 Requires PHP: 5.4
-Stable tag: 1.1.3
 Tested up to: 5.2.2
+Stable tag: 1.2.0
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -144,6 +144,23 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * custom_post_type_widgets/recent_posts/widget/after
 
 == Changelog ==
+
+= 1.2.0 =
+* change Requires at least version 4.0
+* [Calendar widget] cache the calendar
+* improve filter hooks and action hooks
+* fix test case
+* refactoring
+* add customize_selective_refresh
+* fix phpcs.ruleset.xml
+* replace from strip_tags to wp_strip_all_tags
+* replace from _e to esc_html_e
+* add PHPDoc
+* fix header
+* add reset-wp-tests.sh, uninstall-wp-tests.sh
+* fix indent and reformat with phpcs and phpcbf
+* add composer.json for test
+* add static code analysis config
 
 = 1.1.3 =
 * change Requires at least version 3.7
