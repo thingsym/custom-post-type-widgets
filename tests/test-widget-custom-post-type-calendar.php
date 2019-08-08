@@ -27,6 +27,8 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_calendar', $this->wp_custom_post_type_widgets_calendar->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_calendar->widget_options );
 		$this->assertContains( 'A calendar of your site&#8217;s Posts.', $this->wp_custom_post_type_widgets_calendar->widget_options['description'] );
+		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_calendar->widget_options );
+		$this->assertTrue( $this->wp_custom_post_type_widgets_calendar->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_calendar->control_options );
 		$this->assertEquals( 'custom-post-type-calendar', $this->wp_custom_post_type_widgets_calendar->control_options['id_base'] );
@@ -39,8 +41,7 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_calendar
 	 */
 	function widget() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
@@ -99,8 +100,31 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_calendar
 	 */
 	function form() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_calendar
+	 */
+	function get_custom_post_type_calendar() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_calendar
+	 */
+	function get_day_link_custom_post_type() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_calendar
+	 */
+	function get_month_link_custom_post_type() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 }

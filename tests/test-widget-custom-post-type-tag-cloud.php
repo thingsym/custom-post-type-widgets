@@ -27,6 +27,8 @@ class Test_WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_tag_cloud', $this->wp_custom_post_type_widgets_tag_cloud->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_tag_cloud->widget_options );
 		$this->assertContains( 'A cloud of your most used tags.', $this->wp_custom_post_type_widgets_tag_cloud->widget_options['description'] );
+		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_tag_cloud->widget_options );
+		$this->assertTrue( $this->wp_custom_post_type_widgets_tag_cloud->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_tag_cloud->control_options );
 		$this->assertEquals( 'custom-post-type-tag-cloud', $this->wp_custom_post_type_widgets_tag_cloud->control_options['id_base'] );
@@ -42,10 +44,27 @@ class Test_WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => '',
 			'taxonomy'       => '',
+			'count'          => false,
 		);
 		$expected = array(
 			'title'          => '',
 			'taxonomy'       => '',
+			'count'          => false,
+		);
+
+		$validate = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
+
+		$this->assertEquals( $validate, $expected );
+
+		$new_instance = array(
+			'title'          => '',
+			'taxonomy'       => '',
+			'count'          => true,
+		);
+		$expected = array(
+			'title'          => '',
+			'taxonomy'       => '',
+			'count'          => true,
 		);
 
 		$validate = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
@@ -61,10 +80,12 @@ class Test_WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => 'aaaaa',
 			'taxonomy'       => 'post_tag',
+			'count'          => false,
 		);
 		$expected = array(
 			'title'          => 'aaaaa',
 			'taxonomy'       => 'post_tag',
+			'count'          => false,
 		);
 
 		$validate = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
@@ -74,10 +95,12 @@ class Test_WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => "as\n<br>df",
 			'taxonomy'       => 'post_tag',
+			'count'          => false,
 		);
 		$expected = array(
 			'title'          => sanitize_text_field( "as\n<br>df" ),
 			'taxonomy'       => 'post_tag',
+			'count'          => false,
 		);
 
 		$validate = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
@@ -89,18 +112,33 @@ class Test_WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_UnitTestCase {
 	 * @test
 	 * @group wp_custom_post_type_widgets_tag_cloud
 	 */
-	function update() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+	function form() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
 	 * @test
 	 * @group wp_custom_post_type_widgets_tag_cloud
 	 */
-	function form() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+	function get_taxonomy() {
+		$instance = array();
+		$taxonomy = $this->wp_custom_post_type_widgets_tag_cloud->get_taxonomy( $instance );
+
+		$this->assertEquals( $taxonomy, 'post_tag' );
+
+		$instance = array(
+			'taxonomy' => 'aaa'
+		);
+		$taxonomy = $this->wp_custom_post_type_widgets_tag_cloud->get_taxonomy( $instance );
+
+		$this->assertEquals( $taxonomy, 'post_tag' );
+
+		$instance = array(
+			'taxonomy' => 'nav_menu'
+		);
+		$taxonomy = $this->wp_custom_post_type_widgets_tag_cloud->get_taxonomy( $instance );
+
+		$this->assertEquals( $taxonomy, 'nav_menu' );
 	}
 
 }

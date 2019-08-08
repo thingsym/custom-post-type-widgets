@@ -27,12 +27,16 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_search', $this->wp_custom_post_type_widgets_search->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_search->widget_options );
 		$this->assertContains( 'A search form for your site.', $this->wp_custom_post_type_widgets_search->widget_options['description'] );
+		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_search->widget_options );
+		$this->assertTrue( $this->wp_custom_post_type_widgets_search->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_search->control_options );
 		$this->assertEquals( 'custom-post-type-search', $this->wp_custom_post_type_widgets_search->control_options['id_base'] );
 
 		$this->assertEquals( 'widget_custom-post-type-search', $this->wp_custom_post_type_widgets_search->option_name );
 		$this->assertEquals( 'widget_custom_post_type_search', $this->wp_custom_post_type_widgets_search->alt_option_name );
+
+		$this->assertEquals( 10, has_action( 'pre_get_posts', array( $this->wp_custom_post_type_widgets_search, 'query_search_filter_only_post_type' ) ) );
 	}
 
 	/**
@@ -40,8 +44,7 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_search
 	 */
 	function widget() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
@@ -100,8 +103,53 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_search
 	 */
 	function form() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_search
+	 */
+	function query_search_filter_only_post_type() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_search
+	 */
+	function search_form_input() {
+		ob_start();
+		get_search_form();
+		$form = ob_get_clean();
+
+		$options[0] = array(
+			'posttype' => ''
+		);
+		update_option( 'widget_custom-post-type-search', $options );
+
+		$validate = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
+
+		$this->assertRegExp( '#<input type="hidden" name="post_type" value="">#', $validate );
+
+		$options[0] = array(
+			'posttype' => 'post'
+		);
+		update_option( 'widget_custom-post-type-search', $options );
+
+		$validate = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
+
+		$this->assertRegExp( '#<input type="hidden" name="post_type" value="post">#', $validate );
+
+		$options[0] = array(
+			'posttype' => 'test'
+		);
+		update_option( 'widget_custom-post-type-search', $options );
+
+		$validate = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
+
+		$this->assertRegExp( '#<input type="hidden" name="post_type" value="test">#', $validate );
+
 	}
 
 }

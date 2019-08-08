@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress Coding Standards for theme/plugin">
+  <!-- See https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
+  <!-- See https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/blob/develop/WordPress-Core/ruleset.xml -->
+
+  <!-- Set a description for this ruleset. -->
+  <description>Custom rules of WordPress Coding Standards for theme/plugin</description>
+
+  <!-- Include the WordPress ruleset, with exclusions. -->
+  <rule ref="WordPress">
+    <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+    <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
+    <exclude name="Squiz.Commenting.FunctionComment.Missing" />
+    <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
+    <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
+    <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText" />
+    <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
+    <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedIf" />
+  </rule>
+
+  <exclude-pattern>*/tests/*</exclude-pattern>
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+</ruleset>

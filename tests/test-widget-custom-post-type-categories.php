@@ -27,6 +27,8 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_categories', $this->wp_custom_post_type_widgets_categories->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_categories->widget_options );
 		$this->assertContains( 'A list or dropdown of categories.', $this->wp_custom_post_type_widgets_categories->widget_options['description'] );
+		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_categories->widget_options );
+		$this->assertTrue( $this->wp_custom_post_type_widgets_categories->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_categories->control_options );
 		$this->assertEquals( 'custom-post-type-categories', $this->wp_custom_post_type_widgets_categories->control_options['id_base'] );
@@ -101,9 +103,9 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 		$expected = array(
 			'title'          => '',
 			'taxonomy'       => '',
-			'count'          => 0,
-			'hierarchical'   => 0,
-			'dropdown'       => 0,
+			'count'          => false,
+			'hierarchical'   => false,
+			'dropdown'       => false,
 		);
 
 		$validate = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
@@ -119,16 +121,16 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => 'aaaaa',
 			'taxonomy'       => 'category',
-			'count'          => 0,
-			'hierarchical'   => 0,
-			'dropdown'       => 0,
+			'count'          => false,
+			'hierarchical'   => false,
+			'dropdown'       => false,
 		);
 		$expected = array(
 			'title'          => 'aaaaa',
 			'taxonomy'       => 'category',
-			'count'          => 0,
-			'hierarchical'   => 0,
-			'dropdown'       => 0,
+			'count'          => false,
+			'hierarchical'   => false,
+			'dropdown'       => false,
 		);
 
 		$validate = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
@@ -138,16 +140,16 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => "as\n<br>df",
 			'taxonomy'       => 'category',
-			'count'          => 1,
-			'hierarchical'   => 1,
-			'dropdown'       => 1,
+			'count'          => true,
+			'hierarchical'   => true,
+			'dropdown'       => true,
 		);
 		$expected = array(
 			'title'          => sanitize_text_field( "as\n<br>df" ),
 			'taxonomy'       => 'category',
-			'count'          => 1,
-			'hierarchical'   => 1,
-			'dropdown'       => 1,
+			'count'          => true,
+			'hierarchical'   => true,
+			'dropdown'       => true,
 		);
 
 		$validate = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
@@ -160,8 +162,7 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_categories
 	 */
 	function form() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 }

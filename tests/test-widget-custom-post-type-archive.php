@@ -27,6 +27,8 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_archive', $this->wp_custom_post_type_widgets_archives->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_archives->widget_options );
 		$this->assertContains( 'A monthly archive of your site&#8217;s Posts.', $this->wp_custom_post_type_widgets_archives->widget_options['description'] );
+		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_archives->widget_options );
+		$this->assertTrue( $this->wp_custom_post_type_widgets_archives->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_archives->control_options );
 		$this->assertEquals( 'custom-post-type-archives', $this->wp_custom_post_type_widgets_archives->control_options['id_base'] );
@@ -39,82 +41,96 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_archives
 	 */
 	function widget() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
-// link
-// select
+	// link
+	// select
 
-/**
- * @test
- * @group wp_custom_post_type_widgets_archives
- */
-function update_case_none_input() {
-	$new_instance = array(
-		'title'          => '',
-		'posttype'       => '',
-		'count'          => '',
-		'dropdown'       => '',
-	);
-	$expected = array(
-		'title'          => '',
-		'posttype'       => '',
-		'count'          => 0,
-		'dropdown'       => 0,
-	);
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_archives
+	 */
+	function update_case_none_input() {
+		$new_instance = array(
+			'title'          => '',
+			'posttype'       => '',
+			'count'          => '',
+			'dropdown'       => '',
+		);
+		$expected = array(
+			'title'          => '',
+			'posttype'       => '',
+			'count'          => false,
+			'dropdown'       => false,
+		);
 
-	$validate = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
+		$validate = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
 
-	$this->assertEquals( $validate, $expected );
-}
+		$this->assertEquals( $validate, $expected );
+	}
 
-/**
- * @test
- * @group wp_custom_post_type_widgets_archives
- */
-function update_case_input() {
-	$new_instance = array(
-		'title'          => 'aaaaa',
-		'posttype'       => 'post',
-		'count'          => 0,
-		'dropdown'       => 0,
-	);
-	$expected = array(
-		'title'          => 'aaaaa',
-		'posttype'       => 'post',
-		'count'          => 0,
-		'dropdown'       => 0,
-	);
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_archives
+	 */
+	function update_case_input() {
+		$new_instance = array(
+			'title'          => 'aaaaa',
+			'posttype'       => 'post',
+			'count'          => false,
+			'dropdown'       => false,
+		);
+		$expected = array(
+			'title'          => 'aaaaa',
+			'posttype'       => 'post',
+			'count'          => false,
+			'dropdown'       => false,
+		);
 
-	$validate = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
+		$validate = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
 
-	$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $validate, $expected );
 
-	$new_instance = array(
-		'title'          => "as\n<br>df",
-		'posttype'       => 'post',
-		'count'          => 1,
-		'dropdown'       => 1,
-	);
-	$expected = array(
-		'title'          => sanitize_text_field( "as\n<br>df" ),
-		'posttype'       => 'post',
-		'count'          => 1,
-		'dropdown'       => 1,
-	);
+		$new_instance = array(
+			'title'          => "as\n<br>df",
+			'posttype'       => 'post',
+			'count'          => true,
+			'dropdown'       => true,
+		);
+		$expected = array(
+			'title'          => sanitize_text_field( "as\n<br>df" ),
+			'posttype'       => 'post',
+			'count'          => true,
+			'dropdown'       => true,
+		);
 
-	$validate = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
+		$validate = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
 
-	$this->assertEquals( $validate, $expected );
-}
+		$this->assertEquals( $validate, $expected );
+	}
 
 	/**
 	 * @test
 	 * @group wp_custom_post_type_widgets_archives
 	 */
 	function form() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_archives
+	 */
+	function get_month_link_custom_post_type() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_archives
+	 */
+	function trim_post_type() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 }

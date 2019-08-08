@@ -27,6 +27,8 @@ class Test_WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_UnitTestCase {
 		$this->assertEquals( 'widget_recent_comments', $this->wp_custom_post_type_widgets_recent_comments->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_recent_comments->widget_options );
 		$this->assertContains( 'Your site’s most recent comments.', $this->wp_custom_post_type_widgets_recent_comments->widget_options['description'] );
+		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_recent_comments->widget_options );
+		$this->assertTrue( $this->wp_custom_post_type_widgets_recent_comments->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_recent_comments->control_options );
 		$this->assertEquals( 'custom-post-type-recent-comments', $this->wp_custom_post_type_widgets_recent_comments->control_options['id_base'] );
@@ -40,8 +42,7 @@ class Test_WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_recent_comments
 	 */
 	function widget() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
@@ -106,8 +107,7 @@ class Test_WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_recent_comments
 	 */
 	function form() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 }
