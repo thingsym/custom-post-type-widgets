@@ -86,6 +86,7 @@ display a list of the top 45 that has used in a tag cloud.
 
 * **Title** - description that appears over the tag cloud.
 * **Taxonomy** - if selected, filter a custom taxonomy (e.g. post_tag).
+* **Show tag counts** - if checked, this box causes the count of the number of tags to display with each tag.
 * **Class Name** - widget_tag_cloud
 
 ### Search (Custom Post Type)
@@ -97,6 +98,26 @@ A search form for your site.
 * **Title** - description that appears over the search.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
 * **Class Name** - widget_search
+
+## Hooks
+
+### Filter hooks
+
+* custom_post_type_widgets/archive/widget_archives_dropdown_args
+* custom_post_type_widgets/archive/widget_archives_args
+* custom_post_type_widgets/categories/widget_categories_dropdown_args
+* custom_post_type_widgets/categories/widget_categories_args
+* custom_post_type_widgets/recent_comments/widget_comments_args
+* custom_post_type_widgets/recent_posts/widget_posts_args
+* custom_post_type_widgets/search/filter_post_type
+* custom_post_type_widgets/tag_cloud/widget_tag_cloud_args
+
+### Action hooks
+
+* custom_post_type_widgets/recent_posts/widget/before
+* custom_post_type_widgets/recent_posts/widget/prepend
+* custom_post_type_widgets/recent_posts/widget/append
+* custom_post_type_widgets/recent_posts/widget/after
 
 ## WordPress Plugin Directory
 

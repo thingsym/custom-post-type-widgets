@@ -74,6 +74,7 @@ display a list of the top 45 that has used in a tag cloud.
 
 * **Title** - description that appears over the tag cloud.
 * **Taxonomy** - if selected, filter a custom taxonomy (e.g. post_tag).
+* **Show tag counts** - if checked, this box causes the count of the number of tags to display with each tag.
 * **Class Name** - widget_tag_cloud
 
 = Search (Custom Post Type) =
@@ -123,6 +124,24 @@ If you would like to contribute, here are some notes and guidlines.
 **IMPORTANT**: By default, WordPress will not work Date-based permalinks of custom post type. Recommend that you install the plugin in order to edit the permalink, if you are using a Date-based permalinks.
 
 And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
+
+= Filter hooks =
+
+* custom_post_type_widgets/archive/widget_archives_dropdown_args
+* custom_post_type_widgets/archive/widget_archives_args
+* custom_post_type_widgets/categories/widget_categories_dropdown_args
+* custom_post_type_widgets/categories/widget_categories_args
+* custom_post_type_widgets/recent_comments/widget_comments_args
+* custom_post_type_widgets/recent_posts/widget_posts_args
+* custom_post_type_widgets/search/filter_post_type
+* custom_post_type_widgets/tag_cloud/widget_tag_cloud_args
+
+= Action hooks =
+
+* custom_post_type_widgets/recent_posts/widget/before
+* custom_post_type_widgets/recent_posts/widget/prepend
+* custom_post_type_widgets/recent_posts/widget/append
+* custom_post_type_widgets/recent_posts/widget/after
 
 == Changelog ==
 
