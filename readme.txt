@@ -4,10 +4,10 @@ Contributors: thingsym
 Donate link:
 Link: https://github.com/thingsym/custom-post-type-widgets
 Tags: widget, widgets, custom post type, taxonomy
-Requires at least: 3.8
+Requires at least: 4.0
 Requires PHP: 5.4
-Tested up to: 5.0.3
-Stable tag: 1.1.3
+Tested up to: 5.2.2
+Stable tag: 1.2.0
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,7 @@ display a list of the top 45 that has used in a tag cloud.
 
 * **Title** - description that appears over the tag cloud.
 * **Taxonomy** - if selected, filter a custom taxonomy (e.g. post_tag).
+* **Show tag counts** - if checked, this box causes the count of the number of tags to display with each tag.
 * **Class Name** - widget_tag_cloud
 
 = Search (Custom Post Type) =
@@ -124,7 +125,42 @@ If you would like to contribute, here are some notes and guidlines.
 
 And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
 
+= Filter hooks =
+
+* custom_post_type_widgets/archive/widget_archives_dropdown_args
+* custom_post_type_widgets/archive/widget_archives_args
+* custom_post_type_widgets/categories/widget_categories_dropdown_args
+* custom_post_type_widgets/categories/widget_categories_args
+* custom_post_type_widgets/recent_comments/widget_comments_args
+* custom_post_type_widgets/recent_posts/widget_posts_args
+* custom_post_type_widgets/search/filter_post_type
+* custom_post_type_widgets/tag_cloud/widget_tag_cloud_args
+
+= Action hooks =
+
+* custom_post_type_widgets/recent_posts/widget/before
+* custom_post_type_widgets/recent_posts/widget/prepend
+* custom_post_type_widgets/recent_posts/widget/append
+* custom_post_type_widgets/recent_posts/widget/after
+
 == Changelog ==
+
+= 1.2.0 =
+* change Requires at least version 4.0
+* [Calendar widget] cache the calendar
+* improve filter hooks and action hooks
+* fix test case
+* refactoring
+* add customize_selective_refresh
+* fix phpcs.ruleset.xml
+* replace from strip_tags to wp_strip_all_tags
+* replace from _e to esc_html_e
+* add PHPDoc
+* fix header
+* add reset-wp-tests.sh, uninstall-wp-tests.sh
+* fix indent and reformat with phpcs and phpcbf
+* add composer.json for test
+* add static code analysis config
 
 = 1.1.3 =
 * change Requires at least version 3.7
@@ -166,6 +202,9 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* Requires at least version 4.0 of the WordPress
 
 = 1.1.3 =
 * Requires at least version 3.7 of the WordPress
