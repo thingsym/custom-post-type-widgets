@@ -75,7 +75,6 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		echo '</div>';
 		echo $args['after_widget'];
 
-		remove_filter( 'get_calendar', array( $this, 'get_custom_post_type_calendar' ) );
 		remove_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ) );
 		remove_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ) );
 
@@ -165,6 +164,10 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 
 		$key   = md5( $posttype . $m . $monthnum . $year );
 		$cache = wp_cache_get( 'get_calendar', 'calendar' );
+
+		// Remove filter before applying it below to prevent max function nesting level error.
+		// Do this outside the if statement because it needs to be removed regardless.
+		remove_filter( 'get_calendar', array( $this, 'get_custom_post_type_calendar' ) );
 
 		if ( $cache && is_array( $cache ) && isset( $cache[ $key ] ) ) {
 			/** This filter is documented in wp-includes/general-template.php */
