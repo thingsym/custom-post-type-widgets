@@ -113,8 +113,8 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 
 		printf(
 			'<option value="%s"%s>%s</option>',
-			esc_attr( '' ),
-			selected( '', $posttype, false ),
+			esc_attr( 'any' ),
+			selected( 'any', $posttype, false ),
 			__( 'All', 'custom-post-type-widgets' )
 		);
 
@@ -155,7 +155,9 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 
 		if ( $query->is_search ) {
 			$filter_post_type = '';
-			$post_types       = get_post_types( array( 'public' => true ), 'objects' );
+
+			$post_types          = get_post_types( array( 'public' => true ), 'objects' );
+			$post_types[ 'any' ] = array();
 
 			// 'page' post type only
 			if ( isset( $_GET['post_type'] ) && 'page' === $_GET['post_type'] ) {
