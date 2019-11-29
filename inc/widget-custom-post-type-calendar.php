@@ -67,7 +67,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 		if ( 0 === self::$instance ) {
-			echo '<div id="calendar_wrap" class="calendar_wrap">';
+			echo '<div class="calendar_wrap">';
 		} else {
 			echo '<div class="calendar_wrap">';
 		}
@@ -248,7 +248,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 
 		/* translators: Calendar caption: 1: month name, 2: 4-digit year */
 		$calendar_caption = _x( '%1$s %2$s', 'calendar caption' );
-		$calendar_output  = '<table id="wp-calendar">
+		$calendar_output  = '<table class="wp-calendar">
 		<caption>' . sprintf(
 			$calendar_caption,
 			$wp_locale->get_month( $thismonth ),
@@ -277,23 +277,23 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		<tr>';
 
 		if ( $previous ) {
-			$calendar_output .= "\n\t\t" . '<td colspan="3" id="prev"><a href="' . get_month_link( $previous->year, $previous->month ) . '">&laquo; ' .
+			$calendar_output .= "\n\t\t" . '<td colspan="3" class="prev"><a href="' . get_month_link( $previous->year, $previous->month ) . '">&laquo; ' .
 				$wp_locale->get_month_abbrev( $wp_locale->get_month( $previous->month ) ) .
 			 '</a></td>';
 		}
 		else {
-			$calendar_output .= "\n\t\t" . '<td colspan="3" id="prev" class="pad">&nbsp;</td>';
+			$calendar_output .= "\n\t\t" . '<td colspan="3" class="prev pad">&nbsp;</td>';
 		}
 
 		$calendar_output .= "\n\t\t" . '<td class="pad">&nbsp;</td>';
 
 		if ( $next ) {
-			$calendar_output .= "\n\t\t" . '<td colspan="3" id="next"><a href="' . get_month_link( $next->year, $next->month ) . '">' .
+			$calendar_output .= "\n\t\t" . '<td colspan="3" class="next"><a href="' . get_month_link( $next->year, $next->month ) . '">' .
 				$wp_locale->get_month_abbrev( $wp_locale->get_month( $next->month ) ) .
 			' &raquo;</a></td>';
 		}
 		else {
-			$calendar_output .= "\n\t\t" . '<td colspan="3" id="next" class="pad">&nbsp;</td>';
+			$calendar_output .= "\n\t\t" . '<td colspan="3" class="next pad">&nbsp;</td>';
 		}
 
 		$calendar_output .= '
@@ -337,7 +337,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			if ( current_time( 'j' ) == $day &&
 				current_time( 'm' ) == $thismonth &&
 				current_time( 'Y' ) == $thisyear ) {
-				$calendar_output .= '<td id="today">';
+				$calendar_output .= '<td class="today">';
 			}
 			else {
 				$calendar_output .= '<td>';
