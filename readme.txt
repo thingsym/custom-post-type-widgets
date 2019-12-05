@@ -6,8 +6,8 @@ Link: https://github.com/thingsym/custom-post-type-widgets
 Tags: widget, widgets, custom post type, taxonomy
 Requires at least: 4.0
 Requires PHP: 5.4
-Tested up to: 5.2.2
-Stable tag: 1.2.0
+Tested up to: 5.3
+Stable tag: 1.2.1
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -144,6 +144,10 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * custom_post_type_widgets/recent_posts/widget/after
 
 == Changelog ==
+
+= 1.2.1 =
+* replace from id attribute to calss attribute in the calendar
+* add any matching value as all types
 
 = 1.2.0 =
 * change Requires at least version 4.0
