@@ -58,7 +58,8 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 		}
 		$show_date = ! empty( $instance['show_date'] ) ? (bool) $instance['show_date'] : false;
 
-		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+		$post_types          = get_post_types( array( 'public' => true ), 'objects' );
+		$post_types[ 'any' ] = array();
 
 		if ( array_key_exists( $posttype, (array) $post_types ) ) {
 			/**
@@ -240,8 +241,6 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
-		$post_types = get_post_types( array( 'public' => true ), 'objects' );
-
 		printf(
 			'<p><label for="%1$s">%2$s</label>' .
 			'<select class="widefat" id="%1$s" name="%3$s">',
@@ -249,6 +248,15 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 			__( 'Post Type:', 'custom-post-type-widgets' ),
 			$this->get_field_name( 'posttype' )
 		);
+
+		printf(
+			'<option value="%s"%s>%s</option>',
+			esc_attr( 'any' ),
+			selected( 'any', $posttype, false ),
+			__( 'All', 'custom-post-type-widgets' )
+		);
+
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
 
 		foreach ( $post_types as $post_type => $value ) {
 			if ( 'attachment' === $post_type ) {

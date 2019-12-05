@@ -199,8 +199,8 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 
 		printf(
 			'<option value="%s"%s>%s</option>',
-			esc_attr( '' ),
-			selected( '', $posttype, false ),
+			esc_attr( 'any' ),
+			selected( 'any', $posttype, false ),
 			__( 'All', 'custom-post-type-widgets' )
 		);
 
