@@ -143,6 +143,9 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.2.1
+	* replace from id attribute to calss attribute in the calendar
+	* add any matching value as all types
 * Version 1.2.0
 	* change Requires at least version 4.0
 	* [Calendar widget] cache the calendar
