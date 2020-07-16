@@ -247,7 +247,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 
 		/* translators: Calendar caption: 1: month name, 2: 4-digit year */
 		$calendar_caption = _x( '%1$s %2$s', 'calendar caption' );
-		$calendar_output  = '<table class="wp-calendar">
+		$calendar_output  = '<table class="wp-calendar wp-calendar-table">
 		<caption>' . sprintf(
 			$calendar_caption,
 			$wp_locale->get_month( $thismonth ),
@@ -271,34 +271,6 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$calendar_output .= '
 		</tr>
 		</thead>
-
-		<tfoot>
-		<tr>';
-
-		if ( $previous ) {
-			$calendar_output .= "\n\t\t" . '<td colspan="3" class="prev"><a href="' . get_month_link( $previous->year, $previous->month ) . '">&laquo; ' .
-				$wp_locale->get_month_abbrev( $wp_locale->get_month( $previous->month ) ) .
-			 '</a></td>';
-		}
-		else {
-			$calendar_output .= "\n\t\t" . '<td colspan="3" class="prev pad">&nbsp;</td>';
-		}
-
-		$calendar_output .= "\n\t\t" . '<td class="pad">&nbsp;</td>';
-
-		if ( $next ) {
-			$calendar_output .= "\n\t\t" . '<td colspan="3" class="next"><a href="' . get_month_link( $next->year, $next->month ) . '">' .
-				$wp_locale->get_month_abbrev( $wp_locale->get_month( $next->month ) ) .
-			' &raquo;</a></td>';
-		}
-		else {
-			$calendar_output .= "\n\t\t" . '<td colspan="3" class="next pad">&nbsp;</td>';
-		}
-
-		$calendar_output .= '
-		</tr>
-		</tfoot>
-
 		<tbody>
 		<tr>';
 
@@ -345,7 +317,8 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			if ( in_array( $day, $daywithpost ) ) {
 				// any posts today?
 				$date_format      = date( _x( 'F j, Y', 'daily archives date format' ), strtotime( "{$thisyear}-{$thismonth}-{$day}" ) );
-				$label            = sprintf( __( 'Posts published on %s' ), $date_format );
+				/* translators: label: 1: date format */
+				$label            = sprintf( __( 'Posts published on %s', 'custom-post-type-widgets' ), $date_format );
 				$calendar_output .= sprintf(
 					'<a href="%s" aria-label="%s">%s</a>',
 					get_day_link( $thisyear, $thismonth, $day ),
@@ -369,6 +342,29 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		}
 
 		$calendar_output .= "\n\t</tr>\n\t</tbody>\n\t</table>";
+
+		$calendar_output .= '<nav aria-label="' . __( 'Previous and next months', 'custom-post-type-widgets' ) . '" class="wp-calendar-nav">';
+
+		if ( $previous ) {
+			$calendar_output .= "\n\t\t" . '<span class="wp-calendar-nav-prev"><a href="' . get_month_link( $previous->year, $previous->month ) . '">&laquo; ' .
+				$wp_locale->get_month_abbrev( $wp_locale->get_month( $previous->month ) ) .
+			'</a></span>';
+		} else {
+			$calendar_output .= "\n\t\t" . '<span class="wp-calendar-nav-prev">&nbsp;</span>';
+		}
+
+		$calendar_output .= "\n\t\t" . '<span class="pad">&nbsp;</span>';
+
+		if ( $next ) {
+			$calendar_output .= "\n\t\t" . '<span class="wp-calendar-nav-next"><a href="' . get_month_link( $next->year, $next->month ) . '">' .
+				$wp_locale->get_month_abbrev( $wp_locale->get_month( $next->month ) ) .
+			' &raquo;</a></span>';
+		} else {
+			$calendar_output .= "\n\t\t" . '<span class="wp-calendar-nav-next">&nbsp;</span>';
+		}
+
+		$calendar_output .= '
+		</nav>';
 
 		$cache[ $key ] = $calendar_output;
 		wp_cache_set( 'get_custom_post_type_calendar', $cache, 'calendar' );
