@@ -42,15 +42,15 @@ class Custom_Post_Type_Widgets {
 	 * @since 1.0.0
 	 */
 	public function load() {
-		$dir = plugin_dir_path( __FILE__ );
+		$dir = plugin_dir_path( __FILE__ ) . 'inc/';
 
-		include_once $dir . 'inc/widget-custom-post-type-recent-posts.php';
-		include_once $dir . 'inc/widget-custom-post-type-archive.php';
-		include_once $dir . 'inc/widget-custom-post-type-categories.php';
-		include_once $dir . 'inc/widget-custom-post-type-calendar.php';
-		include_once $dir . 'inc/widget-custom-post-type-recent-comments.php';
-		include_once $dir . 'inc/widget-custom-post-type-tag-cloud.php';
-		include_once $dir . 'inc/widget-custom-post-type-search.php';
+		include_once $dir . 'widget-custom-post-type-recent-posts.php';
+		include_once $dir . 'widget-custom-post-type-archive.php';
+		include_once $dir . 'widget-custom-post-type-categories.php';
+		include_once $dir . 'widget-custom-post-type-calendar.php';
+		include_once $dir . 'widget-custom-post-type-recent-comments.php';
+		include_once $dir . 'widget-custom-post-type-tag-cloud.php';
+		include_once $dir . 'widget-custom-post-type-search.php';
 	}
 
 	/**
