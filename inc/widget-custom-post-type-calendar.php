@@ -143,26 +143,21 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	}
 
 	/**
-	 * Extend the get_calendar.
-	 *
-	 * Hooks to get_calendar
-	 *
-	 * @see wp-includes/general-template.php
+	 * Extend the get_calendar for custom post type.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string  $calendar_output
 	 * @param boolean $initial
 	 * @param boolean $echo
 	 */
-	public function get_custom_post_type_calendar( $calendar_output, $initial = true, $echo = true ) {
+	public function get_custom_post_type_calendar( $initial = true, $echo = true ) {
 		global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
 
 		$options  = get_option( $this->option_name );
 		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : 'post';
 
 		$key   = md5( $posttype . $m . $monthnum . $year );
-		$cache = wp_cache_get( 'get_calendar', 'calendar' );
+		$cache = wp_cache_get( 'get_custom_post_type_calendar', 'calendar' );
 
 		if ( $cache && is_array( $cache ) && isset( $cache[ $key ] ) ) {
 			/** This filter is documented in wp-includes/general-template.php */
@@ -185,7 +180,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$gotsome = $wpdb->get_var( "SELECT 1 as test FROM $wpdb->posts WHERE post_type = '$posttype' AND post_status = 'publish' LIMIT 1" );
 			if ( ! $gotsome ) {
 				$cache[ $key ] = '';
-				wp_cache_set( 'get_calendar', $cache, 'calendar' );
+				wp_cache_set( 'get_custom_post_type_calendar', $cache, 'calendar' );
 				return;
 			}
 		}
@@ -370,7 +365,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$calendar_output .= "\n\t</tr>\n\t</tbody>\n\t</table>";
 
 		$cache[ $key ] = $calendar_output;
-		wp_cache_set( 'get_calendar', $cache, 'calendar' );
+		wp_cache_set( 'get_custom_post_type_calendar', $cache, 'calendar' );
 
 		if ( $echo ) {
 			echo $calendar_output;
