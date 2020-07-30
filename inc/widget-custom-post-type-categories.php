@@ -51,9 +51,9 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 		$h        = ! empty( $instance['hierarchical'] ) ? (bool) $instance['hierarchical'] : false;
 		$d        = ! empty( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
 
-		echo $args['before_widget'];
+		echo $args['before_widget']; // WPCS: XSS ok.
 		if ( $title ) {
-			echo $args['before_title'] . $title . $args['after_title'];
+			echo $args['before_title'] . $title . $args['after_title']; // WPCS: XSS ok.
 		}
 
 		$cat_args = array(
@@ -66,13 +66,13 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 		if ( $d ) {
 			$dropdown_id = "{$this->id_base}-dropdown-{$this->number}";
 
-			echo '<label class="screen-reader-text" for="' . esc_attr( $dropdown_id ) . '">' . $title . '</label>';
+			echo '<label class="screen-reader-text" for="' . esc_attr( $dropdown_id ) . '">' . $title . '</label>'; // WPCS: XSS ok.
 
 			$cat_args['show_option_none'] = __( 'Select Category', 'custom-post-type-widgets' );
 			$cat_args['name']             = 'category' === $taxonomy ? 'category_name' : $taxonomy;
 			$cat_args['id']               = $dropdown_id;
 			$cat_args['value_field']      = 'slug';
-?>
+			?>
 
 <form action="<?php echo esc_url( home_url() ); ?>" method="get">
 			<?php
@@ -115,12 +115,12 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 })();
 /* ]]> */
 </script>
-<?php
+			<?php
 		}
 		else {
-?>
-		<ul>
-<?php
+			?>
+			<ul>
+			<?php
 			$cat_args['title_li'] = '';
 			/**
 			 * Filters the arguments for the Categories widget.
@@ -129,7 +129,7 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 			 *
 			 * @see wp_list_categories()
 			 *
-			 * @param array  $cat_args An array of Categories widget drop-down arguments.
+			 * @param array  $cat_args An array of Categories widget arguments.
 			 * @param array  $instance Array of settings for the current widget.
 			 * @param string $this->id Widget id.
 			 * @param string $taxonomy Taxonomy.
@@ -143,12 +143,12 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 					$taxonomy
 				)
 			);
-?>
-		</ul>
-<?php
+			?>
+			</ul>
+			<?php
 		}
 
-		echo $args['after_widget'];
+		echo $args['after_widget']; // WPCS: XSS ok.
 	}
 
 	/**
@@ -189,12 +189,12 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 		$count        = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
 		$hierarchical = isset( $instance['hierarchical'] ) ? (bool) $instance['hierarchical'] : false;
 		$dropdown     = isset( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
-?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
+		?>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'title' ); // WPCS: XSS ok. ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
-		$taxonomies = get_taxonomies( '', 'objects' );
+		$taxonomies = get_taxonomies( array(), 'objects' );
 
 		if ( $taxonomies ) {
 			printf(
@@ -203,7 +203,7 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 				$this->get_field_id( 'taxonomy' ),
 				__( 'Taxonomy:', 'custom-post-type-widgets' ),
 				$this->get_field_name( 'taxonomy' )
-			);
+			); // WPCS: XSS ok.
 
 			foreach ( $taxonomies as $taxobjects => $value ) {
 				if ( ! $value->hierarchical ) {
@@ -217,21 +217,21 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 					'<option value="%s"%s>%s</option>',
 					esc_attr( $taxobjects ),
 					selected( $taxobjects, $taxonomy, false ),
-					__( $value->label, 'custom-post-type-widgets' ) . ' ' . $taxobjects
+					esc_html__( $value->label, 'custom-post-type-widgets' ) . ' ' . esc_html( $taxobjects )
 				);
 			}
 			echo '</select></p>';
 		}
 		?>
 
-		<p><input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'dropdown' ); ?>" name="<?php echo $this->get_field_name( 'dropdown' ); ?>"<?php checked( $dropdown ); ?> />
-		<label for="<?php echo $this->get_field_id( 'dropdown' ); ?>"><?php esc_html_e( 'Display as dropdown', 'custom-post-type-widgets' ); ?></label><br />
+		<p><input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'dropdown' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'dropdown' ); // WPCS: XSS ok. ?>"<?php checked( $dropdown ); ?> />
+		<label for="<?php echo $this->get_field_id( 'dropdown' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Display as dropdown', 'custom-post-type-widgets' ); ?></label><br />
 
-		<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>"<?php checked( $count ); ?> />
-		<label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php esc_html_e( 'Show post counts', 'custom-post-type-widgets' ); ?></label><br />
+		<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'count' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'count' ); // WPCS: XSS ok. ?>"<?php checked( $count ); ?> />
+		<label for="<?php echo $this->get_field_id( 'count' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Show post counts', 'custom-post-type-widgets' ); ?></label><br />
 
-		<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'hierarchical' ); ?>" name="<?php echo $this->get_field_name( 'hierarchical' ); ?>"<?php checked( $hierarchical ); ?> />
-		<label for="<?php echo $this->get_field_id( 'hierarchical' ); ?>"><?php esc_html_e( 'Show hierarchy', 'custom-post-type-widgets' ); ?></label></p>
-<?php
+		<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'hierarchical' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'hierarchical' ); // WPCS: XSS ok. ?>"<?php checked( $hierarchical ); ?> />
+		<label for="<?php echo $this->get_field_id( 'hierarchical' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Show hierarchy', 'custom-post-type-widgets' ); ?></label></p>
+		<?php
 	}
 }

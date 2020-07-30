@@ -52,7 +52,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		 * @param bool   $active  Whether the widget is active. Default true.
 		 * @param string $id_base The widget ID.
 		 */
-		if ( ! current_theme_supports( 'widgets' ) // Temp hack #14876
+		if ( ! current_theme_supports( 'widgets' ) // Temp hack #14876.
 			|| ! apply_filters( 'show_recent_comments_widget_style', true, $this->id_base ) ) {
 			return;
 		}
@@ -80,9 +80,6 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		$output = '';
 
 		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Recent Comments', 'custom-post-type-widgets' );
-
-		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
-		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
 		$posttype = ! empty( $instance['posttype'] ) ? $instance['posttype'] : '';
 		$number = ( ! empty( $instance['number'] ) ) ? absint( $instance['number'] ) : 5;
@@ -120,14 +117,9 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 			)
 		);
 
-		$output .= $args['before_widget'];
-		if ( $title ) {
-			$output .= $args['before_title'] . $title . $args['after_title'];
-		}
-
 		$output .= '<ul id="recentcomments">';
 		if ( is_array( $comments ) && $comments ) {
-			// Prime cache for associated posts. (Prime post term cache if we need it for permalinks.)
+			// Prime cache for associated posts. Prime post term cache if we need it for permalinks.
 			$post_ids = array_unique( wp_list_pluck( $comments, 'comment_post_ID' ) );
 			_prime_post_caches( $post_ids, strpos( get_option( 'permalink_structure' ), '%category%' ), false );
 
@@ -135,7 +127,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 				$output .= '<li class="recentcomments">';
 				/* translators: comments widget: 1: comment author, 2: post link */
 				$output .= sprintf(
-					_x( '%1$s on %2$s', 'widgets' ),
+					_x( '%1$s on %2$s', 'widgets', 'custom-post-type-widgets' ),
 					'<span class="comment-author-link">' . get_comment_author_link( $comment ) . '</span>',
 					'<a href="' . esc_url( get_comment_link( $comment ) ) . '">' . get_the_title( $comment->comment_post_ID ) . '</a>'
 				);
@@ -143,10 +135,17 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 			}
 		}
 		$output .= '</ul>';
-		$output .= $args['after_widget'];
 
-		echo $output;
-	}
+		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
+		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+
+		echo $args['before_widget']; // WPCS: XSS ok.
+		if ( $title ) {
+			echo $args['before_title'] . $title . $args['after_title']; // WPCS: XSS ok.
+		}
+		echo $output; // WPCS: XSS ok.
+		echo $args['after_widget']; // WPCS: XSS ok.
+	} 
 
 	/**
 	 * Handles updating settings for the current Archives widget instance.
@@ -182,9 +181,9 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		$title    = isset( $instance['title'] ) ? $instance['title'] : '';
 		$posttype = isset( $instance['posttype'] ) ? $instance['posttype'] : '';
 		$number   = isset( $instance['number'] ) ? absint( $instance['number'] ) : 5;
-?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
+		?>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'title' ); // WPCS: XSS ok. ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
@@ -195,13 +194,13 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 			$this->get_field_id( 'posttype' ),
 			__( 'Post Type:', 'custom-post-type-widgets' ),
 			$this->get_field_name( 'posttype' )
-		);
+		); // WPCS: XSS ok.
 
 		printf(
 			'<option value="%s"%s>%s</option>',
 			esc_attr( 'any' ),
 			selected( 'any', $posttype, false ),
-			__( 'All', 'custom-post-type-widgets' )
+			esc_html__( 'All', 'custom-post-type-widgets' )
 		);
 
 		foreach ( $post_types as $post_type => $value ) {
@@ -213,15 +212,15 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 				'<option value="%s"%s>%s</option>',
 				esc_attr( $post_type ),
 				selected( $post_type, $posttype, false ),
-				__( $value->label, 'custom-post-type-widgets' )
+				esc_html__( $value->label, 'custom-post-type-widgets' )
 			);
 
 		}
 		echo '</select></p>';
-?>
+		?>
 
-		<p><label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php esc_html_e( 'Number of comments to show:', 'custom-post-type-widgets' ); ?></label>
-		<input class="tiny-text" id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="number" step="1" min="1" value="<?php echo esc_attr( $number ); ?>" size="3" /></p>
-<?php
+		<p><label for="<?php echo $this->get_field_id( 'number' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Number of comments to show:', 'custom-post-type-widgets' ); ?></label>
+		<input class="tiny-text" id="<?php echo $this->get_field_id( 'number' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'number' ); // WPCS: XSS ok. ?>" type="number" step="1" min="1" value="<?php echo esc_attr( $number ); ?>" size="3" /></p>
+		<?php
 	}
 }

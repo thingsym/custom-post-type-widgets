@@ -4,23 +4,29 @@
   "require": {},
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
-    "wp-coding-standards/wpcs": "2.*",
-    "phpmd/phpmd": "2.*",
+    "wp-coding-standards/wpcs": "*",
+    "phpmd/phpmd": "*",
     "phpstan/phpstan": "*",
-    "phpunit/phpunit": "^6"
+    "phpunit/phpunit": "^7"
   },
   "scripts": {
     "phpcs:config-set": "phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
     "phpcs": "phpcs -p -s -v -n ./ --standard=./phpcs.ruleset.xml --extensions=php",
     "phpcs:warning": "phpcs -p -s -v ./ --standard=./phpcs.ruleset.xml --extensions=php",
-    "phpcbf": "phpcbf -p -s -v ./ --standard=./phpcs.ruleset.xml --extensions=php",
-    "phpmd": "phpmd ./ text ./phpmd.ruleset.xml --suffixes php --exclude /tests,/vendor",
+    "format:phpcbf": "phpcbf -p -s -v ./ --standard=./phpcs.ruleset.xml --extensions=php",
+    "phpmd": "phpmd ./ text ./phpmd.ruleset.xml --suffixes php --exclude /languages,/tests,/vendor,/node_modules",
     "phpstan": "phpstan analyse",
     "phpunit": "phpunit",
+    "coverage": "phpunit --coverage-html ./tests/report",
     "ci": [
-      "phpcs -p -s -v -n ./ --standard=./phpcs.ruleset.xml --extensions=php",
-      "phpmd ./ text ./phpmd.ruleset.xml --suffixes php --exclude /tests,/vendor",
-      "phpunit"
-    ]
+      "@phpunit",
+      "@phpcs:config-set",
+      "@phpcs",
+      "@phpmd",
+      "@phpstan"
+    ],
+    "makepot:php": "php /usr/local/share/wp-i18n/makepot.php wp-plugin ../custom-post-type-widgets ../custom-post-type-widgets/languages/custom-post-type-widgets.pot",
+    "makepot:wpcli": "wp i18n make-pot ./ ./languages/custom-post-type-widgets.pot --exclude=dist,bin,tests,node_modules,vendor",
+    "msgfmt:ja": "msgfmt languages/custom-post-type-widgets-ja.po -o languages/custom-post-type-widgets-ja.mo"
   }
 }
