@@ -85,6 +85,12 @@ A search form for your site.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
 * **Class Name** - widget_search
 
+= Hooks =
+
+Custom Post Type Widgets has its own hooks. See the reference for details.
+
+Reference: [https://github.com/thingsym/custom-post-type-widgets#hooks](https://github.com/thingsym/custom-post-type-widgets#hooks)
+
 = Test Matrix =
 
 For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widgets).
@@ -102,6 +108,97 @@ If you would like to contribute, here are some notes and guidlines.
 * The **master** branch only contains tagged releases
 * If you are going to be submitting a pull request, please submit your pull request to the **develop** branch
 * See about [forking](https://help.github.com/articles/fork-a-repo/) and [pull requests](https://help.github.com/articles/using-pull-requests/)
+
+== Frequently Asked Questions ==
+
+= 404 error when clicking month link. =
+
+You may need to edit the permalink of custom post type.
+
+By default, WordPress will not work Date-based permalinks of custom post type.
+
+For example, a month link generates a link in a format like `/<custom post type name>/date/YYYY/MM/`, if you set `Numeric` in Common Settings in Permalink Settings.
+
+The month link has the following two patterns depending on the Common Settings.
+But a link like below will not work.
+
+* `/<custom post type name>/YYYY/MM/` (Day and name, Month and name, Post name)
+* `/<custom post type name>/date/YYYY/MM/` (Numeric)
+
+Recommend that you install the plugin in order to edit the permalink, if you are using a Date-based permalinks by the Widget.
+
+And try the following:
+
+Custom Post Type Rewrite
+[https://wordpress.org/plugins/custom-post-type-rewrite/](https://wordpress.org/plugins/custom-post-type-rewrite/)
+
+= Taxonomy select of Categories or Tags do not appear. =
+
+Check the setting of the **hierarchical** argument of the register_taxonomy function.
+
+> hierarchical  
+> (boolean) (optional) Is this taxonomy hierarchical (have descendants) like categories or not hierarchical like tags.  
+> Default: false
+
+Reference: [https://codex.wordpress.org/Function_Reference/register_taxonomy](https://codex.wordpress.org/Function_Reference/register_taxonomy)
+
+By hierarchical option,
+
+If false, use "Tag Cloud (Custom Post Type)" as tags.  
+If true, use "Categories (Custom Post Type)" as categories.
+
+= Search filter dose not work. =
+
+Check the setting of the **exclude_from_search** argument of the register_post_type function.
+
+> 'exclude_from_search'
+> (bool) Whether to exclude posts with this post type from front end search results. Default is the opposite value of $public.
+
+= Show featured image as a thumbnail. =
+
+You can use the action hook `custom_post_type_widgets/recent_posts/widget/prepend` to adding thumbnails.
+
+Code sample is as follows:
+
+```
+function cptw_hooks_setup() {
+  add_action( 'custom_post_type_widgets/recent_posts/widget/prepend', 'cptw_recent_posts_prepend', 10, 4 );
+}
+add_action( 'after_setup_theme', 'cptw_setup_hooks' );
+
+function cptw_recent_posts_prepend( $widget_id, $posttype, $instance, $recent_post ) {
+  if ( has_post_thumbnail( $recent_post ) ) {
+    echo get_the_post_thumbnail( $recent_post );
+  }
+}
+```
+
+Insert the above code into functions.php in your theme.
+
+= Does Custom Post Type Widgets have hooks ? =
+
+Custom Post Type Widgets has its own hooks.
+
+## Filter hooks
+
+* custom_post_type_widgets/archive/widget_archives_dropdown_args
+* custom_post_type_widgets/archive/widget_archives_args
+* custom_post_type_widgets/categories/widget_categories_dropdown_args
+* custom_post_type_widgets/categories/widget_categories_args
+* custom_post_type_widgets/recent_comments/widget_comments_args
+* custom_post_type_widgets/recent_posts/widget_posts_args
+* custom_post_type_widgets/search/filter_post_type
+* custom_post_type_widgets/tag_cloud/widget_tag_cloud_args
+* custom_post_type_widgets/calendar/get_custom_post_type_calendar
+
+## Action hooks
+
+* custom_post_type_widgets/recent_posts/widget/before
+* custom_post_type_widgets/recent_posts/widget/prepend
+* custom_post_type_widgets/recent_posts/widget/append
+* custom_post_type_widgets/recent_posts/widget/after
+
+Reference: [https://github.com/thingsym/custom-post-type-widgets#hooks](https://github.com/thingsym/custom-post-type-widgets#hooks)
 
 == Screenshots ==
 
@@ -124,24 +221,6 @@ If you would like to contribute, here are some notes and guidlines.
 **IMPORTANT**: By default, WordPress will not work Date-based permalinks of custom post type. Recommend that you install the plugin in order to edit the permalink, if you are using a Date-based permalinks.
 
 And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
-
-= Filter hooks =
-
-* custom_post_type_widgets/archive/widget_archives_dropdown_args
-* custom_post_type_widgets/archive/widget_archives_args
-* custom_post_type_widgets/categories/widget_categories_dropdown_args
-* custom_post_type_widgets/categories/widget_categories_args
-* custom_post_type_widgets/recent_comments/widget_comments_args
-* custom_post_type_widgets/recent_posts/widget_posts_args
-* custom_post_type_widgets/search/filter_post_type
-* custom_post_type_widgets/tag_cloud/widget_tag_cloud_args
-
-= Action hooks =
-
-* custom_post_type_widgets/recent_posts/widget/before
-* custom_post_type_widgets/recent_posts/widget/prepend
-* custom_post_type_widgets/recent_posts/widget/append
-* custom_post_type_widgets/recent_posts/widget/after
 
 == Changelog ==
 
