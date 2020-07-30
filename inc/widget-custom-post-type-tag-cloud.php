@@ -66,8 +66,8 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 		 *
 		 * @see wp_tag_cloud()
 		 *
-		 * @param array $args     Args used for the tag cloud widget.
-		 * @param array $instance Array of settings for the current widget.
+		 * @param array  $args     Args used for the tag cloud widget.
+		 * @param array  $instance Array of settings for the current widget.
 		 * @param string $this->id Widget id.
 		 * @param string $taxonomy Taxonomy.
 		 */
@@ -92,14 +92,14 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-		echo $args['before_widget'];
+		echo $args['before_widget']; // WPCS: XSS ok.
 		if ( $title ) {
-			echo $args['before_title'] . $title . $args['after_title'];
+			echo $args['before_title'] . $title . $args['after_title']; // WPCS: XSS ok.
 		}
 		echo '<div class="tagcloud">';
-		echo $tag_cloud;
+		echo $tag_cloud; // WPCS: XSS ok.
 		echo '</div>';
-		echo $args['after_widget'];
+		echo $args['after_widget']; // WPCS: XSS ok.
 	}
 
 	/**
@@ -136,9 +136,9 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 		$title    = isset( $instance['title'] ) ? $instance['title'] : '';
 		$taxonomy = isset( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'post_tag';
 		$count    = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
-?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
+		?>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'title' ); // WPCS: XSS ok. ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
 		$taxonomies = get_taxonomies( array( 'show_tagcloud' => true ), 'objects' );
@@ -149,7 +149,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 				$this->get_field_id( 'taxonomy' ),
 				__( 'Taxonomy:', 'custom-post-type-widgets' ),
 				$this->get_field_name( 'taxonomy' )
-			);
+			); // WPCS: XSS ok.
 
 			foreach ( $taxonomies as $taxobjects => $value ) {
 				if ( ! $value->show_tagcloud || empty( $value->labels->name ) ) {
@@ -166,17 +166,17 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 					'<option value="%s"%s>%s</option>',
 					esc_attr( $taxobjects ),
 					selected( $taxobjects, $taxonomy, false ),
-					__( $value->label, 'custom-post-type-widgets' ) . ' ' . $taxobjects
+					esc_html__( $value->label, 'custom-post-type-widgets' ) . ' ' . esc_html( $taxobjects )
 				);
 			}
 			echo '</select></p>';
-?>
-			<p><input class="checkbox" type="checkbox" <?php checked( $count ); ?> id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" />
-			<label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php esc_html_e( 'Show tag counts', 'custom-post-type-widgets' ); ?></label></p>
-		<?php
+			?>
+			<p><input class="checkbox" type="checkbox" <?php checked( $count ); ?> id="<?php echo $this->get_field_id( 'count' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'count' ); // WPCS: XSS ok. ?>" />
+			<label for="<?php echo $this->get_field_id( 'count' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Show tag counts', 'custom-post-type-widgets' ); ?></label></p>
+			<?php
 		}
 		else {
-			echo '<p>' . __( 'The tag cloud will not be displayed since there are no taxonomies that support the tag cloud widget.', 'custom-post-type-widgets' ) . '</p>';
+			echo '<p>' . esc_html__( 'The tag cloud will not be displayed since there are no taxonomies that support the tag cloud widget.', 'custom-post-type-widgets' ) . '</p>';
 		}
 	}
 

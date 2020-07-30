@@ -53,14 +53,14 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		add_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ), 10, 3 );
 		add_filter( 'get_archives_link', array( $this, 'trim_post_type' ), 10, 1 );
 
-		echo $args['before_widget'];
+		echo $args['before_widget']; // WPCS: XSS ok.
 		if ( $title ) {
-			echo $args['before_title'] . $title . $args['after_title'];
+			echo $args['before_title'] . $title . $args['after_title']; // WPCS: XSS ok.
 		}
 
 		if ( $d ) {
-?>
-			<label class="screen-reader-text"><?php echo $title; ?></label>
+			?>
+			<label class="screen-reader-text"><?php echo $title; // WPCS: XSS ok. ?></label>
 			<select name="archive-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'>
 				<?php
 				/**
@@ -147,13 +147,13 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			);
 			?>
 		</ul>
-<?php
+			<?php
 		}
 
 		remove_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ) );
 		remove_filter( 'get_archives_link', array( $this, 'trim_post_type' ) );
 
-		echo $args['after_widget'];
+		echo $args['after_widget']; // WPCS: XSS ok.
 	}
 
 	/**
@@ -192,8 +192,8 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		$posttype     = isset( $instance['posttype'] ) ? $instance['posttype'] : 'post';
 		$dropdown     = isset( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
 		$count        = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
-?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
+		?>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'title' ); // WPCS: XSS ok. ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
@@ -204,7 +204,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			$this->get_field_id( 'posttype' ),
 			__( 'Post Type:', 'custom-post-type-widgets' ),
 			$this->get_field_name( 'posttype' )
-		);
+		); // WPCS: XSS ok.
 
 		foreach ( $post_types as $post_type => $value ) {
 			if ( 'attachment' === $post_type || 'page' === $post_type ) {
@@ -215,15 +215,15 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 				'<option value="%s"%s>%s</option>',
 				esc_attr( $post_type ),
 				selected( $post_type, $posttype, false ),
-				__( $value->label, 'custom-post-type-widgets' )
+				esc_html__( $value->label, 'custom-post-type-widgets' )
 			);
 		}
 		echo '</select></p>';
 		?>
 
-		<p><input class="checkbox" type="checkbox"<?php checked( $dropdown ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); ?>" name="<?php echo $this->get_field_name( 'dropdown' ); ?>" /> <label for="<?php echo $this->get_field_id( 'dropdown' ); ?>"><?php esc_html_e( 'Display as dropdown', 'custom-post-type-widgets' ); ?></label><br>
-		<input class="checkbox" type="checkbox"<?php checked( $count ); ?> id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" /> <label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php esc_html_e( 'Show post counts', 'custom-post-type-widgets' ); ?></label></p>
-<?php
+		<p><input class="checkbox" type="checkbox"<?php checked( $dropdown ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'dropdown' ); // WPCS: XSS ok. ?>" /> <label for="<?php echo $this->get_field_id( 'dropdown' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Display as dropdown', 'custom-post-type-widgets' ); ?></label><br>
+		<input class="checkbox" type="checkbox"<?php checked( $count ); ?> id="<?php echo $this->get_field_id( 'count' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'count' ); // WPCS: XSS ok. ?>" /> <label for="<?php echo $this->get_field_id( 'count' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Show post counts', 'custom-post-type-widgets' ); ?></label></p>
+		<?php
 	}
 
 	/**
