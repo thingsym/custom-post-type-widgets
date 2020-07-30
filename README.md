@@ -212,6 +212,21 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.3.0
+	* edit README
+	* update japanese translation
+	* update pot
+	* fix test case
+	* imporve code with phpcs, phpmd and phpstan
+	* update testunit configuration
+	* restructure code to perform a single task
+	* add denying direct file access
+	* divide as load_textdomain function
+	* fix composer.json
+	* change calendar widget markup
+	* add hook custom_post_type_widgets/calendar/get_custom_post_type_calendar
+	* fix get_custom_post_type_calendar method
+	* change to call method directly instead of via hook in the calendar widget
 * Version 1.2.1
 	* replace from id attribute to calss attribute in the calendar
 	* add any matching value as all types
