@@ -106,4 +106,8 @@ class Custom_Post_Type_Widgets {
 	public static function uninstall() {}
 }
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $custom_post_type_widgets = new Custom_Post_Type_Widgets();
