@@ -369,12 +369,14 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$cache[ $key ] = $calendar_output;
 		wp_cache_set( 'get_custom_post_type_calendar', $cache, 'calendar' );
 
+		$output = apply_filters( 'custom_post_type_widgets/calendar/get_custom_post_type_calendar', $calendar_output );
+
 		if ( $echo ) {
-			echo apply_filters( 'custom_post_type_widgets/calendar/get_custom_post_type_calendar', $calendar_output );
+			echo $calendar_output; // WPCS: XSS ok.
 			return;
 		}
 		else {
-			return apply_filters( 'custom_post_type_widgets/calendar/get_custom_post_type_calendar', $calendar_output );
+			return $calendar_output;
 		}
 	}
 
