@@ -1,13 +1,12 @@
 === Custom Post Type Widgets ===
 
 Contributors: thingsym
-Donate link:
 Link: https://github.com/thingsym/custom-post-type-widgets
 Tags: widget, widgets, custom post type, taxonomy
+Stable tag: 1.3.0
+Tested up to: 5.4.2
 Requires at least: 4.0
 Requires PHP: 5.4
-Tested up to: 5.3
-Stable tag: 1.2.1
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -223,6 +222,22 @@ Reference: [https://github.com/thingsym/custom-post-type-widgets#hooks](https://
 And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
 
 == Changelog ==
+
+= 1.3.0 =
+* edit README
+* update japanese translation
+* update pot
+* fix test case
+* imporve code with phpcs, phpmd and phpstan
+* update testunit configuration
+* restructure code to perform a single task
+* add denying direct file access
+* divide as load_textdomain function
+* fix composer.json
+* change calendar widget markup
+* add hook custom_post_type_widgets/calendar/get_custom_post_type_calendar
+* fix get_custom_post_type_calendar method
+* change to call method directly instead of via hook in the calendar widget
 
 = 1.2.1 =
 * replace from id attribute to calss attribute in the calendar
