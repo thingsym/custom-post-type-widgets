@@ -81,9 +81,6 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 
 		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Recent Comments', 'custom-post-type-widgets' );
 
-		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
-		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
-
 		$posttype = ! empty( $instance['posttype'] ) ? $instance['posttype'] : '';
 		$number = ( ! empty( $instance['number'] ) ) ? absint( $instance['number'] ) : 5;
 		if ( ! $number ) {
@@ -120,11 +117,6 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 			)
 		);
 
-		$output .= $args['before_widget'];
-		if ( $title ) {
-			$output .= $args['before_title'] . $title . $args['after_title'];
-		}
-
 		$output .= '<ul id="recentcomments">';
 		if ( is_array( $comments ) && $comments ) {
 			// Prime cache for associated posts. (Prime post term cache if we need it for permalinks.)
@@ -143,9 +135,16 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 			}
 		}
 		$output .= '</ul>';
-		$output .= $args['after_widget'];
 
-		echo $output;
+		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
+		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+
+		echo $args['before_widget']; // WPCS: XSS ok.
+		if ( $title ) {
+			echo $args['before_title'] . $title . $args['after_title']; // WPCS: XSS ok.
+		}
+		echo $output; // WPCS: XSS ok.
+		echo $args['after_widget']; // WPCS: XSS ok.
 	}
 
 	/**
