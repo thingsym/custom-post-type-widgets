@@ -29,6 +29,7 @@ class Custom_Post_Type_Widgets {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'plugins_loaded', array( $this, 'load' ) );
 		add_action( 'widgets_init', array( $this, 'init' ) );
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
@@ -65,12 +66,6 @@ class Custom_Post_Type_Widgets {
 			return;
 		}
 
-		load_plugin_textdomain(
-			'custom-post-type-widgets',
-			false,
-			'custom-post-type-widgets/languages'
-		);
-
 		register_widget( 'WP_Custom_Post_Type_Widgets_Recent_Posts' );
 		register_widget( 'WP_Custom_Post_Type_Widgets_Archives' );
 		register_widget( 'WP_Custom_Post_Type_Widgets_Categories' );
@@ -78,6 +73,23 @@ class Custom_Post_Type_Widgets {
 		register_widget( 'WP_Custom_Post_Type_Widgets_Recent_Comments' );
 		register_widget( 'WP_Custom_Post_Type_Widgets_Tag_Cloud' );
 		register_widget( 'WP_Custom_Post_Type_Widgets_Search' );
+	}
+
+	/**
+	 * Load textdomain
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.3.0
+	 */
+	public function load_textdomain() {
+		load_plugin_textdomain(
+			'custom-post-type-widgets',
+			false,
+			dirname( plugin_basename( __FILE__ ) ) . '/languages/'
+		);
 	}
 
 	/**
