@@ -159,7 +159,7 @@ You can use the action hook `custom_post_type_widgets/recent_posts/widget/prepen
 
 Code sample is as follows:
 
-```
+`
 function cptw_hooks_setup() {
   add_action( 'custom_post_type_widgets/recent_posts/widget/prepend', 'cptw_recent_posts_prepend', 10, 4 );
 }
@@ -170,7 +170,7 @@ function cptw_recent_posts_prepend( $widget_id, $posttype, $instance, $recent_po
     echo get_the_post_thumbnail( $recent_post );
   }
 }
-```
+`
 
 Insert the above code into functions.php in your theme.
 
@@ -178,7 +178,7 @@ Insert the above code into functions.php in your theme.
 
 Custom Post Type Widgets has its own hooks.
 
-## Filter hooks
+Filter hooks
 
 * custom_post_type_widgets/archive/widget_archives_dropdown_args
 * custom_post_type_widgets/archive/widget_archives_args
@@ -190,7 +190,7 @@ Custom Post Type Widgets has its own hooks.
 * custom_post_type_widgets/tag_cloud/widget_tag_cloud_args
 * custom_post_type_widgets/calendar/get_custom_post_type_calendar
 
-## Action hooks
+Action hooks
 
 * custom_post_type_widgets/recent_posts/widget/before
 * custom_post_type_widgets/recent_posts/widget/prepend
