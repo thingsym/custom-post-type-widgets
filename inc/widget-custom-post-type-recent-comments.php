@@ -99,7 +99,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		 *
 		 * @param array  $comment_args An array of arguments used to retrieve the recent comments.
 		 * @param array  $instance     Array of settings for the current widget.
-		 * @param string $this->id     Widget id.
+		 * @param string $id     Widget id.
 		 * @param string $posttype     Post type.
 		 */
 		$comments = get_comments(
@@ -139,13 +139,17 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-		echo $args['before_widget']; // WPCS: XSS ok.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $args['before_widget'];
 		if ( $title ) {
-			echo $args['before_title'] . $title . $args['after_title']; // WPCS: XSS ok.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $args['before_title'] . $title . $args['after_title'];
 		}
-		echo $output; // WPCS: XSS ok.
-		echo $args['after_widget']; // WPCS: XSS ok.
-	} 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $output;
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget'];
+	}
 
 	/**
 	 * Handles updating settings for the current Archives widget instance.
@@ -182,8 +186,8 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		$posttype = isset( $instance['posttype'] ) ? $instance['posttype'] : '';
 		$number   = isset( $instance['number'] ) ? absint( $instance['number'] ) : 5;
 		?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'title' ); // WPCS: XSS ok. ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
@@ -191,10 +195,13 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		printf(
 			'<p><label for="%1$s">%2$s</label>' .
 			'<select class="widefat" id="%1$s" name="%3$s">',
-			$this->get_field_id( 'posttype' ),
-			__( 'Post Type:', 'custom-post-type-widgets' ),
-			$this->get_field_name( 'posttype' )
-		); // WPCS: XSS ok.
+				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+				$this->get_field_id( 'posttype' ),
+				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+				__( 'Post Type:', 'custom-post-type-widgets' ),
+				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+				$this->get_field_name( 'posttype' )
+		);
 
 		printf(
 			'<option value="%s"%s>%s</option>',
@@ -219,8 +226,8 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		echo '</select></p>';
 		?>
 
-		<p><label for="<?php echo $this->get_field_id( 'number' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Number of comments to show:', 'custom-post-type-widgets' ); ?></label>
-		<input class="tiny-text" id="<?php echo $this->get_field_id( 'number' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'number' ); // WPCS: XSS ok. ?>" type="number" step="1" min="1" value="<?php echo esc_attr( $number ); ?>" size="3" /></p>
+		<p><label for="<?php echo $this->get_field_id( 'number' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Number of comments to show:', 'custom-post-type-widgets' ); ?></label>
+		<input class="tiny-text" id="<?php echo $this->get_field_id( 'number' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'number' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="number" step="1" min="1" value="<?php echo esc_attr( $number ); /* @phpstan-ignore-line */ ?>" size="3" /></p>
 		<?php
 	}
 }

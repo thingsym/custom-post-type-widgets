@@ -68,7 +68,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 		 *
 		 * @param array  $args     Args used for the tag cloud widget.
 		 * @param array  $instance Array of settings for the current widget.
-		 * @param string $this->id Widget id.
+		 * @param string $id Widget id.
 		 * @param string $taxonomy Taxonomy.
 		 */
 		$tag_cloud = wp_tag_cloud(
@@ -92,14 +92,18 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-		echo $args['before_widget']; // WPCS: XSS ok.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $args['before_widget'];
 		if ( $title ) {
-			echo $args['before_title'] . $title . $args['after_title']; // WPCS: XSS ok.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $args['before_title'] . $title . $args['after_title'];
 		}
 		echo '<div class="tagcloud">';
-		echo $tag_cloud; // WPCS: XSS ok.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $tag_cloud;
 		echo '</div>';
-		echo $args['after_widget']; // WPCS: XSS ok.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget'];
 	}
 
 	/**
@@ -137,8 +141,8 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 		$taxonomy = isset( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'post_tag';
 		$count    = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
 		?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'title' ); // WPCS: XSS ok. ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
 		$taxonomies = get_taxonomies( array( 'show_tagcloud' => true ), 'objects' );
@@ -146,10 +150,13 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 			printf(
 				'<p><label for="%1$s">%2$s</label>' .
 				'<select class="widefat" id="%1$s" name="%3$s">',
+				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 				$this->get_field_id( 'taxonomy' ),
+				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 				__( 'Taxonomy:', 'custom-post-type-widgets' ),
+				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 				$this->get_field_name( 'taxonomy' )
-			); // WPCS: XSS ok.
+			);
 
 			foreach ( $taxonomies as $taxobjects => $value ) {
 				if ( ! $value->show_tagcloud || empty( $value->labels->name ) ) {
@@ -171,8 +178,8 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 			}
 			echo '</select></p>';
 			?>
-			<p><input class="checkbox" type="checkbox" <?php checked( $count ); ?> id="<?php echo $this->get_field_id( 'count' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'count' ); // WPCS: XSS ok. ?>" />
-			<label for="<?php echo $this->get_field_id( 'count' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Show tag counts', 'custom-post-type-widgets' ); ?></label></p>
+			<p><input class="checkbox" type="checkbox" <?php checked( $count ); ?> id="<?php echo $this->get_field_id( 'count' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'count' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" />
+			<label for="<?php echo $this->get_field_id( 'count' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Show tag counts', 'custom-post-type-widgets' ); ?></label></p>
 			<?php
 		}
 		else {
