@@ -1,0 +1,66 @@
+name: WordPress Plugin Unit test
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!trunk'
+    tags-ignore:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  phpunit:
+    name: WordPress ${{ matrix.wordpress }} * PHP v${{ matrix.php }} * ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ ubuntu-18.04 ]
+        php: [ '5.6', '7.0', '7.1', '7.2', '7.3', '7.4' ]
+        wordpress: [ latest, nightly ]
+
+    env:
+      PHP_VERSION: ${{ matrix.php }}
+      WP_VERSION: ${{ matrix.wordpress }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP v${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl, php-mysql
+
+      - name: Install mbstring library for PHP 7.0
+        # require ext-mbstring * -> it is missing from your system. Install or enable PHP's mbstring extension.
+        run: sudo apt-get install php7.0-mbstring
+        if: ${{ matrix.php == '7.0' }}
+
+      - name: Start MySQL
+        # See https://github.blog/changelog/2020-02-21-github-actions-breaking-change-ubuntu-virtual-environments-will-no-longer-start-the-mysql-service-automatically/
+        run: sudo /etc/init.d/mysql start
+
+      - name: Install PHPUnit
+        run: |
+          # for PHP Compatibility - https://phpunit.de/supported-versions.html
+          if [[ $PHP_VERSION == "7.0" ]] ; then
+            composer global require "phpunit/phpunit=5.7.*|6.*"
+          # for WP_VERSION < 4.6 due to PHP Fatal error: Class 'PHPUnit_Framework_TestCase' not found
+          elif [[ ${PHP_VERSION:0:1} == "7" ]] && [[ "$WP_VERSION" < 4.6* ]] ; then
+            composer global require "phpunit/phpunit=5.7.*"
+          # for WP_VERSION < 5.0 due to Fatal error: Class PHPUnit_Util_Test may not inherit from final class (PHPUnit\Util\Test)
+          elif [[ ${PHP_VERSION:0:1} == "7" ]] && [[ "$WP_VERSION" < 5.0* ]] ; then
+            composer global require "phpunit/phpunit=5.7.*|6.*"
+          else
+            composer global require "phpunit/phpunit=4.8.*|5.4.*|5.7.*|6.*|7.*"
+          fi
+
+      - name: Install wp tests
+        run: bash bin/install-wp-tests.sh wordpress_test root root localhost $WP_VERSION
+
+      - name: Run PHPUnit - WordPress ${{ matrix.wordpress }}
+        run: phpunit
