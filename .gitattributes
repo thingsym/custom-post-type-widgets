@@ -12,10 +12,11 @@
 /phpmd.ruleset.xml export-ignore
 /phpstan.neon      export-ignore
 /phpunit.xml       export-ignore
+/README.md         export-ignore
 
 # Directories
-/.wordpress-org export-ignore
 /.github        export-ignore
+/.wordpress-org export-ignore
 /assets         export-ignore
 /bin            export-ignore
 /tests          export-ignore
