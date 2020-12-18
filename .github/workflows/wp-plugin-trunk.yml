@@ -3,7 +3,7 @@ name: WordPress Plugin asset/readme update
 on:
   push:
     branches:
-      - 'trunk'
+      - 'svn-trunk'
 
 jobs:
   trunk:

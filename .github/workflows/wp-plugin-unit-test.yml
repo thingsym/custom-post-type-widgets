@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - '**'
-      - '!trunk'
+      - '!svn-trunk'
     tags-ignore:
       - '**'
   pull_request:
