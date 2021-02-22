@@ -477,7 +477,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$daylink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) . zeroise( $day, 2 ) );
 		}
 
-		return $daylink;
+		return apply_filters( 'custom_post_type_widgets/calendar/get_day_link_custom_post_type', $daylink, $year, $month, $day );
 	}
 
 	/**
@@ -496,8 +496,6 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	 * @return string $monthlink
 	 */
 	public function get_month_link_custom_post_type( $monthlink, $year, $month ) {
-		global $wp_rewrite;
-
 		$options  = get_option( $this->option_name );
 		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : 'post';
 
@@ -508,6 +506,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$month = current_time( 'm' );
 		}
 
+		global $wp_rewrite;
 		$monthlink = $wp_rewrite->get_month_permastruct();
 
 		if ( ! empty( $monthlink ) ) {
@@ -536,7 +535,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
 		}
 
-		return $monthlink;
+		return apply_filters( 'custom_post_type_widgets/calendar/get_month_link_custom_post_type', $monthlink, $year, $month );
 	}
 
 }

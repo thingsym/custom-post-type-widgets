@@ -248,8 +248,6 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 	 * @return string $monthlink
 	 */
 	public function get_month_link_custom_post_type( $monthlink, $year, $month ) {
-		global $wp_rewrite;
-
 		$options  = get_option( $this->option_name );
 		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : 'post';
 
@@ -260,6 +258,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			$month = current_time( 'm' );
 		}
 
+		global $wp_rewrite;
 		$monthlink = $wp_rewrite->get_month_permastruct();
 
 		if ( ! empty( $monthlink ) ) {
@@ -288,7 +287,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			$monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
 		}
 
-		return $monthlink;
+		return apply_filters( 'custom_post_type_widgets/archive/get_month_link_custom_post_type', $monthlink, $year, $month );
 	}
 
 	/**
@@ -314,8 +313,8 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		$options  = get_option( $this->option_name );
 		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : '';
 
-		$link_html = str_replace( '?post_type=' . $posttype, '', $link_html );
+		$new_link_html = str_replace( '?post_type=' . $posttype, '', $link_html );
 
-		return $link_html;
+		return apply_filters( 'custom_post_type_widgets/archive/trim_post_type', $new_link_html, $link_html, $posttype );
 	}
 }
