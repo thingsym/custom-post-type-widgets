@@ -1,9 +1,5 @@
 # Introducing Custom Post Type Widgets
 
-[![Build Status](https://travis-ci.org/thingsym/custom-post-type-widgets.svg?branch=master)](https://travis-ci.org/thingsym/custom-post-type-widgets)
-
-[![WordPress](https://img.shields.io/wordpress/v/custom-post-type-widgets.svg)](https://wordpress.org/plugins/custom-post-type-widgets/)
-
 This WordPress plugin adds default custom post type widgets. You can filter by registered Custom Post Type or Taxonomy on widgets.
 
 ## How do I use it?
@@ -177,7 +173,7 @@ Code sample is as follows:
 function cptw_hooks_setup() {
   add_action( 'custom_post_type_widgets/recent_posts/widget/prepend', 'cptw_recent_posts_prepend', 10, 4 );
 }
-add_action( 'after_setup_theme', 'cptw_setup_hooks' );
+add_action( 'after_setup_theme', 'cptw_hooks_setup' );
 
 function cptw_recent_posts_prepend( $widget_id, $posttype, $instance, $recent_post ) {
   if ( has_post_thumbnail( $recent_post ) ) {
@@ -196,7 +192,7 @@ Custom Post Type Widgets is hosted on the WordPress Plugin Directory.
 
 ## Test Matrix
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widgets).
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/custom-post-type-widgets/actions).
 
 ## Contribution
 
