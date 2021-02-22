@@ -2,6 +2,7 @@
 
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widgets
+Donate link: https://github.com/sponsors/thingsym
 Tags: widget, widgets, custom post type, taxonomy
 Stable tag: 1.3.0
 Tested up to: 5.4.2
