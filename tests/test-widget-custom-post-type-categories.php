@@ -83,9 +83,9 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 		// 	'show_date'      => false,
 		// );
 		//
-		// $validate = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
+		// $actual = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
 		//
-		// $this->assertEquals( $validate, $expected );
+		// $this->assertEquals( $expected, $actual );
 	}
 
 	/**
@@ -108,9 +108,9 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 			'dropdown'       => false,
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 	}
 
 	/**
@@ -133,9 +133,9 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 			'dropdown'       => false,
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 
 		$new_instance = array(
 			'title'          => "as\n<br>df",
@@ -152,9 +152,9 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 			'dropdown'       => true,
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 	}
 
 	/**

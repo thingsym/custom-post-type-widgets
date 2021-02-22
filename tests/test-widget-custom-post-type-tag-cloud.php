@@ -52,9 +52,9 @@ class Test_WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_UnitTestCase {
 			'count'          => false,
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 
 		$new_instance = array(
 			'title'          => '',
@@ -67,9 +67,9 @@ class Test_WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_UnitTestCase {
 			'count'          => true,
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 	}
 
 	/**
@@ -88,9 +88,9 @@ class Test_WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_UnitTestCase {
 			'count'          => false,
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 
 		$new_instance = array(
 			'title'          => "as\n<br>df",
@@ -103,9 +103,9 @@ class Test_WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_UnitTestCase {
 			'count'          => false,
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_tag_cloud->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 	}
 
 	/**

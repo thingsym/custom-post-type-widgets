@@ -58,9 +58,9 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 			'posttype'       => '',
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 	}
 
 	/**
@@ -77,9 +77,9 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 			'posttype'       => 'post',
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 
 		$new_instance = array(
 			'title'          => "as\n<br>df",
@@ -90,9 +90,9 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 			'posttype'       => 'post',
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 	}
 
 	/**
