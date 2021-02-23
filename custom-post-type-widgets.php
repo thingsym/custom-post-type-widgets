@@ -32,7 +32,7 @@ class Custom_Post_Type_Widgets {
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'plugins_loaded', array( $this, 'load' ) );
 		add_action( 'widgets_init', array( $this, 'init' ) );
-		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
+		register_uninstall_hook( __CUSTOM_POST_TYPE_WIDGETS__, array( __CLASS__, 'uninstall' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_metadata_links' ), 10, 2 );
 	}
 
@@ -44,7 +44,7 @@ class Custom_Post_Type_Widgets {
 	 * @since 1.0.0
 	 */
 	public function load() {
-		$dir = plugin_dir_path( __FILE__ ) . 'inc/';
+		$dir = plugin_dir_path( __CUSTOM_POST_TYPE_WIDGETS__ ) . 'inc/';
 
 		include_once $dir . 'widget-custom-post-type-recent-posts.php';
 		include_once $dir . 'widget-custom-post-type-archive.php';
@@ -89,7 +89,7 @@ class Custom_Post_Type_Widgets {
 		load_plugin_textdomain(
 			'custom-post-type-widgets',
 			false,
-			dirname( plugin_basename( __FILE__ ) ) . '/languages/'
+			dirname( plugin_basename( __CUSTOM_POST_TYPE_WIDGETS__ ) ) . '/languages/'
 		);
 	}
 
@@ -134,5 +134,7 @@ class Custom_Post_Type_Widgets {
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+define( '__CUSTOM_POST_TYPE_WIDGETS__', __FILE__ );
 
 $custom_post_type_widgets = new Custom_Post_Type_Widgets();
