@@ -46,11 +46,14 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-		$posttype = ! empty( $instance['posttype'] ) ? $instance['posttype'] : 'post';
-		$c        = ! empty( $instance['count'] ) ? (bool) $instance['count'] : false;
-		$d        = ! empty( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
+		$posttype     = ! empty( $instance['posttype'] ) ? $instance['posttype'] : 'post';
+		$archive_type = ! empty( $instance['archive_type'] ) ? $instance['archive_type'] : 'monthly';
+		$c            = ! empty( $instance['count'] ) ? (bool) $instance['count'] : false;
+		$d            = ! empty( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
 
+		add_filter( 'year_link', array( $this, 'get_year_link_custom_post_type' ), 10, 2 );
 		add_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ), 10, 3 );
+		add_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ), 10, 4 );
 		add_filter( 'get_archives_link', array( $this, 'trim_post_type' ), 10, 1 );
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -84,7 +87,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 					'custom_post_type_widgets/archive/widget_archives_dropdown_args',
 					array(
 						'post_type'       => $posttype,
-						'type'            => 'monthly',
+						'type'            => $archive_type,
 						'format'          => 'option',
 						'show_post_count' => $c,
 					),
@@ -139,7 +142,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 					'custom_post_type_widgets/archive/widget_archives_args',
 					array(
 						'post_type'       => $posttype,
-						'type'            => 'monthly',
+						'type'            => $archive_type,
 						'show_post_count' => $c,
 					),
 					$instance,
@@ -152,7 +155,9 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			<?php
 		}
 
+		remove_filter( 'year_link', array( $this, 'get_year_link_custom_post_type' ) );
 		remove_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ) );
+		remove_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ) );
 		remove_filter( 'get_archives_link', array( $this, 'trim_post_type' ) );
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -175,6 +180,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		$instance             = $old_instance;
 		$instance['title']    = sanitize_text_field( $new_instance['title'] );
 		$instance['posttype'] = wp_strip_all_tags( $new_instance['posttype'] );
+		$instance['archive_type'] = wp_strip_all_tags( $new_instance['archive_type'] );
 		$instance['count']    = $new_instance['count'] ? (bool) $new_instance['count'] : false;
 		$instance['dropdown'] = $new_instance['dropdown'] ? (bool) $new_instance['dropdown'] : false;
 
@@ -193,6 +199,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 	public function form( $instance ) {
 		$title        = isset( $instance['title'] ) ? $instance['title'] : '';
 		$posttype     = isset( $instance['posttype'] ) ? $instance['posttype'] : 'post';
+		$archive_type = isset( $instance['archive_type'] ) ? $instance['archive_type'] : 'monthly';
 		$dropdown     = isset( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
 		$count        = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
 		?>
@@ -225,11 +232,152 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			);
 		}
 		echo '</select></p>';
+
+		printf(
+			'<p><label for="%1$s">%2$s</label>' .
+			'<select class="widefat" id="%1$s" name="%3$s">',
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+			$this->get_field_id( 'archive_type' ),
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+			__( 'Archive Type:', 'custom-post-type-widgets' ),
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+			$this->get_field_name( 'archive_type' )
+		);
+
+		$archive_types = array( 'yearly', 'monthly', 'weekly', 'daily' );
+
+		foreach ( $archive_types as $type ) {
+			printf(
+				'<option value="%s"%s>%s</option>',
+				esc_attr( $type ),
+				selected( $type, $archive_type, false ),
+				esc_html__( $type, 'custom-post-type-widgets' )
+			);
+		}
+		echo '</select></p>';
+
 		?>
 
 		<p><input class="checkbox" type="checkbox"<?php checked( $dropdown ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'dropdown' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" /> <label for="<?php echo $this->get_field_id( 'dropdown' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Display as dropdown', 'custom-post-type-widgets' ); ?></label><br>
 		<input class="checkbox" type="checkbox"<?php checked( $count ); ?> id="<?php echo $this->get_field_id( 'count' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'count' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" /> <label for="<?php echo $this->get_field_id( 'count' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Show post counts', 'custom-post-type-widgets' ); ?></label></p>
 		<?php
+	}
+
+	/**
+	 * Gets the year link for custom post type.
+	 *
+	 * Hooks to year_link
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param string $yearlink
+	 * @param string $year
+	 *
+	 * @return string $yearlink
+	 */
+	public function get_year_link_custom_post_type( $yearlink, $year ) {
+		$options  = get_option( $this->option_name );
+		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : 'post';
+
+		if ( ! $year ) {
+			$year = current_time( 'Y' );
+		}
+
+		global $wp_rewrite;
+		$yearlink = $wp_rewrite->get_year_permastruct();
+
+		if ( ! empty( $yearlink ) ) {
+			$front = preg_replace( '/\/$/', '', $wp_rewrite->front );
+
+			$yearlink = str_replace( '%year%', $year, $yearlink );
+
+			if ( 'post' === $posttype ) {
+				$yearlink = home_url( user_trailingslashit( $yearlink, 'year' ) );
+			}
+			else {
+				$type_obj     = get_post_type_object( $posttype );
+				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype;
+				if ( $front ) {
+					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
+					$yearlink = str_replace( $front, $new_front . '/' . $archive_name, $yearlink );
+					$yearlink = home_url( user_trailingslashit( $yearlink, 'month' ) );
+				}
+				else {
+					$yearlink = home_url( user_trailingslashit( $archive_name . $yearlink, 'year' ) );
+				}
+			}
+		}
+		else {
+			$yearlink = home_url( '?post_type=' . $posttype . '&m=' . $year );
+		}
+
+		return apply_filters( 'custom_post_type_widgets/archive/get_year_link_custom_post_type', $yearlink, $year );
+	}
+
+	/**
+	 * Gets the day link for custom post type.
+	 *
+	 * Hooks to day_link
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param string $daylink
+	 * @param string $year
+	 * @param string $month
+	 * @param string $day
+	 *
+	 * @return string $daylink
+	 */
+	public function get_day_link_custom_post_type( $daylink, $year, $month, $day ) {
+		global $wp_rewrite;
+
+		$options  = get_option( $this->option_name );
+		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : 'post';
+
+		if ( ! $year ) {
+			$year = current_time( 'Y' );
+		}
+		if ( ! $month ) {
+			$month = current_time( 'm' );
+		}
+		if ( ! $day ) {
+			$day = current_time( 'j' );
+		}
+
+		$daylink = $wp_rewrite->get_day_permastruct();
+
+		if ( ! empty( $daylink ) ) {
+			$front = preg_replace( '/\/$/', '', $wp_rewrite->front );
+
+			$daylink = str_replace( '%year%', $year, $daylink );
+			$daylink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $daylink );
+			$daylink = str_replace( '%day%', zeroise( intval( $day ), 2 ), $daylink );
+
+			if ( 'post' === $posttype ) {
+				$daylink = home_url( user_trailingslashit( $daylink, 'day' ) );
+			}
+			else {
+				$type_obj     = get_post_type_object( $posttype );
+				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype;
+				if ( $front ) {
+					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
+					$daylink   = str_replace( $front, $new_front . '/' . $archive_name, $daylink );
+					$daylink   = home_url( user_trailingslashit( $daylink, 'day' ) );
+				}
+				else {
+					$daylink = home_url( user_trailingslashit( $archive_name . $daylink, 'day' ) );
+				}
+			}
+		}
+		else {
+			$daylink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) . zeroise( $day, 2 ) );
+		}
+
+		return apply_filters( 'custom_post_type_widgets/archive/get_day_link_custom_post_type', $daylink, $year, $month, $day );
 	}
 
 	/**
