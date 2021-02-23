@@ -23,9 +23,22 @@ class Custom_Post_Type_Widgets {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'load_textdomain' ) );
+		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'plugins_loaded', array( $this, 'load' ) );
-		add_action( 'widgets_init', array( $this, 'init' ) );
 		register_uninstall_hook( __CUSTOM_POST_TYPE_WIDGETS__, array( __CLASS__, 'uninstall' ) );
+		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
+	}
+
+	/**
+	 * Initialize.
+	 *
+	 * Hooks to init
+	 *
+	 * @access public
+	 *
+	 * @since 1.4.0
+	 */
+	public function init() {
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_metadata_links' ), 10, 2 );
 	}
 
@@ -55,7 +68,7 @@ class Custom_Post_Type_Widgets {
 	 *
 	 * @since 1.0.0
 	 */
-	public function init() {
+	public function register_widgets() {
 		if ( ! is_blog_installed() ) {
 			return;
 		}
