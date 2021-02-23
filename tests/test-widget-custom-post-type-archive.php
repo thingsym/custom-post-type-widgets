@@ -54,12 +54,14 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => '',
 			'posttype'       => '',
+			'archive_type'   => '',
 			'count'          => '',
 			'dropdown'       => '',
 		);
 		$expected = array(
 			'title'          => '',
 			'posttype'       => '',
+			'archive_type'   => '',
 			'count'          => false,
 			'dropdown'       => false,
 		);
@@ -77,12 +79,14 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => 'aaaaa',
 			'posttype'       => 'post',
+			'archive_type'   => 'monthly',
 			'count'          => false,
 			'dropdown'       => false,
 		);
 		$expected = array(
 			'title'          => 'aaaaa',
 			'posttype'       => 'post',
+			'archive_type'   => 'monthly',
 			'count'          => false,
 			'dropdown'       => false,
 		);
@@ -94,12 +98,14 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => "as\n<br>df",
 			'posttype'       => 'post',
+			'archive_type'   => 'monthly',
 			'count'          => true,
 			'dropdown'       => true,
 		);
 		$expected = array(
 			'title'          => sanitize_text_field( "as\n<br>df" ),
 			'posttype'       => 'post',
+			'archive_type'   => 'monthly',
 			'count'          => true,
 			'dropdown'       => true,
 		);
@@ -127,6 +133,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => 'aaaaa',
 			'posttype'       => 'test',
+			'archive_type'   => 'monthly',
 			'count'          => false,
 			'dropdown'       => false,
 		);
@@ -140,7 +147,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 
 		$expected = 'http://example.org/archives/test/date/2019/08';
 
-		$url = 'http://example.org/archives/date/2020/02';
+		$url = 'http://example.org/archives/date/2019/08';
 		$actual = $this->wp_custom_post_type_widgets_archives->get_month_link_custom_post_type( $url, '2019', '08' );
 
 		$this->assertEquals( $expected, $actual );
@@ -154,6 +161,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => 'aaaaa',
 			'posttype'       => 'test',
+			'archive_type'   => 'monthly',
 			'count'          => false,
 			'dropdown'       => false,
 		);
@@ -181,6 +189,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => 'aaaaa',
 			'posttype'       => 'test',
+			'archive_type'   => 'monthly',
 			'count'          => false,
 			'dropdown'       => false,
 		);
@@ -203,8 +212,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 	}
 
 	/**
-	 * @test
-	 * @group wp_custom_post_type_widgets_archives
+	 * hook test
 	 */
 	function _filter_trim_post_type( $new_link_html, $link_html, $posttype ) {
 		$this->assertEquals( $new_link_html, 'http://example.org/archives/test/date/2019/08' );
