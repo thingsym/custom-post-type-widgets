@@ -33,6 +33,7 @@ class Custom_Post_Type_Widgets {
 		add_action( 'plugins_loaded', array( $this, 'load' ) );
 		add_action( 'widgets_init', array( $this, 'init' ) );
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_metadata_links' ), 10, 2 );
 	}
 
 	/**
@@ -90,6 +91,30 @@ class Custom_Post_Type_Widgets {
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/languages/'
 		);
+	}
+
+	/**
+	 * Set links below a plugin on the Plugins page.
+	 *
+	 * Hooks to plugin_row_meta
+	 *
+	 * @see https://developer.wordpress.org/reference/hooks/plugin_row_meta/
+	 *
+	 * @access public
+	 *
+	 * @param array  $links  An array of the plugin's metadata.
+	 * @param string $file   Path to the plugin file relative to the plugins directory.
+	 *
+	 * @return array $links
+	 *
+	 * @since 1.4.0
+	 */
+	public function plugin_metadata_links( $links, $file ) {
+		if ( $file == plugin_basename( __CUSTOM_POST_TYPE_WIDGETS__ ) ) {
+			$links[] = '<a href="https://github.com/sponsors/thingsym">' . __( 'Become a sponsor', 'custom-post-type-widgets' ) . '</a>';
+		}
+
+		return $links;
 	}
 
 	/**
