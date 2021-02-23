@@ -127,6 +127,66 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 	 * @test
 	 * @group wp_custom_post_type_widgets_archives
 	 */
+	function get_year_link_custom_post_type() {
+		$this->_register_post_type();
+
+		$new_instance = array(
+			'title'          => 'aaaaa',
+			'posttype'       => 'test',
+			'archive_type'   => 'yearly',
+			'count'          => false,
+			'dropdown'       => false,
+		);
+
+		$this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
+
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '/archives/%post_id%' );
+
+		$this->_register_sidebar_widget( 3, $new_instance );
+
+		$expected = 'http://example.org/archives/test/date/2019';
+
+		$url = 'http://example.org/archives/date/2019';
+		$actual = $this->wp_custom_post_type_widgets_archives->get_year_link_custom_post_type( $url, '2019' );
+
+		$this->assertEquals( $expected, $actual );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_archives
+	 */
+	function get_day_link_custom_post_type() {
+		$this->_register_post_type();
+
+		$new_instance = array(
+			'title'          => 'aaaaa',
+			'posttype'       => 'test',
+			'archive_type'   => 'daily',
+			'count'          => false,
+			'dropdown'       => false,
+		);
+
+		$this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
+
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '/archives/%post_id%' );
+
+		$this->_register_sidebar_widget( 3, $new_instance );
+
+		$expected = 'http://example.org/archives/test/date/2019/08/13';
+
+		$url = 'http://example.org/archives/date/2019/08/13';
+		$actual = $this->wp_custom_post_type_widgets_archives->get_day_link_custom_post_type( $url, '2019', '08', '13' );
+
+		$this->assertEquals( $expected, $actual );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_archives
+	 */
 	function get_month_link_custom_post_type() {
 		$this->_register_post_type();
 

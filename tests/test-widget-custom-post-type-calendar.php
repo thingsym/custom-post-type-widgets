@@ -116,7 +116,28 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_calendar
 	 */
 	function get_day_link_custom_post_type() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+		$this->_register_post_type();
+
+		$new_instance = array(
+			'title'          => 'aaaaa',
+			'posttype'       => 'test',
+			'count'          => false,
+			'dropdown'       => false,
+		);
+
+		$this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );
+
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '/archives/%post_id%' );
+
+		$this->_register_sidebar_widget( 3, $new_instance );
+
+		$expected = 'http://example.org/archives/test/date/2019/08/13';
+
+		$url = 'http://example.org/archives/date/2019/08/13';
+		$actual = $this->wp_custom_post_type_widgets_calendar->get_day_link_custom_post_type( $url, '2019', '08', '13' );
+
+		$this->assertEquals( $expected, $actual );
 	}
 
 	/**
