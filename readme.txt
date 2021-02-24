@@ -190,6 +190,12 @@ Filter hooks
 * custom_post_type_widgets/search/filter_post_type
 * custom_post_type_widgets/tag_cloud/widget_tag_cloud_args
 * custom_post_type_widgets/calendar/get_custom_post_type_calendar
+* custom_post_type_widgets/archive/get_year_link_custom_post_type
+* custom_post_type_widgets/archive/get_day_link_custom_post_type
+* custom_post_type_widgets/archive/get_month_link_custom_post_type
+* custom_post_type_widgets/archive/trim_post_type
+* custom_post_type_widgets/calendar/get_day_link_custom_post_type
+* custom_post_type_widgets/calendar/get_month_link_custom_post_type
 
 Action hooks
 
