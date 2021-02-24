@@ -1,17 +1,42 @@
-# Copyright (C) 2020 Custom Post Type Widgets
-# This file is distributed under the same license as the Custom Post Type Widgets package.
+# Copyright (C) 2021 thingsym
+# This file is distributed under the same license as the Custom Post Type Widgets plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Type Widgets 1.2.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-"
-"widgets\n"
-"POT-Creation-Date: 2020-07-16 09:33:49+00:00\n"
+"Project-Id-Version: Custom Post Type Widgets 1.3.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-widgets\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2021-02-24T07:33:23+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: custom-post-type-widgets\n"
+
+#. Plugin Name of the plugin
+msgid "Custom Post Type Widgets"
+msgstr "Custom Post Type Widgets"
+
+#. Plugin URI of the plugin
+msgid "https://github.com/thingsym/custom-post-type-widgets"
+msgstr "https://github.com/thingsym/custom-post-type-widgets"
+
+#. Description of the plugin
+msgid "This plugin adds default custom post type widgets."
+msgstr "This plugin adds default custom post type widgets."
+
+#. Author of the plugin
+msgid "thingsym"
+msgstr "thingsym"
+
+#. Author URI of the plugin
+msgid "https://www.thingslabo.com/"
+msgstr "https://www.thingslabo.com/"
+
+#: inc/class-custom-post-type-widgets.php:120
+msgid "Become a sponsor"
+msgstr "スポンサーになる"
 
 #: inc/widget-custom-post-type-archive.php:26
 msgid "A monthly archive of your site&#8217;s Posts."
@@ -25,51 +50,55 @@ msgstr "アーカイブ (カスタム投稿タイプ)"
 msgid "Archives"
 msgstr "アーカイブ"
 
-#: inc/widget-custom-post-type-archive.php:96
+#: inc/widget-custom-post-type-archive.php:101
 msgid "Select Year"
 msgstr "年を選択"
 
-#: inc/widget-custom-post-type-archive.php:99
+#: inc/widget-custom-post-type-archive.php:104
 msgid "Select Month"
 msgstr "月を選択"
 
-#: inc/widget-custom-post-type-archive.php:102
+#: inc/widget-custom-post-type-archive.php:107
 msgid "Select Day"
 msgstr "日を選択"
 
-#: inc/widget-custom-post-type-archive.php:105
+#: inc/widget-custom-post-type-archive.php:110
 msgid "Select Week"
 msgstr "週を選択"
 
-#: inc/widget-custom-post-type-archive.php:108
+#: inc/widget-custom-post-type-archive.php:113
 msgid "Select Post"
 msgstr "投稿を選択"
 
-#: inc/widget-custom-post-type-archive.php:196
-#: inc/widget-custom-post-type-calendar.php:116
-#: inc/widget-custom-post-type-categories.php:193
-#: inc/widget-custom-post-type-recent-comments.php:186
-#: inc/widget-custom-post-type-recent-posts.php:240
-#: inc/widget-custom-post-type-search.php:101
-#: inc/widget-custom-post-type-tag-cloud.php:140
+#: inc/widget-custom-post-type-archive.php:206
+#: inc/widget-custom-post-type-calendar.php:117
+#: inc/widget-custom-post-type-categories.php:200
+#: inc/widget-custom-post-type-recent-comments.php:189
+#: inc/widget-custom-post-type-recent-posts.php:244
+#: inc/widget-custom-post-type-search.php:102
+#: inc/widget-custom-post-type-tag-cloud.php:144
 msgid "Title:"
 msgstr "タイトル:"
 
-#: inc/widget-custom-post-type-archive.php:205
-#: inc/widget-custom-post-type-calendar.php:126
-#: inc/widget-custom-post-type-recent-comments.php:196
-#: inc/widget-custom-post-type-recent-posts.php:248
-#: inc/widget-custom-post-type-search.php:110
+#: inc/widget-custom-post-type-archive.php:217
+#: inc/widget-custom-post-type-calendar.php:129
+#: inc/widget-custom-post-type-recent-comments.php:201
+#: inc/widget-custom-post-type-recent-posts.php:254
+#: inc/widget-custom-post-type-search.php:113
 msgid "Post Type:"
 msgstr "ポストタイプ:"
 
-#: inc/widget-custom-post-type-archive.php:224
-#: inc/widget-custom-post-type-categories.php:228
+#: inc/widget-custom-post-type-archive.php:242
+msgid "Archive Type:"
+msgstr "アーカイブタイプ"
+
+#: inc/widget-custom-post-type-archive.php:261
+#: inc/widget-custom-post-type-categories.php:241
 msgid "Display as dropdown"
 msgstr "ドロップダウン表示"
 
-#: inc/widget-custom-post-type-archive.php:225
-#: inc/widget-custom-post-type-categories.php:231
+#: inc/widget-custom-post-type-archive.php:262
+#: inc/widget-custom-post-type-categories.php:244
 msgid "Show post counts"
 msgstr "投稿数を表示"
 
@@ -86,22 +115,22 @@ msgid "Calendar"
 msgstr "カレンダー"
 
 #. translators: Calendar caption: 1: month name, 2: 4-digit year
-#: inc/widget-custom-post-type-calendar.php:249
+#: inc/widget-custom-post-type-calendar.php:272
 msgctxt "calendar caption"
 msgid "%1$s %2$s"
 msgstr "%2$s年%1$s"
 
-#: inc/widget-custom-post-type-calendar.php:319
+#: inc/widget-custom-post-type-calendar.php:351
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr "Y年n月j日"
 
 #. translators: label: 1: date format
-#: inc/widget-custom-post-type-calendar.php:321
+#: inc/widget-custom-post-type-calendar.php:353
 msgid "Posts published on %s"
 msgstr "%s に投稿を公開"
 
-#: inc/widget-custom-post-type-calendar.php:346
+#: inc/widget-custom-post-type-calendar.php:381
 msgid "Previous and next months"
 msgstr "前と次の月"
 
@@ -117,16 +146,21 @@ msgstr "カテゴリー (カスタム投稿タイプ)"
 msgid "Categories"
 msgstr "カテゴリー"
 
-#: inc/widget-custom-post-type-categories.php:71
+#: inc/widget-custom-post-type-categories.php:50
+#: inc/widget-custom-post-type-categories.php:195
 msgid "Select Category"
 msgstr "カテゴリーを選択"
 
-#: inc/widget-custom-post-type-categories.php:204
-#: inc/widget-custom-post-type-tag-cloud.php:150
+#: inc/widget-custom-post-type-categories.php:213
+#: inc/widget-custom-post-type-tag-cloud.php:156
 msgid "Taxonomy:"
-msgstr "分類:"
+msgstr "分類 (Taxonomy):"
 
-#: inc/widget-custom-post-type-categories.php:234
+#: inc/widget-custom-post-type-categories.php:237
+msgid "Dropdown label:"
+msgstr "ドロップダウンラベル"
+
+#: inc/widget-custom-post-type-categories.php:247
 msgid "Show hierarchy"
 msgstr "階層を表示"
 
@@ -143,18 +177,18 @@ msgid "Recent Comments"
 msgstr "最近のコメント"
 
 #. translators: comments widget: 1: comment author, 2: post link
-#: inc/widget-custom-post-type-recent-comments.php:138
+#: inc/widget-custom-post-type-recent-comments.php:130
 msgctxt "widgets"
 msgid "%1$s on %2$s"
 msgstr "%2$s に %1$s より"
 
-#: inc/widget-custom-post-type-recent-comments.php:204
-#: inc/widget-custom-post-type-recent-posts.php:256
-#: inc/widget-custom-post-type-search.php:118
+#: inc/widget-custom-post-type-recent-comments.php:210
+#: inc/widget-custom-post-type-recent-posts.php:263
+#: inc/widget-custom-post-type-search.php:122
 msgid "All"
 msgstr "すべて"
 
-#: inc/widget-custom-post-type-recent-comments.php:223
+#: inc/widget-custom-post-type-recent-comments.php:229
 msgid "Number of comments to show:"
 msgstr "表示するコメント数:"
 
@@ -170,15 +204,15 @@ msgstr "最近のカスタム投稿"
 msgid "Recent Posts"
 msgstr "最近の投稿"
 
-#: inc/widget-custom-post-type-recent-posts.php:128
+#: inc/widget-custom-post-type-recent-posts.php:131
 msgid "(no title)"
 msgstr "(no title)"
 
-#: inc/widget-custom-post-type-recent-posts.php:277
+#: inc/widget-custom-post-type-recent-posts.php:284
 msgid "Number of posts to show:"
 msgstr "表示する投稿数:"
 
-#: inc/widget-custom-post-type-recent-posts.php:281
+#: inc/widget-custom-post-type-recent-posts.php:288
 msgid "Display post date?"
 msgstr "投稿日を表示しますか ?"
 
@@ -206,32 +240,10 @@ msgstr "タグクラウド (カスタム投稿タイプ)"
 msgid "Tags"
 msgstr "タグ"
 
-#: inc/widget-custom-post-type-tag-cloud.php:175
+#: inc/widget-custom-post-type-tag-cloud.php:182
 msgid "Show tag counts"
 msgstr "タグの数を表示"
 
-#: inc/widget-custom-post-type-tag-cloud.php:179
-msgid ""
-"The tag cloud will not be displayed since there are no taxonomies that "
-"support the tag cloud widget."
-msgstr "タグクラウドウィジェットをサポートしているタクソノミーが存在してないため、タグクラウドは表示できません。"
-
-#. Plugin Name of the plugin/theme
-msgid "Custom Post Type Widgets"
-msgstr "Custom Post Type Widgets"
-
-#. Plugin URI of the plugin/theme
-msgid "https://github.com/thingsym/custom-post-type-widgets"
-msgstr "https://github.com/thingsym/custom-post-type-widgets"
-
-#. Description of the plugin/theme
-msgid "This plugin adds default custom post type widgets."
-msgstr "This plugin adds default custom post type widgets."
-
-#. Author of the plugin/theme
-msgid "thingsym"
-msgstr "thingsym"
-
-#. Author URI of the plugin/theme
-msgid "http://www.thingslabo.com/"
-msgstr "http://www.thingslabo.com/"
+#: inc/widget-custom-post-type-tag-cloud.php:186
+msgid "The tag cloud will not be displayed since there are no taxonomies that support the tag cloud widget."
+msgstr "タグは表示されません。"
