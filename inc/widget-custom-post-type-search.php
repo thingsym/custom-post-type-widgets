@@ -51,16 +51,19 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-		echo $args['before_widget']; // WPCS: XSS ok.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $args['before_widget'];
 		if ( $title ) {
-			echo $args['before_title'] . $title . $args['after_title']; // WPCS: XSS ok.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
 		add_filter( 'get_search_form', array( $this, 'add_form_input_post_type' ), 10, 1 );
 		get_search_form();
 		remove_filter( 'get_search_form', array( $this, 'add_form_input_post_type' ) );
 
-		echo $args['after_widget']; // WPCS: XSS ok.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget'];
 	}
 
 	/**
@@ -96,7 +99,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		$title     = isset( $instance['title'] ) ? $instance['title'] : '';
 		$posttype  = isset( $instance['posttype'] ) ? $instance['posttype'] : 'post';
 		?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'title' ); // WPCS: XSS ok. ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
@@ -104,10 +107,13 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		printf(
 			'<p><label for="%1$s">%2$s</label>' .
 			'<select class="widefat" id="%1$s" name="%3$s">',
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			$this->get_field_id( 'posttype' ),
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			__( 'Post Type:', 'custom-post-type-widgets' ),
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			$this->get_field_name( 'posttype' )
-		); // WPCS: XSS ok.
+		);
 
 		printf(
 			'<option value="%s"%s>%s</option>',
@@ -151,6 +157,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 		* function that set post_type to $query
 		*/
 
+		/* @phpstan-ignore-next-line */
 		if ( $query->is_search ) {
 			$filter_post_type = '';
 
@@ -174,6 +181,7 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 			$filter_post_type = apply_filters( 'custom_post_type_widgets/search/filter_post_type', $filter_post_type );
 
 			if ( $filter_post_type && array_key_exists( $filter_post_type, $post_types ) ) {
+				/* @phpstan-ignore-next-line */
 				$query->set( 'post_type', $filter_post_type );
 			}
 		}

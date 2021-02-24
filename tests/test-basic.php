@@ -20,9 +20,20 @@ class Test_Custom_Post_Type_Widgets_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	function constructor() {
-		$this->assertEquals( 10, has_filter( 'init', array( $this->custom_post_type_widgets, 'load_textdomain' ) ) );
-		$this->assertEquals( 10, has_filter( 'plugins_loaded', array( $this->custom_post_type_widgets, 'load' ) ) );
-		$this->assertEquals( 10, has_filter( 'widgets_init', array( $this->custom_post_type_widgets, 'init' ) ) );
+		$this->assertEquals( 10, has_action( 'init', array( $this->custom_post_type_widgets, 'load_textdomain' ) ) );
+		$this->assertEquals( 10, has_action( 'init', array( $this->custom_post_type_widgets, 'init' ) ) );
+		$this->assertEquals( 10, has_action( 'plugins_loaded', array( $this->custom_post_type_widgets, 'load' ) ) );
+		$this->assertEquals( 10, has_action( 'widgets_init', array( $this->custom_post_type_widgets, 'register_widgets' ) ) );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	function init() {
+		$this->custom_post_type_widgets->init();
+
+		$this->assertEquals( 10, has_filter( 'plugin_row_meta', array( $this->custom_post_type_widgets, 'plugin_metadata_links' ) ) );
 	}
 
 	/**
@@ -37,8 +48,8 @@ class Test_Custom_Post_Type_Widgets_Basic extends WP_UnitTestCase {
 	 * @test
 	 * @group basic
 	 */
-	function init() {
-		$this->custom_post_type_widgets->init();
+	function register_widgets() {
+		$this->custom_post_type_widgets->register_widgets();
 
 		global $wp_widget_factory;
 
@@ -58,6 +69,14 @@ class Test_Custom_Post_Type_Widgets_Basic extends WP_UnitTestCase {
 	public function load_textdomain() {
 		$result = $this->custom_post_type_widgets->load_textdomain();
 		$this->assertNull( $result );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	public function plugin_metadata_links() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**

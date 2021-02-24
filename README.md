@@ -1,9 +1,5 @@
 # Introducing Custom Post Type Widgets
 
-[![Build Status](https://travis-ci.org/thingsym/custom-post-type-widgets.svg?branch=master)](https://travis-ci.org/thingsym/custom-post-type-widgets)
-
-[![WordPress](https://img.shields.io/wordpress/v/custom-post-type-widgets.svg)](https://wordpress.org/plugins/custom-post-type-widgets/)
-
 This WordPress plugin adds default custom post type widgets. You can filter by registered Custom Post Type or Taxonomy on widgets.
 
 ## How do I use it?
@@ -114,6 +110,12 @@ Custom Post Type Widgets has its own hooks.
 * custom_post_type_widgets/search/filter_post_type
 * custom_post_type_widgets/tag_cloud/widget_tag_cloud_args
 * custom_post_type_widgets/calendar/get_custom_post_type_calendar
+* custom_post_type_widgets/archive/get_year_link_custom_post_type
+* custom_post_type_widgets/archive/get_day_link_custom_post_type
+* custom_post_type_widgets/archive/get_month_link_custom_post_type
+* custom_post_type_widgets/archive/trim_post_type
+* custom_post_type_widgets/calendar/get_day_link_custom_post_type
+* custom_post_type_widgets/calendar/get_month_link_custom_post_type
 
 ### Action hooks
 
@@ -177,7 +179,7 @@ Code sample is as follows:
 function cptw_hooks_setup() {
   add_action( 'custom_post_type_widgets/recent_posts/widget/prepend', 'cptw_recent_posts_prepend', 10, 4 );
 }
-add_action( 'after_setup_theme', 'cptw_setup_hooks' );
+add_action( 'after_setup_theme', 'cptw_hooks_setup' );
 
 function cptw_recent_posts_prepend( $widget_id, $posttype, $instance, $recent_post ) {
   if ( has_post_thumbnail( $recent_post ) ) {
@@ -196,7 +198,7 @@ Custom Post Type Widgets is hosted on the WordPress Plugin Directory.
 
 ## Test Matrix
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widgets).
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/custom-post-type-widgets/actions).
 
 ## Contribution
 
@@ -212,6 +214,21 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.4.0
+	* update screenshot
+	* tested up to 5.6.2
+	* update japanese translation
+	* update pot
+	* add init method, change method name
+	* separate class into separate a file
+	* add sponsor link
+	* add dropdown label option with categories widget
+	* add archive type option with archive widget
+	* add donate link
+	* add filter hooks, custom_post_type_widgets/archive/get_month_link_custom_post_type, custom_post_type_widgets/archive/trim_post_type, custom_post_type_widgets/calendar/get_day_link_custom_post_type, custom_post_type_widgets/calendar/get_month_link_custom_post_type
+	* add FUNDING.yml
+	* add GitHub actions for CI/CD, remove .travis.yml
+	* imporve code with phpcs, phpmd and phpstan
 * Version 1.3.0
 	* edit README
 	* update japanese translation

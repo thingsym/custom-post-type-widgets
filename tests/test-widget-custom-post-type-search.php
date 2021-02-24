@@ -61,9 +61,9 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 			'posttype'       => '',
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_search->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_search->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 	}
 
 	/**
@@ -80,9 +80,9 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 			'posttype'       => 'post',
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_search->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_search->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 
 		$new_instance = array(
 			'title'          => "as\n<br>df",
@@ -93,9 +93,9 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 			'posttype'       => 'post',
 		);
 
-		$validate = $this->wp_custom_post_type_widgets_search->update( $new_instance, array() );
+		$actual = $this->wp_custom_post_type_widgets_search->update( $new_instance, array() );
 
-		$this->assertEquals( $validate, $expected );
+		$this->assertEquals( $expected, $actual );
 	}
 
 	/**
@@ -128,27 +128,27 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 		);
 		update_option( 'widget_custom-post-type-search', $options );
 
-		$validate = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
+		$actual = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
 
-		$this->assertRegExp( '#<input type="hidden" name="post_type" value="">#', $validate );
+		$this->assertRegExp( '#<input type="hidden" name="post_type" value="">#', $actual );
 
 		$options[0] = array(
 			'posttype' => 'post'
 		);
 		update_option( 'widget_custom-post-type-search', $options );
 
-		$validate = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
+		$actual = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
 
-		$this->assertRegExp( '#<input type="hidden" name="post_type" value="post">#', $validate );
+		$this->assertRegExp( '#<input type="hidden" name="post_type" value="post">#', $actual );
 
 		$options[0] = array(
 			'posttype' => 'test'
 		);
 		update_option( 'widget_custom-post-type-search', $options );
 
-		$validate = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
+		$actual = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
 
-		$this->assertRegExp( '#<input type="hidden" name="post_type" value="test">#', $validate );
+		$this->assertRegExp( '#<input type="hidden" name="post_type" value="test">#', $actual );
 
 	}
 

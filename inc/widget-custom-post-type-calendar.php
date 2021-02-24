@@ -59,9 +59,11 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		add_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ), 10, 3 );
 		add_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ), 10, 4 );
 
-		echo $args['before_widget']; // WPCS: XSS ok.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $args['before_widget'];
 		if ( $title ) {
-			echo $args['before_title'] . $title . $args['after_title']; // WPCS: XSS ok.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $args['before_title'] . $title . $args['after_title'];
 		}
 		if ( 0 === self::$instance ) {
 			echo '<div class="calendar_wrap">';
@@ -70,7 +72,8 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		}
 		$this->get_custom_post_type_calendar();
 		echo '</div>';
-		echo $args['after_widget']; // WPCS: XSS ok.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget'];
 
 		remove_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ) );
 		remove_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ) );
@@ -111,8 +114,8 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$title    = isset( $instance['title'] ) ? $instance['title'] : '';
 		$posttype = isset( $instance['posttype'] ) ? $instance['posttype'] : 'post';
 		?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // WPCS: XSS ok. ?>" name="<?php echo $this->get_field_name( 'title' ); // WPCS: XSS ok. ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
 		<?php
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
@@ -120,10 +123,13 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		printf(
 			'<p><label for="%1$s">%2$s</label>' .
 			'<select class="widefat" id="%1$s" name="%3$s">',
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			$this->get_field_id( 'posttype' ),
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			__( 'Post Type:', 'custom-post-type-widgets' ),
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			$this->get_field_name( 'posttype' )
-		); // WPCS: XSS ok.
+		);
 
 		foreach ( $post_types as $post_type => $value ) {
 			if ( 'attachment' === $post_type || 'page' === $post_type ) {
@@ -168,7 +174,8 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$output = apply_filters( 'custom_post_type_widgets/calendar/get_custom_post_type_calendar', $cache[ $key ] );
 
 			if ( $echo ) {
-				echo $output; // WPCS: XSS ok.
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo $output;
 				return;
 			}
 
@@ -211,6 +218,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$thisyear = (int) substr( $m, 0, 4 );
 			// it seems MySQL's weeks disagree with PHP's.
 			$d         = ( ( $w - 1 ) * 7 ) + 6;
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$thismonth = $wpdb->get_var( "SELECT DATE_FORMAT((DATE_ADD('{$thisyear}0101', INTERVAL $d DAY) ), '%m')" );
 		}
 		elseif ( ! empty( $m ) ) {
@@ -313,8 +321,10 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		}
 
 		// See how much we should pad in the beginning.
+		/* @phpstan-ignore-next-line */
 		$pad = calendar_week_mod( date( 'w', $unixmonth ) - $week_begins );
 		if ( 0 != $pad ) {
+			/* @phpstan-ignore-next-line */
 			$calendar_output .= "\n\t\t" . '<td colspan="' . esc_attr( $pad ) . '" class="pad">&nbsp;</td>';
 		}
 
@@ -322,7 +332,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$daysinmonth = (int) date( 't', $unixmonth );
 
 		for ( $day = 1; $day <= $daysinmonth; ++$day ) {
-			if ( isset( $newrow ) && $newrow ) {
+			if ( $newrow ) {
 				$calendar_output .= "\n\t</tr>\n\t<tr>\n\t\t";
 			}
 			$newrow = false;
@@ -353,13 +363,16 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			}
 			$calendar_output .= '</td>';
 
+			/* @phpstan-ignore-next-line */
 			if ( 6 == calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins ) ) {
 				$newrow = true;
 			}
 		}
 
+		/* @phpstan-ignore-next-line */
 		$pad = 7 - calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins );
 		if ( 0 != $pad && 7 != $pad ) {
+			/* @phpstan-ignore-next-line */
 			$calendar_output .= "\n\t\t" . '<td class="pad" colspan="' . esc_attr( $pad ) . '">&nbsp;</td>';
 		}
 
@@ -394,7 +407,8 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		$output = apply_filters( 'custom_post_type_widgets/calendar/get_custom_post_type_calendar', $calendar_output );
 
 		if ( $echo ) {
-			echo $calendar_output; // WPCS: XSS ok.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $calendar_output;
 			return;
 		}
 		else {
@@ -463,7 +477,17 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$daylink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) . zeroise( $day, 2 ) );
 		}
 
-		return $daylink;
+		/**
+		 * Filter a daylink.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $daylink
+		 * @param string $year
+		 * @param string $month
+		 * @param string $day
+		 */
+		return apply_filters( 'custom_post_type_widgets/calendar/get_day_link_custom_post_type', $daylink, $year, $month, $day );
 	}
 
 	/**
@@ -482,8 +506,6 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	 * @return string $monthlink
 	 */
 	public function get_month_link_custom_post_type( $monthlink, $year, $month ) {
-		global $wp_rewrite;
-
 		$options  = get_option( $this->option_name );
 		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : 'post';
 
@@ -494,6 +516,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$month = current_time( 'm' );
 		}
 
+		global $wp_rewrite;
 		$monthlink = $wp_rewrite->get_month_permastruct();
 
 		if ( ! empty( $monthlink ) ) {
@@ -522,7 +545,16 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
 		}
 
-		return $monthlink;
+		/**
+		 * Filter a monthlink.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $monthlink
+		 * @param string $year
+		 * @param string $month
+		 */
+		return apply_filters( 'custom_post_type_widgets/calendar/get_month_link_custom_post_type', $monthlink, $year, $month );
 	}
 
 }

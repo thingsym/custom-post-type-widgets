@@ -2,9 +2,10 @@
 
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widgets
+Donate link: https://github.com/sponsors/thingsym
 Tags: widget, widgets, custom post type, taxonomy
-Stable tag: 1.3.0
-Tested up to: 5.4.2
+Stable tag: 1.4.0
+Tested up to: 5.6.2
 Requires at least: 4.0
 Requires PHP: 5.4
 License: GPL2 or later
@@ -92,7 +93,7 @@ Reference: [https://github.com/thingsym/custom-post-type-widgets#hooks](https://
 
 = Test Matrix =
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widgets).
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/custom-post-type-widgets/actions).
 
 = Contribution =
 
@@ -163,7 +164,7 @@ Code sample is as follows:
 function cptw_hooks_setup() {
   add_action( 'custom_post_type_widgets/recent_posts/widget/prepend', 'cptw_recent_posts_prepend', 10, 4 );
 }
-add_action( 'after_setup_theme', 'cptw_setup_hooks' );
+add_action( 'after_setup_theme', 'cptw_hooks_setup' );
 
 function cptw_recent_posts_prepend( $widget_id, $posttype, $instance, $recent_post ) {
   if ( has_post_thumbnail( $recent_post ) ) {
@@ -189,6 +190,12 @@ Filter hooks
 * custom_post_type_widgets/search/filter_post_type
 * custom_post_type_widgets/tag_cloud/widget_tag_cloud_args
 * custom_post_type_widgets/calendar/get_custom_post_type_calendar
+* custom_post_type_widgets/archive/get_year_link_custom_post_type
+* custom_post_type_widgets/archive/get_day_link_custom_post_type
+* custom_post_type_widgets/archive/get_month_link_custom_post_type
+* custom_post_type_widgets/archive/trim_post_type
+* custom_post_type_widgets/calendar/get_day_link_custom_post_type
+* custom_post_type_widgets/calendar/get_month_link_custom_post_type
 
 Action hooks
 
@@ -222,6 +229,22 @@ Reference: [https://github.com/thingsym/custom-post-type-widgets#hooks](https://
 And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
 
 == Changelog ==
+
+= 1.4.0 =
+* update screenshot
+* tested up to 5.6.2
+* update japanese translation
+* update pot
+* add init method, change method name
+* separate class into separate a file
+* add sponsor link
+* add dropdown label option with categories widget
+* add archive type option with archive widget
+* add donate link
+* add filter hooks, custom_post_type_widgets/archive/get_month_link_custom_post_type, custom_post_type_widgets/archive/trim_post_type, custom_post_type_widgets/calendar/get_day_link_custom_post_type, custom_post_type_widgets/calendar/get_month_link_custom_post_type
+* add FUNDING.yml
+* add GitHub actions for CI/CD, remove .travis.yml
+* imporve code with phpcs, phpmd and phpstan
 
 = 1.3.0 =
 * edit README
