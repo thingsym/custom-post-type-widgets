@@ -214,6 +214,21 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.4.0
+	* update screenshot
+	* tested up to 5.6.2
+	* update japanese translation
+	* update pot
+	* add init method, change method name
+	* separate class into separate a file
+	* add sponsor link
+	* add dropdown label option with categories widget
+	* add archive type option with archive widget
+	* add donate link
+	* add filter hooks, custom_post_type_widgets/archive/get_month_link_custom_post_type, custom_post_type_widgets/archive/trim_post_type, custom_post_type_widgets/calendar/get_day_link_custom_post_type, custom_post_type_widgets/calendar/get_month_link_custom_post_type
+	* add FUNDING.yml
+	* add GitHub actions for CI/CD, remove .travis.yml
+	* imporve code with phpcs, phpmd and phpstan
 * Version 1.3.0
 	* edit README
 	* update japanese translation

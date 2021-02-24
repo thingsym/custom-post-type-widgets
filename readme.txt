@@ -4,7 +4,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widgets
 Donate link: https://github.com/sponsors/thingsym
 Tags: widget, widgets, custom post type, taxonomy
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 Tested up to: 5.6.2
 Requires at least: 4.0
 Requires PHP: 5.4
@@ -229,6 +229,22 @@ Reference: [https://github.com/thingsym/custom-post-type-widgets#hooks](https://
 And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
 
 == Changelog ==
+
+= 1.4.0 =
+* update screenshot
+* tested up to 5.6.2
+* update japanese translation
+* update pot
+* add init method, change method name
+* separate class into separate a file
+* add sponsor link
+* add dropdown label option with categories widget
+* add archive type option with archive widget
+* add donate link
+* add filter hooks, custom_post_type_widgets/archive/get_month_link_custom_post_type, custom_post_type_widgets/archive/trim_post_type, custom_post_type_widgets/calendar/get_day_link_custom_post_type, custom_post_type_widgets/calendar/get_month_link_custom_post_type
+* add FUNDING.yml
+* add GitHub actions for CI/CD, remove .travis.yml
+* imporve code with phpcs, phpmd and phpstan
 
 = 1.3.0 =
 * edit README
