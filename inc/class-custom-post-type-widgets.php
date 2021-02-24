@@ -4,7 +4,7 @@
  *
  * @package Custom_Post_Type_Widgets
  *
- * @since 1.0.0
+ * @since 1.4.0
  */
 
 /**

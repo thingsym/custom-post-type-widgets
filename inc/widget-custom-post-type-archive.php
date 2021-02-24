@@ -313,6 +313,14 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			$yearlink = home_url( '?post_type=' . $posttype . '&m=' . $year );
 		}
 
+		/**
+		 * Filter a yearlink.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $yearlink
+		 * @param string $year
+		 */
 		return apply_filters( 'custom_post_type_widgets/archive/get_year_link_custom_post_type', $yearlink, $year );
 	}
 
@@ -377,6 +385,16 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			$daylink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) . zeroise( $day, 2 ) );
 		}
 
+		/**
+		 * Filter a daylink.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $daylink
+		 * @param string $year
+		 * @param string $month
+		 * @param string $day
+		 */
 		return apply_filters( 'custom_post_type_widgets/archive/get_day_link_custom_post_type', $daylink, $year, $month, $day );
 	}
 
@@ -435,6 +453,15 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			$monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
 		}
 
+		/**
+		 * Filter a monthlink.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $monthlink
+		 * @param string $year
+		 * @param string $month
+		 */
 		return apply_filters( 'custom_post_type_widgets/archive/get_month_link_custom_post_type', $monthlink, $year, $month );
 	}
 
@@ -463,6 +490,15 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 
 		$new_link_html = str_replace( '?post_type=' . $posttype, '', $link_html );
 
+		/**
+		 * Filter a trimed link_html.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $new_link_html  trimed link_html
+		 * @param string $link_html      original link_html
+		 * @param string $posttype
+		 */
 		return apply_filters( 'custom_post_type_widgets/archive/trim_post_type', $new_link_html, $link_html, $posttype );
 	}
 }
