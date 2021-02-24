@@ -5,7 +5,7 @@
  * Description: This plugin adds default custom post type widgets.
  * Version:     1.3.0
  * Author:      thingsym
- * Author URI:  http://www.thingslabo.com/
+ * Author URI:  https://www.thingslabo.com/
  * License:     GPL2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: custom-post-type-widgets
