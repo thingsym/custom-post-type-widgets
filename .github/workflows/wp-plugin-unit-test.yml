@@ -61,6 +61,9 @@ jobs:
             composer global require "phpunit/phpunit=4.8.*|5.4.*|5.7.*|6.*|7.*"
           fi
 
+      - name: Install PHPUnit Polyfills library
+        run: composer global require "yoast/phpunit-polyfills=1.0.1"
+
       - name: Install wp tests
         run: bash bin/install-wp-tests.sh wordpress_test root root localhost $WP_VERSION
 
