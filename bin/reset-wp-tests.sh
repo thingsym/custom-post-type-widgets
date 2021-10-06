@@ -14,5 +14,5 @@ SKIP_DB_CREATE=${6-false}
 
 script_dir=$(cd $(dirname $BASH_SOURCE); pwd)
 
-$script_dir/uninstall-wp-tests.sh $DB_NAME $DB_USER $DB_PASS
+$script_dir/uninstall-wp-tests.sh $DB_NAME $DB_USER $DB_PASS $DB_HOST $WP_VERSION
 $script_dir/install-wp-tests.sh $DB_NAME $DB_USER $DB_PASS $DB_HOST $WP_VERSION $SKIP_DB_CREATE
