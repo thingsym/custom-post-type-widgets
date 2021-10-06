@@ -32,6 +32,7 @@
 
   <exclude-pattern>*/tests/*</exclude-pattern>
   <exclude-pattern>*/vendor/*</exclude-pattern>
+  <exclude-pattern>*/node_modules/*</exclude-pattern>
 
   <!-- Annotated Ruleset https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-Ruleset -->
   <arg name="extensions" value="php"/>
@@ -39,25 +40,33 @@
   <arg value="sp"/>
 
   <!-- Include the WordPress ruleset, with exclusions. -->
-	<rule ref="WordPress.WP.I18n">
-		<properties>
-			<!-- Value: replace the text domain used. -->
-			<property name="text_domain" type="array" value="custom-post-type-widgets" />
-		</properties>
-	</rule>
+  <rule ref="WordPress.WP.I18n">
+    <properties>
+      <!-- Value: replace the text domain used. -->
+      <property name="text_domain" type="array" value="custom-post-type-widgets" />
+    </properties>
+  </rule>
 
   <rule ref="WordPress">
     <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
-    <exclude name="Squiz.Commenting.FunctionComment.Missing" />
-    <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
-    <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
-    <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText" />
+    <exclude name="WordPress.Arrays.ArrayDeclaration.NoComma" />
     <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
-    <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedIf" />
-    <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
-    <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
-    <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+    <exclude name="Squiz.Commenting.VariableComment.Missing" />
+    <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect" />
+    <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
 
-    <exclude name="WordPress.DateTime.RestrictedFunctions.date_date"/>
+    <exclude name="Squiz.Commenting.FileComment.Missing" />
+    <exclude name="Squiz.Commenting.FileComment.SpacingAfterComment" />
+    <exclude name="Squiz.Commenting.BlockComment.NoEmptyLineBefore" />
+    <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+    <exclude name="Squiz.Commenting.InlineComment.SpacingAfter" />
+
+    <exclude name="Squiz.Commenting.ClassComment" />
+    <exclude name="Squiz.Commenting.FunctionComment" />
+    <exclude name="Generic.Commenting.DocComment" />
+  </rule>
+
+  <rule ref="PHPCompatibilityWP">
+    <config name="testVersion" value="5.6-"/>
   </rule>
 </ruleset>
