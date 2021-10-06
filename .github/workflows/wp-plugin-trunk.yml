@@ -9,6 +9,7 @@ jobs:
   trunk:
     name: Push to trunk on WordPress.org via SVN
     runs-on: ubuntu-18.04
+    timeout-minutes: 30
 
     steps:
       - uses: actions/checkout@v2
