@@ -36,6 +36,7 @@ display a list of archive links for each month that has custom posts.
 
 * **Title** - description that appears over the list of archive links.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
+* **Archive Type**
 * **Display as dropdown** - if checked, this box causes the archives to be displayed in a drop-down box.
 * **Show post counts** - if checked, this box causes a count of the number of posts for each archive period.
 * **Class Name** - widget_archive
@@ -48,6 +49,7 @@ display a list of categories that has custom posts.
 
 * **Title** - description that appears over the list of categories.
 * **Taxonomy** - if selected, filter a custom taxonomy (e.g. category).
+* **label**
 * **Display as dropdown** - if checked, this box causes the categories to be displayed in a dropdown box.
 * **Show post counts** - if checked, this box causes the count of the number of posts to display with each category.
 * **Show hierarchy** - if checked, shows parent/child relationships in an indented manner.
