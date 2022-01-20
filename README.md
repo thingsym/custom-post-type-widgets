@@ -216,6 +216,25 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.4.1
+	* add test case
+	* fix README
+	* update wp-plugin-unit-test.yml
+	* bump up yoast/phpunit-polyfills version
+	* change os to ubuntu-20.04 for ci
+	* add Upgrade Notice
+	* change requires at least to wordpress 4.9
+	* change requires to PHP 5.6
+	* fix: fix pot and translation
+	* fix label
+	* fix test unit configuration and lint ruleset
+	* update composer.json
+	* add timeout-minutes to workflows
+	* add phpunit-polyfills
+	* update install-wp-tests.sh
+	* fix .editorconfig
+	* tested up to 5.8.0
+	* fix github workflows
 * Version 1.4.0
 	* update screenshot
 	* tested up to 5.6.2

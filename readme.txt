@@ -4,7 +4,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widgets
 Donate link: https://github.com/sponsors/thingsym
 Tags: widget, widgets, custom post type, taxonomy
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 Tested up to: 5.8.0
 Requires at least: 4.9
 Requires PHP: 5.6
@@ -229,6 +229,26 @@ Reference: [https://github.com/thingsym/custom-post-type-widgets#hooks](https://
 And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
 
 == Changelog ==
+
+= 1.4.1 =
+* add test case
+* fix README
+* update wp-plugin-unit-test.yml
+* bump up yoast/phpunit-polyfills version
+* change os to ubuntu-20.04 for ci
+* add Upgrade Notice
+* change requires at least to wordpress 4.9
+* change requires to PHP 5.6
+* fix: fix pot and translation
+* fix label
+* fix test unit configuration and lint ruleset
+* update composer.json
+* add timeout-minutes to workflows
+* add phpunit-polyfills
+* update install-wp-tests.sh
+* fix .editorconfig
+* tested up to 5.8.0
+* fix github workflows
 
 = 1.4.0 =
 * update screenshot
