@@ -38,6 +38,10 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: mbstring, intl, php-mysql
 
+      - name: apt --fix-broken install for PHP 7.0
+        run: sudo apt --fix-broken install
+        if: ${{ matrix.php == '7.0' }}
+
       - name: Install mbstring library for PHP 7.0
         # require ext-mbstring * -> it is missing from your system. Install or enable PHP's mbstring extension.
         run: sudo apt-get install php7.0-mbstring
