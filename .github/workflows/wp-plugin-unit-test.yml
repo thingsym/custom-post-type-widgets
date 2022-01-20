@@ -5,6 +5,7 @@ on:
     branches:
       - '**'
       - '!svn-trunk'
+      - '!test-matrix'
     tags-ignore:
       - '**'
   pull_request:
@@ -13,7 +14,7 @@ on:
 
 jobs:
   phpunit:
-    name: WordPress ${{ matrix.wordpress }} * PHP v${{ matrix.php }} * ${{ matrix.os }}
+    name: WordPress ${{ matrix.wordpress }} * PHP v${{ matrix.php }} * ${{ matrix.os }} * Multisite ${{ matrix.multisite }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
 
@@ -24,10 +25,12 @@ jobs:
         os: [ ubuntu-20.04 ]
         php: [ '5.6', '7.0', '7.1', '7.2', '7.3', '7.4' ]
         wordpress: [ latest, nightly ]
+        multisite: [ 0 ]
 
     env:
       PHP_VERSION: ${{ matrix.php }}
       WP_VERSION: ${{ matrix.wordpress }}
+      WP_MULTISITE: ${{ matrix.multisite }}
 
     steps:
       - uses: actions/checkout@v2
@@ -85,5 +88,5 @@ jobs:
       - name: Install wp tests
         run: bash bin/install-wp-tests.sh wordpress_test root root localhost $WP_VERSION
 
-      - name: Run PHPUnit - WordPress ${{ matrix.wordpress }}
+      - name: Run PHPUnit - WordPress ${{ matrix.wordpress }} * Multisite ${{ matrix.multisite }}
         run: phpunit
