@@ -153,7 +153,7 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 				$this->get_field_id( 'taxonomy' ),
 				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
-				__( 'Taxonomy:', 'custom-post-type-widgets' ),
+				__( 'Taxonomy (slug):', 'custom-post-type-widgets' ),
 				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 				$this->get_field_name( 'taxonomy' )
 			);

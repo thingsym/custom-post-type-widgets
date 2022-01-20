@@ -76,7 +76,8 @@ class Test_Custom_Post_Type_Widgets_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function plugin_metadata_links() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+		$links = $this->custom_post_type_widgets->plugin_metadata_links( array(), plugin_basename( __CUSTOM_POST_TYPE_WIDGETS__ ) );
+		$this->assertContains( '<a href="https://github.com/sponsors/thingsym">Become a sponsor</a>', $links );
 	}
 
 	/**

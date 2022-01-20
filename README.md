@@ -36,6 +36,7 @@ display a list of archive links for each month that has custom posts.
 
 * **Title** - description that appears over the list of archive links.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
+* **Archive Type**
 * **Display as dropdown** - if checked, this box causes the archives to be displayed in a drop-down box.
 * **Show post counts** - if checked, this box causes a count of the number of posts for each archive period.
 * **Class Name** - widget_archive
@@ -48,6 +49,7 @@ display a list of categories that has custom posts.
 
 * **Title** - description that appears over the list of categories.
 * **Taxonomy** - if selected, filter a custom taxonomy (e.g. category).
+* **label**
 * **Display as dropdown** - if checked, this box causes the categories to be displayed in a dropdown box.
 * **Show post counts** - if checked, this box causes the count of the number of posts to display with each category.
 * **Show hierarchy** - if checked, shows parent/child relationships in an indented manner.
@@ -214,6 +216,25 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.4.1
+	* add test case
+	* fix README
+	* update wp-plugin-unit-test.yml
+	* bump up yoast/phpunit-polyfills version
+	* change os to ubuntu-20.04 for ci
+	* add Upgrade Notice
+	* change requires at least to wordpress 4.9
+	* change requires to PHP 5.6
+	* fix: fix pot and translation
+	* fix label
+	* fix test unit configuration and lint ruleset
+	* update composer.json
+	* add timeout-minutes to workflows
+	* add phpunit-polyfills
+	* update install-wp-tests.sh
+	* fix .editorconfig
+	* tested up to 5.8.0
+	* fix github workflows
 * Version 1.4.0
 	* update screenshot
 	* tested up to 5.6.2
@@ -296,9 +317,12 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Upgrade Notice
 
-* 1.2.0
+* Version 1.4.1
+	* Requires at least version 4.9 of the WordPress
+	* Requires PHP version 5.6
+* Version 1.2.0
 	* Requires at least version 4.0 of the WordPress
-* 1.1.3
+* Version 1.1.3
 	* Requires at least version 3.7 of the WordPress
 
 ## License

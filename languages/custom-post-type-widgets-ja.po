@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Custom Post Type Widgets plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Type Widgets 1.4.0\n"
+"Project-Id-Version: Custom Post Type Widgets 1.4.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-widgets\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -153,8 +153,8 @@ msgstr "カテゴリーを選択"
 
 #: inc/widget-custom-post-type-categories.php:213
 #: inc/widget-custom-post-type-tag-cloud.php:156
-msgid "Taxonomy:"
-msgstr "分類 (Taxonomy):"
+msgid "Taxonomy (slug):"
+msgstr "分類 (slug):"
 
 #: inc/widget-custom-post-type-categories.php:237
 msgid "Dropdown label:"
