@@ -9,7 +9,7 @@
     "phpstan/phpstan": "*",
     "phpunit/phpunit": "^7",
     "phpcompatibility/phpcompatibility-wp": "*",
-    "yoast/phpunit-polyfills": "^1.0.1"
+    "yoast/phpunit-polyfills": "^1.0.3"
   },
   "prefer-stable" : true,
   "scripts": {
