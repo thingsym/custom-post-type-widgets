@@ -20,20 +20,20 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_calendar
 	 */
 	function constructor() {
-		$this->assertEquals( 'custom-post-type-calendar', $this->wp_custom_post_type_widgets_calendar->id_base );
-		$this->assertEquals( 'Calendar (Custom Post Type)', $this->wp_custom_post_type_widgets_calendar->name );
+		$this->assertSame( 'custom-post-type-calendar', $this->wp_custom_post_type_widgets_calendar->id_base );
+		$this->assertSame( 'Calendar (Custom Post Type)', $this->wp_custom_post_type_widgets_calendar->name );
 
 		$this->assertArrayHasKey( 'classname', $this->wp_custom_post_type_widgets_calendar->widget_options );
-		$this->assertEquals( 'widget_calendar', $this->wp_custom_post_type_widgets_calendar->widget_options['classname'] );
+		$this->assertSame( 'widget_calendar', $this->wp_custom_post_type_widgets_calendar->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_calendar->widget_options );
 		$this->assertContains( 'A calendar of your site&#8217;s Posts.', $this->wp_custom_post_type_widgets_calendar->widget_options['description'] );
 		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_calendar->widget_options );
 		$this->assertTrue( $this->wp_custom_post_type_widgets_calendar->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_calendar->control_options );
-		$this->assertEquals( 'custom-post-type-calendar', $this->wp_custom_post_type_widgets_calendar->control_options['id_base'] );
+		$this->assertSame( 'custom-post-type-calendar', $this->wp_custom_post_type_widgets_calendar->control_options['id_base'] );
 
-		$this->assertEquals( 'widget_custom-post-type-calendar', $this->wp_custom_post_type_widgets_calendar->option_name );
+		$this->assertSame( 'widget_custom-post-type-calendar', $this->wp_custom_post_type_widgets_calendar->option_name );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 
 		$new_instance = array(
 			'title'          => "as\n<br>df",
@@ -92,7 +92,7 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -137,7 +137,7 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 		$url = 'http://example.org/archives/date/2019/08/13';
 		$actual = $this->wp_custom_post_type_widgets_calendar->get_day_link_custom_post_type( $url, '2019', '08', '13' );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -166,7 +166,7 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 		$url = 'http://example.org/archives/date/2020/02';
 		$actual = $this->wp_custom_post_type_widgets_calendar->get_month_link_custom_post_type( $url, '2019', '08' );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**

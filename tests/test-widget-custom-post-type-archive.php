@@ -20,20 +20,20 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_archives
 	 */
 	function constructor() {
-		$this->assertEquals( 'custom-post-type-archives', $this->wp_custom_post_type_widgets_archives->id_base );
-		$this->assertEquals( 'Archives (Custom Post Type)', $this->wp_custom_post_type_widgets_archives->name );
+		$this->assertSame( 'custom-post-type-archives', $this->wp_custom_post_type_widgets_archives->id_base );
+		$this->assertSame( 'Archives (Custom Post Type)', $this->wp_custom_post_type_widgets_archives->name );
 
 		$this->assertArrayHasKey( 'classname', $this->wp_custom_post_type_widgets_archives->widget_options );
-		$this->assertEquals( 'widget_archive', $this->wp_custom_post_type_widgets_archives->widget_options['classname'] );
+		$this->assertSame( 'widget_archive', $this->wp_custom_post_type_widgets_archives->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_archives->widget_options );
 		$this->assertContains( 'A monthly archive of your site&#8217;s Posts.', $this->wp_custom_post_type_widgets_archives->widget_options['description'] );
 		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_archives->widget_options );
 		$this->assertTrue( $this->wp_custom_post_type_widgets_archives->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_archives->control_options );
-		$this->assertEquals( 'custom-post-type-archives', $this->wp_custom_post_type_widgets_archives->control_options['id_base'] );
+		$this->assertSame( 'custom-post-type-archives', $this->wp_custom_post_type_widgets_archives->control_options['id_base'] );
 
-		$this->assertEquals( 'widget_custom-post-type-archives', $this->wp_custom_post_type_widgets_archives->option_name );
+		$this->assertSame( 'widget_custom-post-type-archives', $this->wp_custom_post_type_widgets_archives->option_name );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 
 		$new_instance = array(
 			'title'          => "as\n<br>df",
@@ -112,7 +112,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -150,7 +150,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$url = 'http://example.org/archives/date/2019';
 		$actual = $this->wp_custom_post_type_widgets_archives->get_year_link_custom_post_type( $url, '2019' );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -180,7 +180,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$url = 'http://example.org/archives/date/2019/08/13';
 		$actual = $this->wp_custom_post_type_widgets_archives->get_day_link_custom_post_type( $url, '2019', '08', '13' );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -210,7 +210,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$url = 'http://example.org/archives/date/2019/08';
 		$actual = $this->wp_custom_post_type_widgets_archives->get_month_link_custom_post_type( $url, '2019', '08' );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -238,7 +238,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$url = 'http://example.org/archives/test/date/2019/08?post_type=test';
 		$actual = $this->wp_custom_post_type_widgets_archives->trim_post_type( $url );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -268,16 +268,16 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 		$url = 'http://example.org/archives/test/date/2019/08?post_type=test';
 		$actual = $this->wp_custom_post_type_widgets_archives->trim_post_type( $url );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
 	 * hook test
 	 */
 	function _filter_trim_post_type( $new_link_html, $link_html, $posttype ) {
-		$this->assertEquals( $new_link_html, 'http://example.org/archives/test/date/2019/08' );
-		$this->assertEquals( $link_html, 'http://example.org/archives/test/date/2019/08?post_type=test' );
-		$this->assertEquals( $posttype, 'test' );
+		$this->assertSame( $new_link_html, 'http://example.org/archives/test/date/2019/08' );
+		$this->assertSame( $link_html, 'http://example.org/archives/test/date/2019/08?post_type=test' );
+		$this->assertSame( $posttype, 'test' );
 
 		$new_link_html = $new_link_html . '?post_type=abc';
 

@@ -4,7 +4,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widgets
 Donate link: https://github.com/sponsors/thingsym
 Tags: widget, widgets, custom post type, taxonomy
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 Tested up to: 5.9.0
 Requires at least: 4.9
 Requires PHP: 5.6
@@ -229,6 +229,14 @@ Reference: [https://github.com/thingsym/custom-post-type-widgets#hooks](https://
 And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
 
 == Changelog ==
+
+= 1.4.2 =
+* add composer script
+* remove makepot:php composer script
+* change action hook
+* rename method name
+* fix hook to load_textdomain for translate on Widgets Screen
+* replace assert from assertEquals to assertSame
 
 = 1.4.1 =
 * add test case

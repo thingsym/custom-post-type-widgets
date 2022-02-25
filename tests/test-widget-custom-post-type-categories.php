@@ -20,20 +20,20 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 	 * @group wp_custom_post_type_widgets_categories
 	 */
 	function constructor() {
-		$this->assertEquals( 'custom-post-type-categories', $this->wp_custom_post_type_widgets_categories->id_base );
-		$this->assertEquals( 'Categories (Custom Post Type)', $this->wp_custom_post_type_widgets_categories->name );
+		$this->assertSame( 'custom-post-type-categories', $this->wp_custom_post_type_widgets_categories->id_base );
+		$this->assertSame( 'Categories (Custom Post Type)', $this->wp_custom_post_type_widgets_categories->name );
 
 		$this->assertArrayHasKey( 'classname', $this->wp_custom_post_type_widgets_categories->widget_options );
-		$this->assertEquals( 'widget_categories', $this->wp_custom_post_type_widgets_categories->widget_options['classname'] );
+		$this->assertSame( 'widget_categories', $this->wp_custom_post_type_widgets_categories->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_categories->widget_options );
 		$this->assertContains( 'A list or dropdown of categories.', $this->wp_custom_post_type_widgets_categories->widget_options['description'] );
 		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_categories->widget_options );
 		$this->assertTrue( $this->wp_custom_post_type_widgets_categories->widget_options['customize_selective_refresh'] );
 
 		$this->assertArrayHasKey( 'id_base', $this->wp_custom_post_type_widgets_categories->control_options );
-		$this->assertEquals( 'custom-post-type-categories', $this->wp_custom_post_type_widgets_categories->control_options['id_base'] );
+		$this->assertSame( 'custom-post-type-categories', $this->wp_custom_post_type_widgets_categories->control_options['id_base'] );
 
-		$this->assertEquals( 'widget_custom-post-type-categories', $this->wp_custom_post_type_widgets_categories->option_name );
+		$this->assertSame( 'widget_custom-post-type-categories', $this->wp_custom_post_type_widgets_categories->option_name );
 	}
 
 	/**
@@ -85,7 +85,7 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 		//
 		// $actual = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
 		//
-		// $this->assertEquals( $expected, $actual );
+		// $this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -112,7 +112,7 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -139,7 +139,7 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 
 		$new_instance = array(
 			'title'          => "as\n<br>df",
@@ -160,7 +160,7 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_categories->update( $new_instance, array() );
 
-		$this->assertEquals( $expected, $actual );
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
