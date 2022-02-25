@@ -216,6 +216,13 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.4.2
+	* add composer script
+	* remove makepot:php composer script
+	* change action hook
+	* rename method name
+	* fix hook to load_textdomain for translate on Widgets Screen
+	* replace assert from assertEquals to assertSame
 * Version 1.4.1
 	* add test case
 	* fix README
