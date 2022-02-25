@@ -20,8 +20,8 @@ class Test_Custom_Post_Type_Widgets_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	function constructor() {
-		$this->assertSame( 10, has_action( 'init', array( $this->custom_post_type_widgets, 'init' ) ) );
 		$this->assertSame( 10, has_action( 'plugins_loaded', array( $this->custom_post_type_widgets, 'load_textdomain' ) ) );
+		$this->assertSame( 10, has_action( 'plugins_loaded', array( $this->custom_post_type_widgets, 'init' ) ) );
 		$this->assertSame( 10, has_action( 'plugins_loaded', array( $this->custom_post_type_widgets, 'load_file' ) ) );
 		$this->assertSame( 10, has_action( 'widgets_init', array( $this->custom_post_type_widgets, 'register_widgets' ) ) );
 	}
