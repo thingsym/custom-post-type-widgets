@@ -23,8 +23,8 @@ class Custom_Post_Type_Widgets {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'init' ) );
-		add_action( 'plugins_loaded', array( $this, 'load' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+		add_action( 'plugins_loaded', array( $this, 'load_file' ) );
 		register_uninstall_hook( __CUSTOM_POST_TYPE_WIDGETS__, array( __CLASS__, 'uninstall' ) );
 		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
 	}
@@ -49,7 +49,7 @@ class Custom_Post_Type_Widgets {
 	 *
 	 * @since 1.0.0
 	 */
-	public function load() {
+	public function load_file() {
 		$dir = plugin_dir_path( __CUSTOM_POST_TYPE_WIDGETS__ ) . 'inc/';
 
 		include_once $dir . 'widget-custom-post-type-recent-posts.php';
