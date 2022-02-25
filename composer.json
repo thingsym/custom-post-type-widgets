@@ -29,7 +29,6 @@
       "@phpmd",
       "@phpstan"
     ],
-    "makepot:php": "php /usr/local/share/wp-i18n/makepot.php wp-plugin ../custom-post-type-widgets ../custom-post-type-widgets/languages/custom-post-type-widgets.pot",
     "makepot:wpcli": "wp i18n make-pot ./ ./languages/custom-post-type-widgets.pot --exclude=dist,bin,tests,node_modules,vendor",
     "msgfmt:ja": "msgfmt languages/custom-post-type-widgets-ja.po -o languages/custom-post-type-widgets-ja.mo"
   }
