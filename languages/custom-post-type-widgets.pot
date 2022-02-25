@@ -1,17 +1,17 @@
-# Copyright (C) 2021 thingsym
-# This file is distributed under the same license as the Custom Post Type Widgets plugin.
+# Copyright (C) 2022 thingsym
+# This file is distributed under the GPL2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Type Widgets 1.4.1\n"
+"Project-Id-Version: Custom Post Type Widgets 1.4.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-widgets\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-24T07:33:23+00:00\n"
+"POT-Creation-Date: 2022-02-25T18:13:04+09:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: custom-post-type-widgets\n"
 
 #. Plugin Name of the plugin
@@ -34,7 +34,7 @@ msgstr ""
 msgid "https://www.thingslabo.com/"
 msgstr ""
 
-#: inc/class-custom-post-type-widgets.php:120
+#: inc/class-custom-post-type-widgets.php:122
 msgid "Become a sponsor"
 msgstr ""
 
