@@ -22,9 +22,9 @@ class Custom_Post_Type_Widgets {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'plugins_loaded', array( $this, 'load' ) );
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		register_uninstall_hook( __CUSTOM_POST_TYPE_WIDGETS__, array( __CLASS__, 'uninstall' ) );
 		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
 	}
