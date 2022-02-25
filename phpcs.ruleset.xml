@@ -64,6 +64,9 @@
     <exclude name="Squiz.Commenting.ClassComment" />
     <exclude name="Squiz.Commenting.FunctionComment" />
     <exclude name="Generic.Commenting.DocComment" />
+
+    <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
+    <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
   </rule>
 
   <rule ref="PHPCompatibilityWP">
