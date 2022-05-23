@@ -51,10 +51,19 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		$count        = ! empty( $instance['count'] ) ? (bool) $instance['count'] : false;
 		$dropdown     = ! empty( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
 
-		add_filter( 'year_link', array( $this, 'get_year_link_custom_post_type' ), 10, 2 );
-		add_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ), 10, 3 );
-		add_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ), 10, 4 );
-		add_filter( 'get_archives_link', array( $this, 'trim_post_type' ), 10, 1 );
+		$disable_get_links = 0;
+		if ( defined( 'CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_ARCHIVE' ) ) {
+			if ( CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_ARCHIVE ) {
+				$disable_get_links = 1;
+			}
+		}
+
+		if ( ! $disable_get_links ) {
+			add_filter( 'year_link', array( $this, 'get_year_link_custom_post_type' ), 10, 2 );
+			add_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ), 10, 3 );
+			add_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ), 10, 4 );
+			add_filter( 'get_archives_link', array( $this, 'trim_post_type' ), 10, 1 );
+		}
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['before_widget'];
@@ -155,10 +164,12 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			<?php
 		}
 
-		remove_filter( 'year_link', array( $this, 'get_year_link_custom_post_type' ) );
-		remove_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ) );
-		remove_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ) );
-		remove_filter( 'get_archives_link', array( $this, 'trim_post_type' ) );
+		if ( ! $disable_get_links ) {
+			remove_filter( 'year_link', array( $this, 'get_year_link_custom_post_type' ) );
+			remove_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ) );
+			remove_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ) );
+			remove_filter( 'get_archives_link', array( $this, 'trim_post_type' ) );
+		}
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['after_widget'];
