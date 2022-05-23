@@ -260,18 +260,23 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			$this->get_field_name( 'archive_type' )
 		);
 
-		$archive_types = array( 'yearly', 'monthly', 'weekly', 'daily' );
+		$archive_types = array(
+			'yearly'    => __( 'Yearly', 'custom-post-type-widgets' ),
+			'monthly'   => __( 'Monthly', 'custom-post-type-widgets' ),
+			'weekly'    => __( 'Weekly', 'custom-post-type-widgets' ),
+			'daily'     => __( 'Daily', 'custom-post-type-widgets' ),
+		);
 
-		foreach ( $archive_types as $type ) {
+		foreach ( $archive_types as $type => $label ) {
+			// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
 			printf(
 				'<option value="%s"%s>%s</option>',
 				esc_attr( $type ),
 				selected( $type, $archive_type, false ),
-				esc_html__( $type, 'custom-post-type-widgets' )
+				esc_html( $label )
 			);
 		}
 		echo '</select></p>';
-
 		?>
 
 		<p><input class="checkbox" type="checkbox"<?php checked( $dropdown ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'dropdown' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" /> <label for="<?php echo $this->get_field_id( 'dropdown' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Display as dropdown', 'custom-post-type-widgets' ); ?></label><br>
