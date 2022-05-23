@@ -50,6 +50,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		$archive_type = ! empty( $instance['archive_type'] ) ? $instance['archive_type'] : 'monthly';
 		$count        = ! empty( $instance['count'] ) ? (bool) $instance['count'] : false;
 		$dropdown     = ! empty( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
+		$order        = ! empty( $instance['order'] ) ? $instance['order'] : 'DESC';
 
 		$disable_get_links = 0;
 		if ( defined( 'CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_ARCHIVE' ) ) {
@@ -99,6 +100,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 						'type'            => $archive_type,
 						'format'          => 'option',
 						'show_post_count' => $count,
+						'order'           => $order,
 					),
 					$instance,
 					$this->id,
@@ -153,6 +155,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 						'post_type'       => $posttype,
 						'type'            => $archive_type,
 						'show_post_count' => $count,
+						'order'           => $order,
 					),
 					$instance,
 					$this->id,
@@ -194,6 +197,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		$instance['archive_type'] = wp_strip_all_tags( $new_instance['archive_type'] );
 		$instance['count']    = $new_instance['count'] ? (bool) $new_instance['count'] : false;
 		$instance['dropdown'] = $new_instance['dropdown'] ? (bool) $new_instance['dropdown'] : false;
+		$instance['order']    = wp_strip_all_tags( $new_instance['order'] );
 
 		return $instance;
 	}
@@ -213,6 +217,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		$archive_type = isset( $instance['archive_type'] ) ? $instance['archive_type'] : 'monthly';
 		$dropdown     = isset( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
 		$count        = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
+		$order        = isset( $instance['order'] ) ? $instance['order'] : 'DESC';
 		?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
@@ -272,6 +277,33 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 		<p><input class="checkbox" type="checkbox"<?php checked( $dropdown ); ?> id="<?php echo $this->get_field_id( 'dropdown' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'dropdown' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" /> <label for="<?php echo $this->get_field_id( 'dropdown' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Display as dropdown', 'custom-post-type-widgets' ); ?></label><br>
 		<input class="checkbox" type="checkbox"<?php checked( $count ); ?> id="<?php echo $this->get_field_id( 'count' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'count' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" /> <label for="<?php echo $this->get_field_id( 'count' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Show post counts', 'custom-post-type-widgets' ); ?></label></p>
 		<?php
+
+		printf(
+			'<p><label for="%1$s">%2$s</label>' .
+			'<select class="widefat" id="%1$s" name="%3$s">',
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+			$this->get_field_id( 'order' ),
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+			__( 'Order:', 'custom-post-type-widgets' ),
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+			$this->get_field_name( 'order' )
+		);
+
+		$order_types = array(
+			'DESC'  => __( 'DESC', 'custom-post-type-widgets' ),
+			'ASC'   => __( 'ASC', 'custom-post-type-widgets' ),
+		);
+
+		foreach ( $order_types as $type => $label ) {
+			// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+			printf(
+				'<option value="%s"%s>%s</option>',
+				esc_attr( $type ),
+				selected( $type, $order, false ),
+				esc_html( $label )
+			);
+		}
+		echo '</select></p>';
 	}
 
 	/**
