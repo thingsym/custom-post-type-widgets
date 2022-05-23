@@ -462,7 +462,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
-				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype;
+				$archive_name = is_string( $type_obj->has_archive ) ? $type_obj->has_archive : ( ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype );
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
 					$daylink   = str_replace( $front, $new_front . '/' . $archive_name, $daylink );
@@ -530,7 +530,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
-				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype;
+				$archive_name = is_string( $type_obj->has_archive ) ? $type_obj->has_archive : ( ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype );
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
 					$monthlink = str_replace( $front, $new_front . '/' . $archive_name, $monthlink );
