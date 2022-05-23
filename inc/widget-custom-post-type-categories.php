@@ -46,11 +46,11 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-		$taxonomy = ! empty( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'category';
-		$label    = ! empty( $instance['label'] ) ? $instance['label'] : __( 'Select Category', 'custom-post-type-widgets' );
-		$c        = ! empty( $instance['count'] ) ? (bool) $instance['count'] : false;
-		$h        = ! empty( $instance['hierarchical'] ) ? (bool) $instance['hierarchical'] : false;
-		$d        = ! empty( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
+		$taxonomy     = ! empty( $instance['taxonomy'] ) ? $instance['taxonomy'] : 'category';
+		$label        = ! empty( $instance['label'] ) ? $instance['label'] : __( 'Select Category', 'custom-post-type-widgets' );
+		$count        = ! empty( $instance['count'] ) ? (bool) $instance['count'] : false;
+		$hierarchical = ! empty( $instance['hierarchical'] ) ? (bool) $instance['hierarchical'] : false;
+		$dropdown     = ! empty( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['before_widget'];
@@ -62,11 +62,11 @@ class WP_Custom_Post_Type_Widgets_Categories extends WP_Widget {
 		$cat_args = array(
 			'orderby'      => 'name',
 			'taxonomy'     => $taxonomy,
-			'show_count'   => $c,
-			'hierarchical' => $h,
+			'show_count'   => $count,
+			'hierarchical' => $hierarchical,
 		);
 
-		if ( $d ) {
+		if ( $dropdown ) {
 			$dropdown_id = "{$this->id_base}-dropdown-{$this->number}";
 
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
