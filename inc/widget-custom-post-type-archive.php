@@ -154,6 +154,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 					array(
 						'post_type'       => $posttype,
 						'type'            => $archive_type,
+						'format'          => 'html',
 						'show_post_count' => $count,
 						'order'           => $order,
 					),
