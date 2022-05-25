@@ -121,8 +121,6 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => 'aaaaa',
 			'posttype'       => 'test',
-			'count'          => false,
-			'dropdown'       => false,
 		);
 
 		$this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );
@@ -150,8 +148,6 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 		$new_instance = array(
 			'title'          => 'aaaaa',
 			'posttype'       => 'test',
-			'count'          => false,
-			'dropdown'       => false,
 		);
 
 		$this->wp_custom_post_type_widgets_calendar->update( $new_instance, array() );

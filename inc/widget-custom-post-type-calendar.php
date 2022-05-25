@@ -56,8 +56,17 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-		add_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ), 10, 3 );
-		add_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ), 10, 4 );
+		$disable_get_links = 0;
+		if ( defined( 'CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR' ) ) {
+			if ( CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR ) {
+				$disable_get_links = 1;
+			}
+		}
+
+		if ( ! $disable_get_links ) {
+			add_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ), 10, 3 );
+			add_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ), 10, 4 );
+		}
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['before_widget'];
@@ -75,8 +84,10 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['after_widget'];
 
-		remove_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ) );
-		remove_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ) );
+		if ( ! $disable_get_links ) {
+			remove_filter( 'month_link', array( $this, 'get_month_link_custom_post_type' ) );
+			remove_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ) );
+		}
 
 		self::$instance++;
 	}
@@ -462,7 +473,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
-				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype;
+				$archive_name = is_string( $type_obj->has_archive ) ? $type_obj->has_archive : ( ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype );
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
 					$daylink   = str_replace( $front, $new_front . '/' . $archive_name, $daylink );
@@ -530,7 +541,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
-				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype;
+				$archive_name = is_string( $type_obj->has_archive ) ? $type_obj->has_archive : ( ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype );
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
 					$monthlink = str_replace( $front, $new_front . '/' . $archive_name, $monthlink );

@@ -57,6 +57,8 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 			'archive_type'   => '',
 			'count'          => '',
 			'dropdown'       => '',
+			'order'          => '',
+
 		);
 		$expected = array(
 			'title'          => '',
@@ -64,6 +66,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 			'archive_type'   => '',
 			'count'          => false,
 			'dropdown'       => false,
+			'order'          => '',
 		);
 
 		$actual = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
@@ -82,6 +85,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 			'archive_type'   => 'monthly',
 			'count'          => false,
 			'dropdown'       => false,
+			'order'          => 'DESC',
 		);
 		$expected = array(
 			'title'          => 'aaaaa',
@@ -89,6 +93,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 			'archive_type'   => 'monthly',
 			'count'          => false,
 			'dropdown'       => false,
+			'order'          => 'DESC',
 		);
 
 		$actual = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
@@ -101,6 +106,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 			'archive_type'   => 'monthly',
 			'count'          => true,
 			'dropdown'       => true,
+			'order'          => 'ASC',
 		);
 		$expected = array(
 			'title'          => sanitize_text_field( "as\n<br>df" ),
@@ -108,6 +114,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 			'archive_type'   => 'monthly',
 			'count'          => true,
 			'dropdown'       => true,
+			'order'          => 'ASC',
 		);
 
 		$actual = $this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
@@ -136,6 +143,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 			'archive_type'   => 'yearly',
 			'count'          => false,
 			'dropdown'       => false,
+			'order'          => 'DESC',
 		);
 
 		$this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
@@ -166,6 +174,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 			'archive_type'   => 'daily',
 			'count'          => false,
 			'dropdown'       => false,
+			'order'          => 'DESC',
 		);
 
 		$this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
@@ -196,6 +205,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 			'archive_type'   => 'monthly',
 			'count'          => false,
 			'dropdown'       => false,
+			'order'          => 'DESC',
 		);
 
 		$this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
@@ -224,6 +234,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 			'archive_type'   => 'monthly',
 			'count'          => false,
 			'dropdown'       => false,
+			'order'          => 'DESC',
 		);
 
 		$this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );
@@ -252,6 +263,7 @@ class Test_WP_Custom_Post_Type_Widgets_Archives extends WP_UnitTestCase {
 			'archive_type'   => 'monthly',
 			'count'          => false,
 			'dropdown'       => false,
+			'order'          => 'DESC',
 		);
 
 		$this->wp_custom_post_type_widgets_archives->update( $new_instance, array() );

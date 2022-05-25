@@ -216,6 +216,18 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.5.0
+	* tested up to 6.0.0
+	* fix wp-plugin-unit-test.yml
+	* update japanese translation
+	* update pot
+	* fix test case
+	* add format argument
+	* supports translation
+	* add ASC/DESC order option for archive widget
+	* add constants CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_ARCHIVE and CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR
+	* fix rewrite slug for has_archive setting
+	* rename variable name
 * Version 1.4.2
 	* add composer script
 	* remove makepot:php composer script

@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Type Widgets 1.4.2\n"
+"Project-Id-Version: Custom Post Type Widgets 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-widgets\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-25T18:13:04+09:00\n"
+"POT-Creation-Date: 2022-05-25T15:39:23+09:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: custom-post-type-widgets\n"
@@ -50,28 +50,28 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#: inc/widget-custom-post-type-archive.php:101
+#: inc/widget-custom-post-type-archive.php:112
 msgid "Select Year"
 msgstr ""
 
-#: inc/widget-custom-post-type-archive.php:104
+#: inc/widget-custom-post-type-archive.php:115
 msgid "Select Month"
 msgstr ""
 
-#: inc/widget-custom-post-type-archive.php:107
+#: inc/widget-custom-post-type-archive.php:118
 msgid "Select Day"
 msgstr ""
 
-#: inc/widget-custom-post-type-archive.php:110
+#: inc/widget-custom-post-type-archive.php:121
 msgid "Select Week"
 msgstr ""
 
-#: inc/widget-custom-post-type-archive.php:113
+#: inc/widget-custom-post-type-archive.php:124
 msgid "Select Post"
 msgstr ""
 
-#: inc/widget-custom-post-type-archive.php:206
-#: inc/widget-custom-post-type-calendar.php:117
+#: inc/widget-custom-post-type-archive.php:223
+#: inc/widget-custom-post-type-calendar.php:128
 #: inc/widget-custom-post-type-categories.php:200
 #: inc/widget-custom-post-type-recent-comments.php:189
 #: inc/widget-custom-post-type-recent-posts.php:244
@@ -80,26 +80,54 @@ msgstr ""
 msgid "Title:"
 msgstr ""
 
-#: inc/widget-custom-post-type-archive.php:217
-#: inc/widget-custom-post-type-calendar.php:129
+#: inc/widget-custom-post-type-archive.php:234
+#: inc/widget-custom-post-type-calendar.php:140
 #: inc/widget-custom-post-type-recent-comments.php:201
 #: inc/widget-custom-post-type-recent-posts.php:254
 #: inc/widget-custom-post-type-search.php:113
 msgid "Post Type:"
 msgstr ""
 
-#: inc/widget-custom-post-type-archive.php:242
+#: inc/widget-custom-post-type-archive.php:259
 msgid "Archive Type:"
 msgstr ""
 
-#: inc/widget-custom-post-type-archive.php:261
+#: inc/widget-custom-post-type-archive.php:265
+msgid "Yearly"
+msgstr ""
+
+#: inc/widget-custom-post-type-archive.php:266
+msgid "Monthly"
+msgstr ""
+
+#: inc/widget-custom-post-type-archive.php:267
+msgid "Weekly"
+msgstr ""
+
+#: inc/widget-custom-post-type-archive.php:268
+msgid "Daily"
+msgstr ""
+
+#: inc/widget-custom-post-type-archive.php:283
 #: inc/widget-custom-post-type-categories.php:241
 msgid "Display as dropdown"
 msgstr ""
 
-#: inc/widget-custom-post-type-archive.php:262
+#: inc/widget-custom-post-type-archive.php:284
 #: inc/widget-custom-post-type-categories.php:244
 msgid "Show post counts"
+msgstr ""
+
+#: inc/widget-custom-post-type-archive.php:293
+msgid "Order:"
+msgstr ""
+
+#: inc/widget-custom-post-type-archive.php:299
+msgid "DESC"
+msgstr ""
+
+#: inc/widget-custom-post-type-archive.php:300
+msgid "ASC"
 msgstr ""
 
 #: inc/widget-custom-post-type-calendar.php:36
@@ -115,22 +143,22 @@ msgid "Calendar"
 msgstr ""
 
 #. translators: Calendar caption: 1: month name, 2: 4-digit year
-#: inc/widget-custom-post-type-calendar.php:272
+#: inc/widget-custom-post-type-calendar.php:283
 msgctxt "calendar caption"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: inc/widget-custom-post-type-calendar.php:351
+#: inc/widget-custom-post-type-calendar.php:362
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr ""
 
 #. translators: label: 1: date format
-#: inc/widget-custom-post-type-calendar.php:353
+#: inc/widget-custom-post-type-calendar.php:364
 msgid "Posts published on %s"
 msgstr ""
 
-#: inc/widget-custom-post-type-calendar.php:381
+#: inc/widget-custom-post-type-calendar.php:392
 msgid "Previous and next months"
 msgstr ""
 
