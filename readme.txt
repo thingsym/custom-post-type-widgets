@@ -4,7 +4,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widgets
 Donate link: https://github.com/sponsors/thingsym
 Tags: widget, widgets, custom post type, taxonomy
-Stable tag: 1.4.2
+Stable tag: 1.5.0
 Tested up to: 6.0.0
 Requires at least: 4.9
 Requires PHP: 5.6
@@ -229,6 +229,19 @@ Reference: [https://github.com/thingsym/custom-post-type-widgets#hooks](https://
 And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
 
 == Changelog ==
+
+= 1.5.0 =
+* tested up to 6.0.0
+* fix wp-plugin-unit-test.yml
+* update japanese translation
+* update pot
+* fix test case
+* add format argument
+* supports translation
+* add ASC/DESC order option for archive widget
+* add constants CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_ARCHIVE and CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR
+* fix rewrite slug for has_archive setting
+* rename variable name
 
 = 1.4.2 =
 * add composer script
