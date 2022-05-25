@@ -32,6 +32,14 @@ jobs:
       WP_VERSION: ${{ matrix.wordpress }}
       WP_MULTISITE: ${{ matrix.multisite }}
 
+    services:
+      database:
+        image: mysql:5.7
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+
     steps:
       - uses: actions/checkout@v2
 
@@ -49,23 +57,6 @@ jobs:
         # require ext-mbstring * -> it is missing from your system. Install or enable PHP's mbstring extension.
         run: sudo apt-get install php7.0-mbstring
         if: ${{ matrix.php == '7.0' }}
-
-      - name: Edit mysql.cnf for PHP 5.6
-        # MySQL8.0 default-character-set is utf8mb4.
-        run: |
-          sudo sed -i -e "s/\[mysql\]/\[mysql\]\ndefault-character-set=utf8/" /etc/mysql/conf.d/mysql.cnf
-          sudo sed -i -e "s/\[mysql\]/\[mysql\]\ncharacter_set_server=latin1/" /etc/mysql/conf.d/mysql.cnf
-        if: ${{ matrix.php == '5.6' }}
-
-      - name: Change authentication method for MySQL8.0
-        # MySQL8.0 authentication method is caching_sha2_password.
-        run: |
-          sudo sed -i -e "s/\[mysqld\]/\[mysqld\]\ndefault_authentication_plugin=mysql_native_password/" /etc/mysql/mysql.conf.d/mysqld.cnf
-        if: ${{ matrix.php == '5.6' || matrix.php == '7.0' || matrix.php == '7.1' || matrix.php == '7.2' }}
-
-      - name: Start MySQL
-        # See https://github.blog/changelog/2020-02-21-github-actions-breaking-change-ubuntu-virtual-environments-will-no-longer-start-the-mysql-service-automatically/
-        run: sudo /etc/init.d/mysql start
 
       - name: Install PHPUnit
         run: |
@@ -86,7 +77,7 @@ jobs:
         run: composer global require "yoast/phpunit-polyfills=1.0.3"
 
       - name: Install wp tests
-        run: bash bin/install-wp-tests.sh wordpress_test root root localhost $WP_VERSION
+        run: bash bin/install-wp-tests.sh wordpress_test root root 0.0.0.0:3306 $WP_VERSION
 
       - name: Run PHPUnit - WordPress ${{ matrix.wordpress }} * Multisite ${{ matrix.multisite }}
         run: phpunit
