@@ -2,7 +2,7 @@
 # This file is distributed under the GPL2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Type Widgets 1.4.2\n"
+"Project-Id-Version: Custom Post Type Widgets 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-widgets\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
