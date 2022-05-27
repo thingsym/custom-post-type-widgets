@@ -234,6 +234,9 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.5.1
+	* edit README
+	* fix the priority of the rewrite rule of register_post_type()
 * Version 1.5.0
 	* tested up to 6.0.0
 	* fix wp-plugin-unit-test.yml

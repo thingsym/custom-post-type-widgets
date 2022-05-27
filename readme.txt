@@ -4,7 +4,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widgets
 Donate link: https://github.com/sponsors/thingsym
 Tags: widget, widgets, custom post type, taxonomy
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 Tested up to: 6.0.0
 Requires at least: 4.9
 Requires PHP: 5.6
@@ -243,6 +243,10 @@ Reference: [https://github.com/thingsym/custom-post-type-widgets#hooks](https://
 And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/custom-post-type-rewrite/)
 
 == Changelog ==
+
+= 1.5.1 =
+* edit README
+* fix the priority of the rewrite rule of register_post_type()
 
 = 1.5.0 =
 * tested up to 6.0.0
