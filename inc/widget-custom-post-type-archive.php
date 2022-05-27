@@ -347,7 +347,22 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
-				$archive_name = is_string( $type_obj->has_archive ) ? $type_obj->has_archive : ( ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype );
+
+				# The priority of the rewrite rule: has_archive < rewrite
+				# See https://developer.wordpress.org/reference/functions/register_post_type/
+				$archive_name = $posttype;
+				if ( is_string( $type_obj->has_archive ) ) {
+					$archive_name = $type_obj->has_archive;
+				}
+				if ( is_bool( $type_obj->rewrite ) && $type_obj->rewrite === true ) {
+					$archive_name = $posttype;
+				}
+				else if ( is_array( $type_obj->rewrite ) ) {
+					if ( ! empty( $type_obj->rewrite['slug'] ) ) {
+						$archive_name = $type_obj->rewrite['slug'];
+					}
+				}
+
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
 					$new_yearlink = str_replace( $front, $new_front . '/' . $archive_name, $new_yearlink );
@@ -420,7 +435,22 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
-				$archive_name = is_string( $type_obj->has_archive ) ? $type_obj->has_archive : ( ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype );
+
+				# The priority of the rewrite rule: has_archive < rewrite
+				# See https://developer.wordpress.org/reference/functions/register_post_type/
+				$archive_name = $posttype;
+				if ( is_string( $type_obj->has_archive ) ) {
+					$archive_name = $type_obj->has_archive;
+				}
+				if ( is_bool( $type_obj->rewrite ) && $type_obj->rewrite === true ) {
+					$archive_name = $posttype;
+				}
+				else if ( is_array( $type_obj->rewrite ) ) {
+					if ( ! empty( $type_obj->rewrite['slug'] ) ) {
+						$archive_name = $type_obj->rewrite['slug'];
+					}
+				}
+
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
 					$new_daylink   = str_replace( $front, $new_front . '/' . $archive_name, $new_daylink );
@@ -489,7 +519,22 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
-				$archive_name = is_string( $type_obj->has_archive ) ? $type_obj->has_archive : ( ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype );
+
+				# The priority of the rewrite rule: has_archive < rewrite
+				# See https://developer.wordpress.org/reference/functions/register_post_type/
+				$archive_name = $posttype;
+				if ( is_string( $type_obj->has_archive ) ) {
+					$archive_name = $type_obj->has_archive;
+				}
+				if ( is_bool( $type_obj->rewrite ) && $type_obj->rewrite === true ) {
+					$archive_name = $posttype;
+				}
+				else if ( is_array( $type_obj->rewrite ) ) {
+					if ( ! empty( $type_obj->rewrite['slug'] ) ) {
+						$archive_name = $type_obj->rewrite['slug'];
+					}
+				}
+
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
 					$new_monthlink = str_replace( $front, $new_front . '/' . $archive_name, $new_monthlink );
