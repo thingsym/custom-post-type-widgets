@@ -39,6 +39,7 @@ display a list of archive links for each month that has custom posts.
 * **Archive Type**
 * **Display as dropdown** - if checked, this box causes the archives to be displayed in a drop-down box.
 * **Show post counts** - if checked, this box causes a count of the number of posts for each archive period.
+* **Order**
 * **Class Name** - widget_archive
 
 ### Categories (Custom Post Type)
@@ -97,6 +98,11 @@ A search form for your site.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
 * **Class Name** - widget_search
 
+## Constants
+
+* `CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_ARCHIVE` - Disable permalink generation in Archives widget (value: true | false)
+* `CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR` - Disable permalink generation in Calendar widget (value: true | false)
+
 ## Hooks
 
 Custom Post Type Widgets has its own hooks.
@@ -148,6 +154,18 @@ And try the following:
 
 Custom Post Type Rewrite
 [https://wordpress.org/plugins/custom-post-type-rewrite/](https://wordpress.org/plugins/custom-post-type-rewrite/)
+
+If you installed multiple plugins that can edit permalinks, the rewrite rules or permalinks may interfere.
+
+In that case, you can disable the generation of permalinks by setting the following two constants in wp-config.php or the theme's function.php.
+
+* `CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_ARCHIVE`
+* `CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR`
+
+```php
+define( 'CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_ARCHIVE', true );
+define( 'CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR', true );
+```
 
 ### Taxonomy select of Categories or Tags do not appear.
 
@@ -216,6 +234,9 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.5.1
+	* edit README
+	* fix the priority of the rewrite rule of register_post_type()
 * Version 1.5.0
 	* tested up to 6.0.0
 	* fix wp-plugin-unit-test.yml
