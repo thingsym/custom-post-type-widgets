@@ -1,6 +1,6 @@
 {
   "description": "composer.json for testing WordPress theme/plugin",
-  "license": "GPL2 or later",
+  "license": "GPLv2 or later",
   "require": {},
   "require-dev": {
     "squizlabs/php_codesniffer": "*",

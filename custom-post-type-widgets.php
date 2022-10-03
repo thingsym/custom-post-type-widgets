@@ -6,7 +6,7 @@
  * Version:     1.5.1
  * Author:      thingsym
  * Author URI:  https://www.thingslabo.com/
- * License:     GPL2 or later
+ * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: custom-post-type-widgets
  * Domain Path: /languages/
