@@ -11,11 +11,11 @@ Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This WordPress plugin adds default custom post type widgets.
+Custom Post Type Widgets plugin adds default custom post type widgets.
 
 == Description ==
 
-This WordPress plugin adds default custom post type widgets.
+Custom Post Type Widgets plugin adds default custom post type widgets.
 You can filter by registered Custom Post Type or Taxonomy on widgets.
 
 = Descriptions of Widgets =
@@ -28,7 +28,6 @@ display a list of the most recent custom posts.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
 * **Number of posts to show (at most 15)** - enter the number of posts to display.
 * **Display post date?** - if checked, display post date.
-* **Class Name** - widget_recent_entries
 
 = Archives (Custom Post Type) =
 
@@ -40,7 +39,6 @@ display a list of archive links for each month that has custom posts.
 * **Display as dropdown** - if checked, this box causes the archives to be displayed in a drop-down box.
 * **Show post counts** - if checked, this box causes a count of the number of posts for each archive period.
 * **Order**
-* **Class Name** - widget_archive
 
 = Categories (Custom Post Type) =
 
@@ -51,7 +49,6 @@ display a list of categories that has custom posts.
 * **Display as dropdown** - if checked, this box causes the categories to be displayed in a dropdown box.
 * **Show post counts** - if checked, this box causes the count of the number of posts to display with each category.
 * **Show hierarchy** - if checked, shows parent/child relationships in an indented manner.
-* **Class Name** - widget_categories
 
 = Calendar (Custom Post Type) =
 
@@ -59,7 +56,6 @@ display a calendar of the current month.
 
 * **Title** - description that appears over the calendar.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
-* **Class Name** - widget_calendar
 
 = Recent Comments (Custom Post Type) =
 
@@ -68,7 +64,6 @@ display a list of the most recent comments.
 * **Title** - description that appears over the list of recent comments.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
 * **Number of comments to show (at most 15)** - enter the number of comments to be displayed.
-* **Class Name** - widget_recent_comments
 
 = Tag Cloud (Custom Post Type) =
 
@@ -77,7 +72,6 @@ display a list of the top 45 that has used in a tag cloud.
 * **Title** - description that appears over the tag cloud.
 * **Taxonomy** - if selected, filter a custom taxonomy (e.g. post_tag).
 * **Show tag counts** - if checked, this box causes the count of the number of tags to display with each tag.
-* **Class Name** - widget_tag_cloud
 
 = Search (Custom Post Type) =
 
@@ -85,7 +79,6 @@ A search form for your site.
 
 * **Title** - description that appears over the search.
 * **Post Type** - if selected, filter by a custom post type. (e.g. post).
-* **Class Name** - widget_search
 
 = Hooks =
 
@@ -93,16 +86,41 @@ Custom Post Type Widgets has its own hooks. See the reference for details.
 
 Reference: [https://github.com/thingsym/custom-post-type-widgets#hooks](https://github.com/thingsym/custom-post-type-widgets#hooks)
 
-= Test Matrix =
+= Support =
 
-For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/custom-post-type-widgets/actions).
+If you have any trouble, you can use the forums or report bugs.
+
+* Forum: [https://wordpress.org/support/plugin/custom-post-type-widgets/](https://wordpress.org/support/plugin/custom-post-type-widgets/)
+* Issues: [https://github.com/thingsym/custom-post-type-widgets/issues](https://github.com/thingsym/custom-post-type-widgets/issues)
 
 = Contribution =
 
 Small patches and bug reports can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
 
-* [custom-post-type-widgets - GitHub](https://github.com/thingsym/custom-post-type-widgets)
-* [Custom Post Type Widgets - WordPress Plugin](https://wordpress.org/plugins/custom-post-type-widgets/)
+Translating a plugin takes a lot of time, effort, and patience. I really appreciate the hard work from these contributors.
+
+If you have created or updated your own language pack, you can send gettext PO and MO files to author. I can bundle it into plugin.
+
+* [VCS - GitHub](https://github.com/thingsym/custom-post-type-widgets)
+* [Homepage - WordPress Plugin](https://wordpress.org/plugins/custom-post-type-widgets/)
+* [Translate Custom Post Type Widgets into your language.](https://translate.wordpress.org/projects/wp-plugins/custom-post-type-widgets)
+
+You can also contribute by answering issues on the forums.
+
+* Forum: [https://wordpress.org/support/plugin/custom-post-type-widgets/](https://wordpress.org/support/plugin/custom-post-type-widgets/)
+* Issues: [https://github.com/thingsym/custom-post-type-widgets/issues](https://github.com/thingsym/custom-post-type-widgets/issues)
+
+= Patches and Bug Fixes =
+
+Forking on Github is another good way. You can send a pull request.
+
+1. Fork [Custom Post Type Widgets](https://github.com/thingsym/custom-post-type-widgets) from GitHub repository
+2. Create a feature branch: git checkout -b my-new-feature
+3. Commit your changes: git commit -am 'Add some feature'
+4. Push to the branch: git push origin my-new-feature
+5. Create new Pull Request
+
+= Contribute guidlines =
 
 If you would like to contribute, here are some notes and guidlines.
 
@@ -110,6 +128,10 @@ If you would like to contribute, here are some notes and guidlines.
 * The **master** branch only contains tagged releases
 * If you are going to be submitting a pull request, please submit your pull request to the **develop** branch
 * See about [forking](https://help.github.com/articles/fork-a-repo/) and [pull requests](https://help.github.com/articles/using-pull-requests/)
+
+= Test Matrix =
+
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/custom-post-type-widgets/actions).
 
 == Frequently Asked Questions ==
 
