@@ -30,6 +30,7 @@
       "@phpstan"
     ],
     "makepot:wpcli": "wp i18n make-pot ./ ./languages/custom-post-type-widgets.pot --exclude=dist,bin,tests,node_modules,vendor",
+    "msgmerge:ja": "msgmerge --update --backup off ./languages/custom-post-type-widgets-ja.po ./languages/custom-post-type-widgets.pot",
     "makemo:ja": "wp i18n make-mo languages/custom-post-type-widgets-ja.po languages/",
     "msgfmt:ja": "msgfmt languages/custom-post-type-widgets-ja.po -o languages/custom-post-type-widgets-ja.mo"
   }
