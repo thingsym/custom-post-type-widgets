@@ -89,15 +89,15 @@ class Custom_Post_Type_Widgets {
 	 *
 	 * @access public
 	 *
-	 * @return void
+	 * @return boolean
 	 *
 	 * @since 1.3.0
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain(
+		return load_plugin_textdomain(
 			'custom-post-type-widgets',
 			false,
-			dirname( plugin_basename( __CUSTOM_POST_TYPE_WIDGETS__ ) ) . '/languages/'
+			plugin_dir_path( __CUSTOM_POST_TYPE_WIDGETS__ ) . 'languages'
 		);
 	}
 

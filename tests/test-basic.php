@@ -67,8 +67,40 @@ class Test_Custom_Post_Type_Widgets_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function load_textdomain() {
-		$result = $this->custom_post_type_widgets->load_textdomain();
-		$this->assertNull( $result );
+		$loaded = $this->custom_post_type_widgets->load_textdomain();
+		$this->assertFalse( $loaded );
+
+		unload_textdomain( 'custom-post-type-widgets' );
+
+		add_filter( 'locale', [ $this, '_change_locale' ] );
+		add_filter( 'load_textdomain_mofile', [ $this, '_change_textdomain_mofile' ], 10, 2 );
+
+		$loaded = $this->custom_post_type_widgets->load_textdomain();
+		$this->assertTrue( $loaded );
+
+		remove_filter( 'load_textdomain_mofile', [ $this, '_change_textdomain_mofile' ] );
+		remove_filter( 'locale', [ $this, '_change_locale' ] );
+
+		unload_textdomain( 'custom-post-type-widgets' );
+	}
+
+	/**
+	 * hook for load_textdomain
+	 */
+	function _change_locale( $locale ) {
+		return 'ja';
+	}
+
+	function _change_textdomain_mofile( $mofile, $domain ) {
+		if ( $domain === 'custom-post-type-widgets' ) {
+			$locale = determine_locale();
+			$mofile = plugin_dir_path( __CUSTOM_POST_TYPE_WIDGETS__ ) . 'languages/custom-post-type-widgets-' . $locale . '.mo';
+
+			$this->assertSame( $locale, get_locale() );
+			$this->assertFileExists( $mofile );
+		}
+
+		return $mofile;
 	}
 
 	/**
