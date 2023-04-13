@@ -257,6 +257,16 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+* Version 1.5.2
+	* update japanese translation
+	* tested up to 6.2.0
+	* fix composer scripts
+	* update github actions
+	* fix load_textdomain method for testability
+	* add msgmerge to composer scripts
+	* add support section and enhance contribution section to README
+	* fix license
+	* update screenshots
 * Version 1.5.1
 	* edit README
 	* fix the priority of the rewrite rule of register_post_type()
