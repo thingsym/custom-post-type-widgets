@@ -406,8 +406,6 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 	 * @return string $new_daylink
 	 */
 	public function get_day_link_custom_post_type( $old_daylink, $year, $month, $day ) {
-		global $wp_rewrite;
-
 		$options  = get_option( $this->option_name );
 		$posttype = ! empty( $options[ $this->number ]['posttype'] ) ? $options[ $this->number ]['posttype'] : 'post';
 
@@ -421,6 +419,7 @@ class WP_Custom_Post_Type_Widgets_Archives extends WP_Widget {
 			$day = current_time( 'j' );
 		}
 
+		global $wp_rewrite;
 		$new_daylink = $wp_rewrite->get_day_permastruct();
 
 		if ( ! empty( $new_daylink ) ) {
