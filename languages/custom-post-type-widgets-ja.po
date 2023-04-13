@@ -90,7 +90,7 @@ msgstr "ポストタイプ:"
 
 #: inc/widget-custom-post-type-archive.php:259
 msgid "Archive Type:"
-msgstr "アーカイブタイプ"
+msgstr "アーカイブタイプ:"
 
 #: inc/widget-custom-post-type-archive.php:265
 msgid "Yearly"
@@ -120,7 +120,7 @@ msgstr "投稿数を表示"
 
 #: inc/widget-custom-post-type-archive.php:293
 msgid "Order:"
-msgstr "並び順"
+msgstr "並び順:"
 
 #: inc/widget-custom-post-type-archive.php:299
 msgid "DESC"
