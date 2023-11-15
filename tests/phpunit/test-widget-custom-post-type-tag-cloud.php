@@ -27,7 +27,7 @@ class Test_WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_UnitTestCase {
 		$this->assertArrayHasKey( 'classname', $this->wp_custom_post_type_widgets_tag_cloud->widget_options );
 		$this->assertSame( 'widget_tag_cloud', $this->wp_custom_post_type_widgets_tag_cloud->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_tag_cloud->widget_options );
-		$this->assertContains( 'A cloud of your most used tags.', $this->wp_custom_post_type_widgets_tag_cloud->widget_options['description'] );
+		$this->assertStringContainsString( 'A cloud of your most used tags.', $this->wp_custom_post_type_widgets_tag_cloud->widget_options['description'] );
 		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_tag_cloud->widget_options );
 		$this->assertTrue( $this->wp_custom_post_type_widgets_tag_cloud->widget_options['customize_selective_refresh'] );
 
