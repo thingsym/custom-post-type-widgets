@@ -26,7 +26,7 @@ class Test_WP_Custom_Post_Type_Widgets_Categories extends WP_UnitTestCase {
 		$this->assertArrayHasKey( 'classname', $this->wp_custom_post_type_widgets_categories->widget_options );
 		$this->assertSame( 'widget_categories', $this->wp_custom_post_type_widgets_categories->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_categories->widget_options );
-		$this->assertContains( 'A list or dropdown of categories.', $this->wp_custom_post_type_widgets_categories->widget_options['description'] );
+		$this->assertStringContainsString( 'A list or dropdown of categories.', $this->wp_custom_post_type_widgets_categories->widget_options['description'] );
 		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_categories->widget_options );
 		$this->assertTrue( $this->wp_custom_post_type_widgets_categories->widget_options['customize_selective_refresh'] );
 

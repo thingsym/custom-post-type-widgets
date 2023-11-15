@@ -9,8 +9,9 @@
  * Sample test case.
  */
 class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
+	public $wp_custom_post_type_widgets_search;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->wp_custom_post_type_widgets_search = new WP_Custom_Post_Type_Widgets_Search();
 	}
@@ -26,7 +27,7 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 		$this->assertArrayHasKey( 'classname', $this->wp_custom_post_type_widgets_search->widget_options );
 		$this->assertSame( 'widget_search', $this->wp_custom_post_type_widgets_search->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_search->widget_options );
-		$this->assertContains( 'A search form for your site.', $this->wp_custom_post_type_widgets_search->widget_options['description'] );
+		$this->assertStringContainsString( 'A search form for your site.', $this->wp_custom_post_type_widgets_search->widget_options['description'] );
 		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_search->widget_options );
 		$this->assertTrue( $this->wp_custom_post_type_widgets_search->widget_options['customize_selective_refresh'] );
 

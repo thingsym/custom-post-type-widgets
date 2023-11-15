@@ -9,8 +9,9 @@
  * Sample test case.
  */
 class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
+	public $wp_custom_post_type_widgets_calendar;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->wp_custom_post_type_widgets_calendar = new wp_custom_post_type_widgets_calendar();
 	}
@@ -26,7 +27,7 @@ class Test_wp_custom_post_type_widgets_calendar extends WP_UnitTestCase {
 		$this->assertArrayHasKey( 'classname', $this->wp_custom_post_type_widgets_calendar->widget_options );
 		$this->assertSame( 'widget_calendar', $this->wp_custom_post_type_widgets_calendar->widget_options['classname'] );
 		$this->assertArrayHasKey( 'description', $this->wp_custom_post_type_widgets_calendar->widget_options );
-		$this->assertContains( 'A calendar of your site&#8217;s Posts.', $this->wp_custom_post_type_widgets_calendar->widget_options['description'] );
+		$this->assertStringContainsString( 'A calendar of your site&#8217;s Posts.', $this->wp_custom_post_type_widgets_calendar->widget_options['description'] );
 		$this->assertArrayHasKey( 'customize_selective_refresh', $this->wp_custom_post_type_widgets_calendar->widget_options );
 		$this->assertTrue( $this->wp_custom_post_type_widgets_calendar->widget_options['customize_selective_refresh'] );
 
