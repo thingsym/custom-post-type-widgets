@@ -8,11 +8,11 @@ on:
 jobs:
   trunk:
     name: Push to trunk on WordPress.org via SVN
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     timeout-minutes: 30
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: WordPress.org plugin asset/readme update
         uses: 10up/action-wordpress-plugin-asset-update@stable
