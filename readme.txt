@@ -5,7 +5,7 @@ Link: https://github.com/thingsym/custom-post-type-widgets
 Donate link: https://github.com/sponsors/thingsym
 Tags: widget, widgets, custom post type, taxonomy
 Stable tag: 1.5.2
-Tested up to: 6.4.1
+Tested up to: 6.6.1
 Requires at least: 4.9
 Requires PHP: 5.6
 License: GPLv2 or later
