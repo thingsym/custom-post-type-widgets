@@ -67,6 +67,12 @@
 
     <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
     <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+    <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText" />
+    <exclude name="WordPress.DateTime.RestrictedFunctions.date_date" />
+
+    <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
+    <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores"/>
+
   </rule>
 
   <rule ref="PHPCompatibilityWP">
