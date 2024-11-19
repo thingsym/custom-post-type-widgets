@@ -142,3 +142,45 @@ jobs:
 
       - name: Run PHPUnit - WordPress ${{ matrix.wordpress }} * Multisite ${{ matrix.multisite }}
         run: phpunit --configuration phpunit-legacy.xml
+
+  phpcs:
+    name: PHP CodeSniffer
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os: [ ubuntu-22.04 ]
+        php: [ '8.2' ]
+        wordpress: [ latest ]
+        multisite: [ 0 ]
+
+    env:
+      PHP_VERSION: ${{ matrix.php }}
+      WP_VERSION: ${{ matrix.wordpress }}
+      WP_MULTISITE: ${{ matrix.multisite }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP v${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl, php-mysql
+
+      - name: Install php_codesniffer library and PHP_CodeSniffer rules
+        run: |
+          composer global require "squizlabs/php_codesniffer=3.*"
+          composer global require "wp-coding-standards/wpcs=2.*"
+          composer global require "phpcompatibility/phpcompatibility-wp=*"
+
+      - name: phpcs --config-set
+        run: |
+          phpcs --config-set installed_paths /home/runner/.composer/vendor/wp-coding-standards/wpcs,/home/runner/.composer/vendor/phpcompatibility/php-compatibility,/home/runner/.composer/vendor/phpcompatibility/phpcompatibility-paragonie,/home/runner/.composer/vendor/phpcompatibility/phpcompatibility-wp
+          phpcs -i
+
+      - name: Run phpcs
+        run: phpcs -p -s -v ./ --standard=./phpcs.ruleset.xml --extensions=php
