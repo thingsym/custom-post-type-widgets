@@ -96,8 +96,8 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 	 * @param array $instance Current settings.
 	 */
 	public function form( $instance ) {
-		$title     = isset( $instance['title'] ) ? $instance['title'] : '';
-		$posttype  = isset( $instance['posttype'] ) ? $instance['posttype'] : 'post';
+		$title    = isset( $instance['title'] ) ? $instance['title'] : '';
+		$posttype = isset( $instance['posttype'] ) ? $instance['posttype'] : 'post';
 		?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Title:', 'custom-post-type-widgets' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" name="<?php echo $this->get_field_name( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
@@ -151,20 +151,21 @@ class WP_Custom_Post_Type_Widgets_Search extends WP_Widget {
 	 */
 	public function query_search_filter_only_post_type( $query ) {
 		/**
-		* The publicly_queryable of 'page' post type is false.
-		* query_vars 'post_type' is unset, or set 'any'
-		* see function 'parse_request' in wp-includes/class-wp.php
-		* function that set post_type to $query
-		*/
+		 * The publicly_queryable of 'page' post type is false.
+		 * query_vars 'post_type' is unset, or set 'any'
+		 * see function 'parse_request' in wp-includes/class-wp.php
+		 * function that set post_type to $query
+		 */
 
-		/* @phpstan-ignore-next-line */
+		// @phpstan-ignore-next-line
 		if ( $query->is_search ) {
 			$filter_post_type = '';
 
-			$post_types          = get_post_types( array( 'public' => true ), 'objects' );
+			$post_types        = get_post_types( array( 'public' => true ), 'objects' );
 			$post_types['any'] = array();
 
 			// 'page' post type only
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_GET['post_type'] ) && 'page' === $_GET['post_type'] ) {
 				$filter_post_type = 'page';
 			}
