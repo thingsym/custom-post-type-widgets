@@ -342,7 +342,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 
 		// See how much we should pad in the beginning.
 		$pad = calendar_week_mod( date( 'w', $unixmonth ) - $week_begins );
-		if ( 0 !== $pad ) {
+		if ( (float) 0 !== $pad ) {
 			/* @phpstan-ignore-next-line */
 			$calendar_output .= "\n\t\t" . '<td colspan="' . esc_attr( $pad ) . '" class="pad">&nbsp;</td>';
 		}
@@ -356,9 +356,9 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			}
 			$newrow = false;
 
-			if ( current_time( 'j' ) === $day &&
-				current_time( 'm' ) === $thismonth &&
-				current_time( 'Y' ) === $thisyear ) {
+			if ( current_time( 'j' ) === (string) $day &&
+				current_time( 'm' ) === (string) $thismonth &&
+				current_time( 'Y' ) === (string) $thisyear ) {
 				$calendar_output .= '<td class="today">';
 			}
 			else {
@@ -383,14 +383,14 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$calendar_output .= '</td>';
 
 			/* @phpstan-ignore-next-line */
-			if ( 6 === calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins ) ) {
+			if ( (float) 6 === calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins ) ) {
 				$newrow = true;
 			}
 		}
 
 		/* @phpstan-ignore-next-line */
 		$pad = 7 - calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins );
-		if ( 0 !== $pad && 7 !== $pad ) {
+		if ( (float) 0 !== $pad && (float) 7 !== $pad ) {
 			/* @phpstan-ignore-next-line */
 			$calendar_output .= "\n\t\t" . '<td class="pad" colspan="' . esc_attr( $pad ) . '">&nbsp;</td>';
 		}
