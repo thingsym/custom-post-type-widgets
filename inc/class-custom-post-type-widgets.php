@@ -97,7 +97,7 @@ class Custom_Post_Type_Widgets {
 		return load_plugin_textdomain(
 			'custom-post-type-widgets',
 			false,
-			plugin_dir_path( __CUSTOM_POST_TYPE_WIDGETS__ ) . 'languages'
+			'custom-post-type-widgets/languages'
 		);
 	}
 
