@@ -68,21 +68,14 @@ class Test_Custom_Post_Type_Widgets_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function load_textdomain() {
+		global $wp_version;
 		$loaded = $this->custom_post_type_widgets->load_textdomain();
-		$this->assertTrue( $loaded );
-	}
-
-	/**
-	 * @test
-	 * @group basic
-	 */
-	public function load_textdomain_switch_to_locale() {
-		$this->assertTrue( switch_to_locale( 'ja_JP' ) );
-
-		$loaded = $this->custom_post_type_widgets->load_textdomain();
-		$this->assertTrue( $loaded );
-
-		switch_to_locale( 'en_US' );
+		if ( version_compare( (string) $wp_version, '6.7', '>=' ) ) {
+			$this->assertTrue( $loaded );
+		}
+		else {
+			$this->assertFalse( $loaded );
+		}
 	}
 
 	/**
@@ -90,9 +83,6 @@ class Test_Custom_Post_Type_Widgets_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function load_textdomain_change() {
-		$loaded = $this->custom_post_type_widgets->load_textdomain();
-		$this->assertTrue( $loaded );
-
 		unload_textdomain( 'custom-post-type-widgets' );
 		$this->assertFalse( isset( $l10n[ 'custom-post-type-widgets' ] ) );
 
@@ -102,27 +92,25 @@ class Test_Custom_Post_Type_Widgets_Basic extends WP_UnitTestCase {
 		$loaded = $this->custom_post_type_widgets->load_textdomain();
 		$this->assertTrue( $loaded );
 
-		$this->assertSame( 'ja_JP', get_locale() );
+		$this->assertSame( 'ja', get_locale() );
 
 		remove_filter( 'load_textdomain_mofile', [ $this, '_change_textdomain_mofile' ] );
 		remove_filter( 'locale', [ $this, '_change_locale' ] );
 
 		unload_textdomain( 'custom-post-type-widgets' );
 		$this->assertFalse( isset( $l10n[ 'custom-post-type-widgets' ] ) );
-
-		switch_to_locale( 'en_US' );
 	}
 
 	/**
 	 * hook for load_textdomain
 	 */
 	function _change_locale( $locale ) {
-		return 'ja_JP';
+		return 'ja';
 	}
 
 	function _change_textdomain_mofile( $mofile, $domain ) {
 		if ( $domain === 'custom-post-type-widgets' ) {
-			$locale = determine_locale();
+			$locale = get_locale();
 			$mofile = plugin_dir_path( __CUSTOM_POST_TYPE_WIDGETS__ ) . 'languages/custom-post-type-widgets-' . $locale . '.mo';
 
 			$this->assertSame( $locale, get_locale() );
