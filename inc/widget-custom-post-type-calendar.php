@@ -89,7 +89,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			remove_filter( 'day_link', array( $this, 'get_day_link_custom_post_type' ) );
 		}
 
-		self::$instance++;
+		++self::$instance;
 	}
 
 	/**
@@ -163,9 +163,9 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 	 * @since 1.0.0
 	 *
 	 * @param boolean $initial
-	 * @param boolean $echo
+	 * @param boolean $echo_output
 	 */
-	public function get_custom_post_type_calendar( $initial = true, $echo = true ) {
+	public function get_custom_post_type_calendar( $initial = true, $echo_output = true ) {
 		global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
 
 		$options  = get_option( $this->option_name );
@@ -184,7 +184,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			*/
 			$output = apply_filters( 'custom_post_type_widgets/calendar/get_custom_post_type_calendar', $cache[ $key ] );
 
-			if ( $echo ) {
+			if ( $echo_output ) {
 				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo $output;
 				return;
@@ -253,7 +253,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		}
 
 		$unixmonth = mktime( 0, 0, 0, $thismonth, 1, $thisyear );
-		$last_day  = date( 't', $unixmonth );
+		$last_day  = gmdate( 't', $unixmonth );
 
 		// Get the next and previous month and year with at least one post.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
@@ -293,7 +293,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		<caption>' . sprintf(
 			$calendar_caption,
 			$wp_locale->get_month( $thismonth ),
-			date( 'Y', $unixmonth )
+			gmdate( 'Y', $unixmonth )
 		) . '</caption>
 		<thead>
 		<tr>';
@@ -341,14 +341,14 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		}
 
 		// See how much we should pad in the beginning.
-		$pad = calendar_week_mod( date( 'w', $unixmonth ) - $week_begins );
+		$pad = calendar_week_mod( gmdate( 'w', $unixmonth ) - $week_begins );
 		if ( (float) 0 !== $pad ) {
 			/* @phpstan-ignore-next-line */
 			$calendar_output .= "\n\t\t" . '<td colspan="' . esc_attr( $pad ) . '" class="pad">&nbsp;</td>';
 		}
 
 		$newrow      = false;
-		$daysinmonth = (int) date( 't', $unixmonth );
+		$daysinmonth = (int) gmdate( 't', $unixmonth );
 
 		for ( $day = 1; $day <= $daysinmonth; ++$day ) {
 			if ( $newrow ) {
@@ -367,7 +367,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 
 			if ( in_array( (string) $day, $daywithpost, true ) ) {
 				// any posts today?
-				$date_format = date( _x( 'F j, Y', 'daily archives date format', 'custom-post-type-widgets' ), strtotime( "{$thisyear}-{$thismonth}-{$day}" ) );
+				$date_format = gmdate( _x( 'F j, Y', 'daily archives date format', 'custom-post-type-widgets' ), strtotime( "{$thisyear}-{$thismonth}-{$day}" ) );
 				/* translators: label: 1: date format */
 				$label            = sprintf( __( 'Posts published on %s', 'custom-post-type-widgets' ), $date_format );
 				$calendar_output .= sprintf(
@@ -383,13 +383,13 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 			$calendar_output .= '</td>';
 
 			/* @phpstan-ignore-next-line */
-			if ( (float) 6 === calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins ) ) {
+			if ( (float) 6 === calendar_week_mod( gmdate( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins ) ) {
 				$newrow = true;
 			}
 		}
 
 		/* @phpstan-ignore-next-line */
-		$pad = 7 - calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins );
+		$pad = 7 - calendar_week_mod( gmdate( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins );
 		if ( (float) 0 !== $pad && (float) 7 !== $pad ) {
 			/* @phpstan-ignore-next-line */
 			$calendar_output .= "\n\t\t" . '<td class="pad" colspan="' . esc_attr( $pad ) . '">&nbsp;</td>';
@@ -425,7 +425,7 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 
 		$output = apply_filters( 'custom_post_type_widgets/calendar/get_custom_post_type_calendar', $calendar_output );
 
-		if ( $echo ) {
+		if ( $echo_output ) {
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $calendar_output;
 			return;
@@ -605,5 +605,4 @@ class WP_Custom_Post_Type_Widgets_Calendar extends WP_Widget {
 		 */
 		return apply_filters( 'custom_post_type_widgets/calendar/get_month_link_custom_post_type', $monthlink, $year, $month );
 	}
-
 }
