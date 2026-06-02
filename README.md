@@ -164,15 +164,15 @@ define( 'CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR', true );
 
 Check the setting of the **hierarchical** argument of the register_taxonomy function.
 
-> hierarchical  
-> (boolean) (optional) Is this taxonomy hierarchical (have descendants) like categories or not hierarchical like tags.  
+> hierarchical
+> (boolean) (optional) Is this taxonomy hierarchical (have descendants) like categories or not hierarchical like tags.
 > Default: false
 
 Reference: [https://codex.wordpress.org/Function_Reference/register_taxonomy](https://codex.wordpress.org/Function_Reference/register_taxonomy)
 
 By hierarchical option,
 
-If false, use "Tag Cloud (Custom Post Type)" as tags.  
+If false, use "Tag Cloud (Custom Post Type)" as tags.
 If true, use "Categories (Custom Post Type)" as categories.
 
 ### Search filter dose not work.
