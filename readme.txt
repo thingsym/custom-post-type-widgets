@@ -416,6 +416,10 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 == Upgrade Notice ==
 
+= 1.5.3 =
+* Requires at least version 5.9 of the WordPress
+* Requires PHP version 7.4
+
 = 1.4.1 =
 * Requires at least version 4.9 of the WordPress
 * Requires PHP version 5.6
