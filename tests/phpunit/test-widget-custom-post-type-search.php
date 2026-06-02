@@ -131,7 +131,7 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
 
-		$this->assertRegExp( '#<input type="hidden" name="post_type" value="">#', $actual );
+		$this->assertMatchesRegularExpression( '#<input type="hidden" name="post_type" value="">#', $actual );
 
 		$options[0] = array(
 			'posttype' => 'post'
@@ -140,7 +140,7 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
 
-		$this->assertRegExp( '#<input type="hidden" name="post_type" value="post">#', $actual );
+		$this->assertMatchesRegularExpression( '#<input type="hidden" name="post_type" value="post">#', $actual );
 
 		$options[0] = array(
 			'posttype' => 'test'
@@ -149,7 +149,7 @@ class Test_WP_Custom_Post_Type_Widgets_Search extends WP_UnitTestCase {
 
 		$actual = $this->wp_custom_post_type_widgets_search->add_form_input_post_type( $form );
 
-		$this->assertRegExp( '#<input type="hidden" name="post_type" value="test">#', $actual );
+		$this->assertMatchesRegularExpression( '#<input type="hidden" name="post_type" value="test">#', $actual );
 
 	}
 
