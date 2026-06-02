@@ -43,7 +43,9 @@
   <rule ref="WordPress.WP.I18n">
     <properties>
       <!-- Value: replace the text domain used. -->
-      <property name="text_domain" type="array" value="custom-post-type-widgets" />
+      <property name="text_domain" type="array">
+        <element value="custom-post-type-widgets"/>
+      </property>
     </properties>
   </rule>
 
