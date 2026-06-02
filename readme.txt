@@ -6,7 +6,7 @@ Donate link: https://github.com/sponsors/thingsym
 Tags: widget, widgets, custom post type, taxonomy
 Stable tag: 1.5.2
 Tested up to: 6.6.1
-Requires at least: 4.9
+Requires at least: 5.9
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
