@@ -257,6 +257,18 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+* Version 1.5.3
+  * tested up to 7.0
+  * change requires at least to wordpress 5.9
+  * change requires to PHP 7.4
+  * improve code with phpcs
+  * fix test case
+  * update github workflows
+  * update phpunit v9 and wpcs v3
+  * update composer dependencies
+  * update wp-tests script
+  * fix plugin_textdomain rel path
+  * add phpcs job
 * Version 1.5.2
   * update japanese translation
   * tested up to 6.2.0
