@@ -164,15 +164,15 @@ define( 'CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR', true );
 
 Check the setting of the **hierarchical** argument of the register_taxonomy function.
 
-> hierarchical  
-> (boolean) (optional) Is this taxonomy hierarchical (have descendants) like categories or not hierarchical like tags.  
+> hierarchical
+> (boolean) (optional) Is this taxonomy hierarchical (have descendants) like categories or not hierarchical like tags.
 > Default: false
 
 Reference: [https://codex.wordpress.org/Function_Reference/register_taxonomy](https://codex.wordpress.org/Function_Reference/register_taxonomy)
 
 By hierarchical option,
 
-If false, use "Tag Cloud (Custom Post Type)" as tags.  
+If false, use "Tag Cloud (Custom Post Type)" as tags.
 If true, use "Categories (Custom Post Type)" as categories.
 
 ### Search filter dose not work.
@@ -257,146 +257,161 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+* Version 1.5.3
+  * tested up to 7.0
+  * change requires at least to wordpress 5.9
+  * change requires to PHP 7.4
+  * improve code with phpcs
+  * fix test case
+  * update github workflows
+  * update phpunit v9 and wpcs v3
+  * update composer dependencies
+  * update wp-tests script
+  * fix plugin_textdomain rel path
+  * add phpcs job
 * Version 1.5.2
-	* update japanese translation
-	* tested up to 6.2.0
-	* fix composer scripts
-	* update github actions
-	* fix load_textdomain method for testability
-	* add msgmerge to composer scripts
-	* add support section and enhance contribution section to README
-	* fix license
-	* update screenshots
+  * update japanese translation
+  * tested up to 6.2.0
+  * fix composer scripts
+  * update github actions
+  * fix load_textdomain method for testability
+  * add msgmerge to composer scripts
+  * add support section and enhance contribution section to README
+  * fix license
+  * update screenshots
 * Version 1.5.1
-	* edit README
-	* fix the priority of the rewrite rule of register_post_type()
+  * edit README
+  * fix the priority of the rewrite rule of register_post_type()
 * Version 1.5.0
-	* tested up to 6.0.0
-	* fix wp-plugin-unit-test.yml
-	* update japanese translation
-	* update pot
-	* fix test case
-	* add format argument
-	* supports translation
-	* add ASC/DESC order option for archive widget
-	* add constants CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_ARCHIVE and CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR
-	* fix rewrite slug for has_archive setting
-	* rename variable name
+  * tested up to 6.0.0
+  * fix wp-plugin-unit-test.yml
+  * update japanese translation
+  * update pot
+  * fix test case
+  * add format argument
+  * supports translation
+  * add ASC/DESC order option for archive widget
+  * add constants CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_ARCHIVE and CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR
+  * fix rewrite slug for has_archive setting
+  * rename variable name
 * Version 1.4.2
-	* add composer script
-	* remove makepot:php composer script
-	* change action hook
-	* rename method name
-	* fix hook to load_textdomain for translate on Widgets Screen
-	* replace assert from assertEquals to assertSame
+  * add composer script
+  * remove makepot:php composer script
+  * change action hook
+  * rename method name
+  * fix hook to load_textdomain for translate on Widgets Screen
+  * replace assert from assertEquals to assertSame
 * Version 1.4.1
-	* add test case
-	* fix README
-	* update wp-plugin-unit-test.yml
-	* bump up yoast/phpunit-polyfills version
-	* change os to ubuntu-20.04 for ci
-	* add Upgrade Notice
-	* change requires at least to wordpress 4.9
-	* change requires to PHP 5.6
-	* fix: fix pot and translation
-	* fix label
-	* fix test unit configuration and lint ruleset
-	* update composer.json
-	* add timeout-minutes to workflows
-	* add phpunit-polyfills
-	* update install-wp-tests.sh
-	* fix .editorconfig
-	* tested up to 5.8.0
-	* fix github workflows
+  * add test case
+  * fix README
+  * update wp-plugin-unit-test.yml
+  * bump up yoast/phpunit-polyfills version
+  * change os to ubuntu-20.04 for ci
+  * add Upgrade Notice
+  * change requires at least to wordpress 4.9
+  * change requires to PHP 5.6
+  * fix: fix pot and translation
+  * fix label
+  * fix test unit configuration and lint ruleset
+  * update composer.json
+  * add timeout-minutes to workflows
+  * add phpunit-polyfills
+  * update install-wp-tests.sh
+  * fix .editorconfig
+  * tested up to 5.8.0
+  * fix github workflows
 * Version 1.4.0
-	* update screenshot
-	* tested up to 5.6.2
-	* update japanese translation
-	* update pot
-	* add init method, change method name
-	* separate class into separate a file
-	* add sponsor link
-	* add dropdown label option with categories widget
-	* add archive type option with archive widget
-	* add donate link
-	* add filter hooks, custom_post_type_widgets/archive/get_month_link_custom_post_type, custom_post_type_widgets/archive/trim_post_type, custom_post_type_widgets/calendar/get_day_link_custom_post_type, custom_post_type_widgets/calendar/get_month_link_custom_post_type
-	* add FUNDING.yml
-	* add GitHub actions for CI/CD, remove .travis.yml
-	* imporve code with phpcs, phpmd and phpstan
+  * update screenshot
+  * tested up to 5.6.2
+  * update japanese translation
+  * update pot
+  * add init method, change method name
+  * separate class into separate a file
+  * add sponsor link
+  * add dropdown label option with categories widget
+  * add archive type option with archive widget
+  * add donate link
+  * add filter hooks, custom_post_type_widgets/archive/get_month_link_custom_post_type, custom_post_type_widgets/archive/trim_post_type, custom_post_type_widgets/calendar/get_day_link_custom_post_type, custom_post_type_widgets/calendar/get_month_link_custom_post_type
+  * add FUNDING.yml
+  * add GitHub actions for CI/CD, remove .travis.yml
+  * imporve code with phpcs, phpmd and phpstan
 * Version 1.3.0
-	* edit README
-	* update japanese translation
-	* update pot
-	* fix test case
-	* imporve code with phpcs, phpmd and phpstan
-	* update testunit configuration
-	* restructure code to perform a single task
-	* add denying direct file access
-	* divide as load_textdomain function
-	* fix composer.json
-	* change calendar widget markup
-	* add hook custom_post_type_widgets/calendar/get_custom_post_type_calendar
-	* fix get_custom_post_type_calendar method
-	* change to call method directly instead of via hook in the calendar widget
+  * edit README
+  * update japanese translation
+  * update pot
+  * fix test case
+  * imporve code with phpcs, phpmd and phpstan
+  * update testunit configuration
+  * restructure code to perform a single task
+  * add denying direct file access
+  * divide as load_textdomain function
+  * fix composer.json
+  * change calendar widget markup
+  * add hook custom_post_type_widgets/calendar/get_custom_post_type_calendar
+  * fix get_custom_post_type_calendar method
+  * change to call method directly instead of via hook in the calendar widget
 * Version 1.2.1
-	* replace from id attribute to calss attribute in the calendar
-	* add any matching value as all types
+  * replace from id attribute to calss attribute in the calendar
+  * add any matching value as all types
 * Version 1.2.0
-	* change Requires at least version 4.0
-	* [Calendar widget] cache the calendar
-	* improve filter hooks and action hooks
-	* fix test case
-	* refactoring
-	* add customize_selective_refresh
-	* fix phpcs.ruleset.xml
-	* replace from strip_tags to wp_strip_all_tags
-	* replace from _e to esc_html_e
-	* add PHPDoc
-	* fix header
-	* add reset-wp-tests.sh, uninstall-wp-tests.sh
-	* fix indent and reformat with phpcs and phpcbf
-	* add composer.json for test
-	* add static code analysis config
+  * change Requires at least version 4.0
+  * [Calendar widget] cache the calendar
+  * improve filter hooks and action hooks
+  * fix test case
+  * refactoring
+  * add customize_selective_refresh
+  * fix phpcs.ruleset.xml
+  * replace from strip_tags to wp_strip_all_tags
+  * replace from _e to esc_html_e
+  * add PHPDoc
+  * fix header
+  * add reset-wp-tests.sh, uninstall-wp-tests.sh
+  * fix indent and reformat with phpcs and phpcbf
+  * add composer.json for test
+  * add static code analysis config
 * Version 1.1.3
-	* change Requires at least version 3.7
-	* fix add_action
-	* add sanitize
-	* add tests
+  * change Requires at least version 3.7
+  * fix add_action
+  * add sanitize
+  * add tests
 * Version 1.1.2
-	* [Categories widget] change value_field of the cat_args from name to slug
-	* limit the scope of the filter hook
-	* [Search widget] rename the name of the filter hook
-	* fix the initial value of the posttype, the archive_name and the taxonomy
+  * [Categories widget] change value_field of the cat_args from name to slug
+  * limit the scope of the filter hook
+  * [Search widget] rename the name of the filter hook
+  * fix the initial value of the posttype, the archive_name and the taxonomy
 * Version 1.1.1
-	* [Search widget] add apply_filters 'WP_Custom_Post_Type_Widgets_Search_filter_post_type'
-	* [Search widget] improve function 'query_search_filter_only_post_type'
-	* [Search widget] change to add_action 'pre_get_posts' run only on the front-end page
+  * [Search widget] add apply_filters 'WP_Custom_Post_Type_Widgets_Search_filter_post_type'
+  * [Search widget] improve function 'query_search_filter_only_post_type'
+  * [Search widget] change to add_action 'pre_get_posts' run only on the front-end page
 * Version 1.1.0
-	* [Comments widgets, Search widgets] add 'All' to posttype option
-	* refactoring
-	* add Custom Post Type Search widget
+  * [Comments widgets, Search widgets] add 'All' to posttype option
+  * refactoring
+  * add Custom Post Type Search widget
 * Version 1.0.4
-	* fix cache key of Custom Post Type Calendar widget
-	* support for custom post type slugs
-	* add german translation
+  * fix cache key of Custom Post Type Calendar widget
+  * support for custom post type slugs
+  * add german translation
 * Version 1.0.3
-	* add italian translation
+  * add italian translation
 * Version 1.0.2
-	* fix $cat_args['show_option_none']
+  * fix $cat_args['show_option_none']
 * Version 1.0.1
-	* fix the 'name' param of get_terms()
+  * fix the 'name' param of get_terms()
 * Version 1.0.0
-	* Initial release
+  * Initial release
 
 ## Upgrade Notice
 
+* Version 1.5.3
+  * Requires at least version 5.9 of the WordPress
+  * Requires PHP version 7.4
 * Version 1.4.1
-	* Requires at least version 4.9 of the WordPress
-	* Requires PHP version 5.6
+  * Requires at least version 4.9 of the WordPress
+  * Requires PHP version 5.6
 * Version 1.2.0
-	* Requires at least version 4.0 of the WordPress
+  * Requires at least version 4.0 of the WordPress
 * Version 1.1.3
-	* Requires at least version 3.7 of the WordPress
+  * Requires at least version 3.7 of the WordPress
 
 ## License
 

@@ -82,7 +82,7 @@ class WP_Custom_Post_Type_Widgets_Recent_Comments extends WP_Widget {
 		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Recent Comments', 'custom-post-type-widgets' );
 
 		$posttype = ! empty( $instance['posttype'] ) ? $instance['posttype'] : '';
-		$number = ( ! empty( $instance['number'] ) ) ? absint( $instance['number'] ) : 5;
+		$number   = ! empty( $instance['number'] ) ? absint( $instance['number'] ) : 5;
 		if ( ! $number ) {
 			$number = 5;
 		}

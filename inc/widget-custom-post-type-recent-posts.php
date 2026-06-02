@@ -52,13 +52,13 @@ class WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_Widget {
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
 		$posttype = ! empty( $instance['posttype'] ) ? $instance['posttype'] : 'post';
-		$number = ( ! empty( $instance['number'] ) ) ? absint( $instance['number'] ) : 5;
+		$number   = ! empty( $instance['number'] ) ? absint( $instance['number'] ) : 5;
 		if ( ! $number ) {
 			$number = 5;
 		}
 		$show_date = ! empty( $instance['show_date'] ) ? (bool) $instance['show_date'] : false;
 
-		$post_types          = get_post_types( array( 'public' => true ), 'objects' );
+		$post_types        = get_post_types( array( 'public' => true ), 'objects' );
 		$post_types['any'] = array();
 
 		if ( array_key_exists( $posttype, (array) $post_types ) ) {

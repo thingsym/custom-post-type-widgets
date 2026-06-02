@@ -46,13 +46,13 @@ class WP_Custom_Post_Type_Widgets_Tag_Cloud extends WP_Widget {
 
 		if ( ! empty( $instance['title'] ) ) {
 			$title = $instance['title'];
-		} else {
-			if ( 'post_tag' === $taxonomy ) {
-				$title = __( 'Tags', 'custom-post-type-widgets' );
-			} else {
-				$tax   = get_taxonomy( $taxonomy );
-				$title = $tax->labels->name;
-			}
+		}
+		elseif ( 'post_tag' === $taxonomy ) {
+			$title = __( 'Tags', 'custom-post-type-widgets' );
+		}
+		else {
+			$tax   = get_taxonomy( $taxonomy );
+			$title = $tax->labels->name;
 		}
 
 		/**

@@ -62,8 +62,8 @@ class Test_WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_UnitTestCase {
 		$this->wp_custom_post_type_widgets_recent_posts->widget( $args, $instance );
 		$widget = ob_get_clean();
 
-		$this->assertRegExp( '#<h3 class="widget-title">aaaaa</h3>#', $widget );
-		$this->assertRegExp( '#<aside id="custom-post-type-recent-posts-1" class="widget widget_recent_entries">#', $widget );
+		$this->assertMatchesRegularExpression( '#<h3 class="widget-title">aaaaa</h3>#', $widget );
+		$this->assertMatchesRegularExpression( '#<aside id="custom-post-type-recent-posts-1" class="widget widget_recent_entries">#', $widget );
 
 		$count = mb_substr_count($widget, "<li>");
 		$this->assertSame( $count, 5 );
@@ -169,10 +169,10 @@ class Test_WP_Custom_Post_Type_Widgets_Recent_Posts extends WP_UnitTestCase {
 		$this->wp_custom_post_type_widgets_recent_posts->form( $instance );
 		$form = ob_get_clean();
 
-		$this->assertRegExp( '#name="widget\-custom\-post\-type\-recent\-posts\[\]\[title\]" type="text" value="aaaaa"#', $form );
-		$this->assertRegExp( '#value="post" selected=\'selected\'#', $form );
-		$this->assertRegExp( '#name="widget\-custom\-post\-type\-recent\-posts\[\]\[number\]" type="text" value="5"#', $form );
-		$this->assertRegExp( '#type="checkbox"  checked=\'checked\' id="widget\-custom\-post\-type\-recent\-posts\-\-show_date"#', $form );
+		$this->assertMatchesRegularExpression( '#name="widget\-custom\-post\-type\-recent\-posts\[\]\[title\]" type="text" value="aaaaa"#', $form );
+		$this->assertMatchesRegularExpression( '#value="post" selected=\'selected\'#', $form );
+		$this->assertMatchesRegularExpression( '#name="widget\-custom\-post\-type\-recent\-posts\[\]\[number\]" type="text" value="5"#', $form );
+		$this->assertMatchesRegularExpression( '#type="checkbox"  checked=\'checked\' id="widget\-custom\-post\-type\-recent\-posts\-\-show_date"#', $form );
 	}
 
 }
