@@ -5,9 +5,9 @@ Link: https://github.com/thingsym/custom-post-type-widgets
 Donate link: https://github.com/sponsors/thingsym
 Tags: widget, widgets, custom post type, taxonomy
 Stable tag: 1.5.2
-Tested up to: 6.6.1
-Requires at least: 4.9
-Requires PHP: 5.6
+Tested up to: 7.0
+Requires at least: 5.9
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -172,7 +172,7 @@ define( 'CUSTOM_POST_TYPE_WIDGETS_DISABLE_LINKS_CALENDAR', true );
 
 Check the setting of the **hierarchical** argument of the register_taxonomy function.
 
-> hierarchical  
+> hierarchical
 > (boolean) (optional) Is this taxonomy hierarchical (have descendants) like categories or not hierarchical like tags.  
 > Default: false
 
@@ -180,7 +180,7 @@ Reference: [https://codex.wordpress.org/Function_Reference/register_taxonomy](ht
 
 By hierarchical option,
 
-If false, use "Tag Cloud (Custom Post Type)" as tags.  
+If false, use "Tag Cloud (Custom Post Type)" as tags.
 If true, use "Categories (Custom Post Type)" as categories.
 
 = Search filter dose not work. =
@@ -415,6 +415,10 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.5.3 =
+* Requires at least version 5.9 of the WordPress
+* Requires PHP version 7.4
 
 = 1.4.1 =
 * Requires at least version 4.9 of the WordPress

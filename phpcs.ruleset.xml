@@ -43,7 +43,9 @@
   <rule ref="WordPress.WP.I18n">
     <properties>
       <!-- Value: replace the text domain used. -->
-      <property name="text_domain" type="array" value="custom-post-type-widgets" />
+      <property name="text_domain" type="array">
+        <element value="custom-post-type-widgets"/>
+      </property>
     </properties>
   </rule>
 
@@ -66,13 +68,10 @@
     <exclude name="Generic.Commenting.DocComment" />
 
     <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
+
     <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
     <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText" />
-    <exclude name="WordPress.DateTime.RestrictedFunctions.date_date" />
-
-    <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
     <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores"/>
-
   </rule>
 
   <rule ref="PHPCompatibilityWP">
